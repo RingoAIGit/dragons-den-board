@@ -1427,7 +1427,7 @@
     {
       "id": "opp-041",
       "date_found": "2026-06-17",
-      "last_updated": "2026-06-17T00:00:00.000000+00:00",
+      "last_updated": "2026-06-17T21:28:59.905536+00:00",
       "reviewed": false,
       "source_stream": "pain-point",
       "title": "NZ Flight Rights AI Enforcer \u2014 Automatic Delay/Cancellation Compensation",
@@ -1449,7 +1449,7 @@
       "evidence": "solid",
       "the_catch": "Airlines will push back \u2014 they have legal teams and will challenge claims. The Civil Aviation Act has nuances (weather vs. mechanical vs. staffing) that affect entitlement. The success fee model means revenue is lumpy and depends on claim success rates. Also, if Consumer NZ's campaign succeeds in forcing airlines to proactively inform passengers, the need for this tool decreases. The per-claim pricing may not scale \u2014 users may only use it once.",
       "the_ask": "Greenlight = I test the AI claim generator on 20 real NZ flight delay/cancellation scenarios, assess accuracy of legal references, and post in NZ travel Facebook groups. Cost: 5 hours. Proves: the AI generates accurate claims and passengers will pay for the service.",
-      "status": "New",
+      "status": "Validating",
       "gate": 1,
       "validation": {},
       "recommendation": "Pursue to validation \u2014 the Consumer NZ campaign provides a strong tailwind, and the Civil Aviation Act entitlements are clear. The key risk is airline pushback and the one-time-use nature of the product.",
