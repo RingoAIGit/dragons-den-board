@@ -289,10 +289,11 @@ async function loadData() {
     renderCards();
     updateSyncTimer();
   } catch(e) {
+    console.error('loadData error:', e);
     document.getElementById('cardList').innerHTML = `<div class="error-state">
       <div class="icon">⚠️</div>
       <h2>Could not load data</h2>
-      <p>Make sure data.json is in the repo and refresh.</p>
+      <p>${e.message || 'Make sure data.json is in the repo and refresh.'}</p>
       <button class="retry-btn" onclick="loadData()">Retry</button>
     </div>`;
   }
