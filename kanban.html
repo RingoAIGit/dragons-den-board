@@ -19,35 +19,40 @@
   --purple: #a29bfe;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); -webkit-text-size-adjust: 100%; }
 a { color: var(--accent); text-decoration: none; }
-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-header h1 { font-size: 1.4rem; }
-header nav a { margin-left: 20px; font-size: 0.9rem; color: var(--text-dim); }
-header nav a:hover, header nav a.active { color: var(--accent); }
-.sync-timer { font-size: 0.75rem; color: var(--text-dim); }
 
-.kanban { display: flex; gap: 16px; padding: 20px 24px; overflow-x: auto; min-height: calc(100vh - 80px); align-items: flex-start; }
-.column { min-width: 280px; max-width: 320px; flex: 1; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); }
-.column-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-.column-header h2 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-.column-header .count { font-size: 0.75rem; color: var(--text-dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
-.column-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 60px; }
+/* ── Header ── */
+header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 16px; position: sticky; top: 0; z-index: 100; }
+.header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+header h1 { font-size: 1.2rem; white-space: nowrap; }
+header nav { display: flex; gap: 16px; align-items: center; }
+header nav a { font-size: 0.85rem; color: var(--text-dim); padding: 4px 0; }
+header nav a:hover, header nav a.active { color: var(--accent); }
+.sync-timer { font-size: 0.7rem; color: var(--text-dim); }
+
+/* ── Kanban Board ── */
+.kanban { display: flex; gap: 12px; padding: 12px; overflow-x: auto; min-height: calc(100vh - 100px); align-items: flex-start; -webkit-overflow-scrolling: touch; }
+.column { min-width: 260px; max-width: 300px; flex: 0 0 auto; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); }
+.column-header { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.column-header h2 { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.column-header .count { font-size: 0.7rem; color: var(--text-dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+.column-body { padding: 8px; display: flex; flex-direction: column; gap: 6px; min-height: 40px; }
 .kanban-card {
   background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
-  cursor: pointer; transition: all 0.2s; position: relative;
+  cursor: pointer; transition: all 0.2s; position: relative; min-height: 44px;
 }
-.kanban-card:hover { border-color: var(--accent); transform: translateY(-1px); }
-.kanban-card .title { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
-.kanban-card .meta { display: flex; gap: 6px; align-items: center; font-size: 0.7rem; color: var(--text-dim); }
+.kanban-card:hover { border-color: var(--accent); }
+.kanban-card .title { font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+.kanban-card .meta { display: flex; gap: 6px; align-items: center; font-size: 0.65rem; color: var(--text-dim); }
 .kanban-card .fit { font-weight: 700; color: var(--accent); }
-.kanban-card .evidence { padding: 1px 5px; border-radius: 3px; font-size: 0.65rem; font-weight: 600; }
+.kanban-card .evidence { padding: 1px 5px; border-radius: 3px; font-size: 0.6rem; font-weight: 600; }
 .evidence.strong { background: rgba(0,184,148,.15); color: var(--green); }
 .evidence.solid { background: rgba(116,185,255,.15); color: var(--blue); }
 .evidence.thin { background: rgba(253,203,110,.15); color: var(--yellow); }
 .evidence.none { background: rgba(225,112,85,.15); color: var(--red); }
-.kanban-card .source { position: absolute; top: 8px; right: 8px; font-size: 0.65rem; }
-.kanban-card .reviewed-mark { color: var(--green); font-size: 0.7rem; }
+.kanban-card .source { position: absolute; top: 6px; right: 8px; font-size: 0.6rem; }
+.kanban-card .reviewed-mark { color: var(--green); font-size: 0.65rem; }
 
 /* Column accent colors */
 .column[data-status="New"] .column-header { border-top: 3px solid var(--blue); }
@@ -58,21 +63,24 @@ header nav a:hover, header nav a.active { color: var(--accent); }
 .column[data-status="Parked"] .column-header { border-top: 3px solid var(--text-dim); }
 .column[data-status="Dropped"] .column-header { border-top: 3px solid var(--red); }
 
-/* Modal */
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.7); z-index: 200; justify-content: center; align-items: center; }
+/* ── Modal ── */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.7); z-index: 200; justify-content: center; align-items: center; padding: 16px; }
 .modal-overlay.show { display: flex; }
-.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 640px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 24px; }
-.modal h2 { font-size: 1.1rem; margin-bottom: 12px; }
-.modal .close { position: absolute; top: 16px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); }
-.modal .section { margin-top: 14px; }
-.modal .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 4px; }
-.modal .section-content { font-size: 0.9rem; }
-.modal .catch { background: rgba(225,112,85,.08); border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 6px 6px 0; }
-.modal .ask { background: rgba(0,184,148,.08); border-left: 3px solid var(--green); padding: 10px 14px; border-radius: 0 6px 6px 0; }
-.modal .decision-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 20px; position: relative; }
+.modal h2 { font-size: 1rem; margin-bottom: 10px; padding-right: 30px; }
+.modal .close { position: absolute; top: 12px; right: 16px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); }
+.modal .section { margin-top: 12px; }
+.modal .section-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 4px; }
+.modal .section-content { font-size: 0.85rem; }
+.modal .catch { background: rgba(225,112,85,.08); border-left: 3px solid var(--red); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 0.85rem; }
+.modal .ask { background: rgba(0,184,148,.08); border-left: 3px solid var(--green); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 0.85rem; }
+.modal .decision-row { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+
+/* ── Decision Buttons ── */
 .decision-btn {
-  padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg);
-  color: var(--text); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  min-height: 44px; display: flex; align-items: center; justify-content: center; flex: 1 1 auto;
 }
 .decision-btn:hover { border-color: var(--accent); }
 .decision-btn.validate { border-color: var(--yellow); color: var(--yellow); }
@@ -82,20 +90,39 @@ header nav a:hover, header nav a.active { color: var(--accent); }
 .decision-btn.park { border-color: var(--text-dim); color: var(--text-dim); }
 .decision-btn.drop { border-color: var(--red); color: var(--red); }
 .decision-btn.reviewed { border-color: var(--blue); color: var(--blue); }
-.empty-col { text-align: center; padding: 20px; color: var(--text-dim); font-size: 0.8rem; }
-.toast { position: fixed; bottom: 24px; right: 24px; background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; z-index: 1000; display: none; }
+.empty-col { text-align: center; padding: 16px; color: var(--text-dim); font-size: 0.75rem; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; z-index: 1000; display: none; white-space: nowrap; max-width: 90vw; text-align: center; }
 .toast.show { display: block; }
+
+/* ── Desktop ── */
+@media (min-width: 768px) {
+  header { padding: 16px 24px; }
+  .header-top { margin-bottom: 10px; }
+  header h1 { font-size: 1.4rem; }
+  header nav a { font-size: 0.9rem; margin-left: 20px; }
+  .kanban { gap: 16px; padding: 20px 24px; }
+  .column { min-width: 280px; max-width: 320px; }
+  .column-header { padding: 12px 16px; }
+  .kanban-card { padding: 10px 12px; }
+  .kanban-card .title { font-size: 0.85rem; }
+  .modal { padding: 24px; }
+  .modal h2 { font-size: 1.1rem; }
+  .decision-btn { font-size: 0.8rem; padding: 8px 16px; }
+  .toast { left: auto; right: 24px; transform: none; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🐉 Dragon's Den</h1>
+  <div class="header-top">
+    <h1>🐉 Dragon's Den</h1>
+    <span class="sync-timer" id="syncTimer"></span>
+  </div>
   <nav>
     <a href="index.html">Review</a>
     <a href="kanban.html" class="active">Kanban</a>
-    <a href="#" onclick="logout()" style="color:var(--text-dim);">Logout</a>
-    <span class="sync-timer" id="syncTimer"></span>
+    <a href="#" onclick="logout()">Logout</a>
   </nav>
 </header>
 
@@ -122,7 +149,8 @@ fetch('config.json?t=' + Date.now())
 
 async function loadData() {
   try {
-    const resp = await fetch(API_URL + '/api/data');
+    // Load data.json directly from GitHub Pages (static file)
+    const resp = await fetch('data.json?t=' + Date.now());
     const data = await resp.json();
     allCards = data.opportunities || [];
     lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
