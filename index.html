@@ -348,7 +348,7 @@ function renderCards() {
   STATUSES.forEach(s => byStatus[s] = allCards.filter(c => c.status === s).length);
   document.getElementById('statsBar').innerHTML =
     `<span>${cards.length}</span> of <span>${total}</span> cards showing` +
-    STATUSES.filter(s => byStatus[s]).map(s + ': <span>' + byStatus[s] + '</span>').join(' · ');
+    STATUSES.filter(s => byStatus[s]).map(s => s + ': <span>' + byStatus[s] + '</span>').join(' · ');
   
   if (!cards.length) {
     document.getElementById('cardList').innerHTML = '<div class="error-state"><div class="icon">🔍</div><h2>No cards match</h2><p>Try adjusting your filters.</p></div>';
