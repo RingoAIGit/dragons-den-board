@@ -509,7 +509,7 @@
     {
       "id": "opp-014",
       "date_found": "2026-06-11",
-      "last_updated": "2026-06-10T19:12:28.777884+00:00",
+      "last_updated": "2026-06-17T21:26:37.045299+00:00",
       "reviewed": false,
       "source_stream": "overseas",
       "title": "AI-Powered Meeting Notes & Action Item Tracker for NZ Teams",
@@ -531,12 +531,12 @@
       "evidence": "strong",
       "the_catch": "This is a VERY crowded space \u2014 Otter.ai, Fireflies, Granola, Microsoft Copilot, Google Meet AI, and a dozen others all do meeting transcription. The action item tracking differentiation is real but hard to moat. Big Tech (Microsoft, Google) is adding these features natively to their meeting platforms. The NZ-specific angle (local terminology, M\u0101ori terms) is a nice differentiator but not a defensible moat. This may get squashed by platform features within 12 months.",
       "the_ask": "Greenlight = I build a minimal action item extractor that works with Zoom recordings, test it on 20 real meetings, and post in NZ tech Slack groups to gauge interest. Cost: 6 hours. Proves: the AI extraction is accurate enough and NZ teams will pay for it over existing free options.",
-      "status": "New",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Approach with caution \u2014 the demand signal is strong (HN 1109 comments), but the competitive landscape is brutal and Big Tech is coming. The NZ-specific angle helps but isn't defensible. Only pursue if the action item tracking is genuinely 10x better than what Teams/Zoom will build natively.",
       "next_action": "Build minimal action item extractor + test on 20 meetings",
-      "drop_reason": null,
+      "drop_reason": "I think there is some value in making a stronger connection between meeting transcripts, summaries and actions and accountabability but not quite sure this one captures that idea. For example, all of our meetings are transcribed and summarised by Gemini but that insight and data tends to stop there and/or is manually lifted out by a PM rather than automatically e.g. a follow up message to attendees with actions asking for additional info",
       "trello_card_url": "https://trello.com/c/QNQRPn19/19-fit-74-strong-ai-powered-meeting-notes-action-item-tracker-for-nz-teams",
       "trello_card_id": "6a29b82f4fc76302cd08bb8d"
     },
