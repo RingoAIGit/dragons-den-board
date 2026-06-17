@@ -17,7 +17,7 @@
     {
       "id": "opp-001",
       "date_found": "2026-06-09",
-      "last_updated": "2026-06-17T11:51:12.689186+00:00",
+      "last_updated": "2026-06-17T11:58:45.824431+00:00",
       "reviewed": true,
       "source_stream": "overseas",
       "title": "AI-Powered Bookkeeping Micro-SaaS for NZ Tradies",
@@ -39,7 +39,7 @@
       "evidence": "solid",
       "the_catch": "Xero is entrenched even with unhappy users. Switching cost is psychological, not technical. Need a wedge \u2014 the receipt-scanning AI angle is that wedge, but only if it works flawlessly.",
       "the_ask": "Greenlight = I validate demand by posting in 3-5 NZ tradie Facebook groups (200k+ members combined) measuring interest. Cost: 0$. Proves: whether the pain is real and the price point resonates.",
-      "status": "Validating",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Pursue \u2014 strong fit for Neil's skills, real pain point, and the AI receipt parsing is a genuine differentiator vs Xero.",
