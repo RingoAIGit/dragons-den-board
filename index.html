@@ -343,7 +343,6 @@ function getFilteredCards() {
 function renderCards() {
   const cards = getFilteredCards();
   
-  // Stats
   const total = allCards.length;
   const byStatus = {};
   STATUSES.forEach(s => byStatus[s] = allCards.filter(c => c.status === s).length);
@@ -356,7 +355,12 @@ function renderCards() {
     return;
   }
   
-  document.getElementById('cardList').innerHTML = cards.map(c => renderCard(c)).join('');
+  try {
+    document.getElementById('cardList').innerHTML = cards.map(c => renderCard(c)).join('');
+  } catch(e) {
+    console.error('renderCards error:', e, 'card count:', cards.length);
+    document.getElementById('cardList').innerHTML = `<div class="error-state"><div class="icon">⚠️</div><h2>Render error</h2><p>${e.message}</p></div>`;
+  }
 }
 
 function renderCard(c) {
