@@ -112,9 +112,17 @@ const STATUSES = ['New','Validating','Probing','Building','Live','Parked','Dropp
 let allCards = [];
 let lastSync = null;
 
+let API_URL = 'http://localhost:5000';
+
+// Load config.json to get the tunnel URL
+fetch('config.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(cfg => { if (cfg.api_url) API_URL = cfg.api_url; })
+  .catch(() => {});
+
 async function loadData() {
   try {
-    const resp = await fetch('http://localhost:5000/api/data');
+    const resp = await fetch(API_URL + '/api/data');
     const data = await resp.json();
     allCards = data.opportunities || [];
     lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
@@ -208,7 +216,7 @@ async function setStatus(id, status) {
     card.last_updated = new Date().toISOString();
   }
   try {
-    await fetch('http://localhost:5000/api/update', {
+    await fetch(API_URL + '/api/update', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({id, status})
@@ -226,7 +234,7 @@ async function setReviewed(id, btn) {
     card.last_updated = new Date().toISOString();
   }
   try {
-    await fetch('http://localhost:5000/api/update', {
+    await fetch(API_URL + '/api/update', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({id, reviewed: card.reviewed})
@@ -246,7 +254,7 @@ function promptDrop(id) {
     card.drop_reason = reason;
     card.last_updated = new Date().toISOString();
   }
-  fetch('http://localhost:5000/api/update', {
+  fetch(API_URL + '/api/update', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({id, status: 'Dropped', drop_reason: reason})
