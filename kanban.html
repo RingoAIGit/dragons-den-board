@@ -14,22 +14,24 @@
 </script>
 <style>
 :root {
-  --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a; --text: #e4e6f0; --text-dim: #8b8fa3;
-  --accent: #6c5ce7; --blue: #74b9ff; --green: #00b894; --yellow: #fdcb6e; --red: #e17055;
-  --purple: #a29bfe;
+  --bg: #0d0f14; --surface: #161822; --surface2: #1c1f2b; --border: #252836;
+  --text: #e8eaf0; --text-dim: #7a7e90; --text-bright: #ffffff;
+  --accent: #7c6cf0; --blue: #60a5fa; --green: #34d399; --yellow: #fbbf24; --red: #f87171;
+  --purple: #c084fc;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); -webkit-text-size-adjust: 100%; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); -webkit-text-size-adjust: 100%; }
 a { color: var(--accent); text-decoration: none; }
 
 /* ── Header ── */
 header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 16px; position: sticky; top: 0; z-index: 100; }
 .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-header h1 { font-size: 1.2rem; white-space: nowrap; }
-header nav { display: flex; gap: 16px; align-items: center; }
-header nav a { font-size: 0.85rem; color: var(--text-dim); padding: 4px 0; }
+header h1 { font-size: 1.15rem; font-weight: 700; color: var(--text-bright); letter-spacing: -0.01em; }
+header nav { display: flex; gap: 12px; align-items: center; }
+header nav a { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); padding: 6px 12px; border-radius: 20px; }
 header nav a:hover, header nav a.active { color: var(--accent); }
-.sync-timer { font-size: 0.7rem; color: var(--text-dim); }
+header nav a.active { background: rgba(124,108,240,0.12); }
+.sync-timer { font-size: 0.7rem; color: var(--text-dim); font-weight: 500; }
 
 /* ── Kanban Board ── */
 .kanban { display: flex; gap: 12px; padding: 12px; overflow-x: auto; min-height: calc(100vh - 100px); align-items: flex-start; -webkit-overflow-scrolling: touch; }
@@ -47,10 +49,10 @@ header nav a:hover, header nav a.active { color: var(--accent); }
 .kanban-card .meta { display: flex; gap: 6px; align-items: center; font-size: 0.65rem; color: var(--text-dim); }
 .kanban-card .fit { font-weight: 700; color: var(--accent); }
 .kanban-card .evidence { padding: 1px 5px; border-radius: 3px; font-size: 0.6rem; font-weight: 600; }
-.evidence.strong { background: rgba(0,184,148,.15); color: var(--green); }
-.evidence.solid { background: rgba(116,185,255,.15); color: var(--blue); }
-.evidence.thin { background: rgba(253,203,110,.15); color: var(--yellow); }
-.evidence.none { background: rgba(225,112,85,.15); color: var(--red); }
+.evidence.strong { background: rgba(52,211,153,0.12); color: var(--green); }
+.evidence.solid { background: rgba(96,165,250,0.12); color: var(--blue); }
+.evidence.thin { background: rgba(251,191,36,0.12); color: var(--yellow); }
+.evidence.none { background: rgba(248,113,113,0.12); color: var(--red); }
 .kanban-card .source { position: absolute; top: 6px; right: 8px; font-size: 0.6rem; }
 .kanban-card .reviewed-mark { color: var(--green); font-size: 0.65rem; }
 
@@ -91,15 +93,15 @@ header nav a:hover, header nav a.active { color: var(--accent); }
 .decision-btn.drop { border-color: var(--red); color: var(--red); }
 .decision-btn.reviewed { border-color: var(--blue); color: var(--blue); }
 .empty-col { text-align: center; padding: 16px; color: var(--text-dim); font-size: 0.75rem; }
-.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; z-index: 1000; display: none; white-space: nowrap; max-width: 90vw; text-align: center; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text-bright); border: 1px solid var(--border); padding: 14px 20px; border-radius: 12px; font-size: 0.85rem; font-weight: 500; z-index: 1000; display: none; white-space: nowrap; max-width: 90vw; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
 .toast.show { display: block; }
 
 /* ── Desktop ── */
 @media (min-width: 768px) {
-  header { padding: 16px 24px; }
+  header { padding: 14px 24px; }
   .header-top { margin-bottom: 10px; }
-  header h1 { font-size: 1.4rem; }
-  header nav a { font-size: 0.9rem; margin-left: 20px; }
+  header h1 { font-size: 1.35rem; }
+  header nav a { font-size: 0.85rem; padding: 6px 16px; }
   .kanban { gap: 16px; padding: 20px 24px; }
   .column { min-width: 280px; max-width: 320px; }
   .column-header { padding: 12px 16px; }
