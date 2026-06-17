@@ -280,10 +280,11 @@ fetch('config.json?t=' + Date.now())
 
 async function loadData() {
   try {
-    // Load data.json directly from GitHub Pages (static file)
     const resp = await fetch('data.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     allCards = data.opportunities || [];
+    if (allCards.length === 0) throw new Error('No opportunities found in data.json');
     lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
     populateFilters();
     renderCards();
@@ -293,7 +294,7 @@ async function loadData() {
     document.getElementById('cardList').innerHTML = `<div class="error-state">
       <div class="icon">⚠️</div>
       <h2>Could not load data</h2>
-      <p>${e.message || 'Make sure data.json is in the repo and refresh.'}</p>
+      <p>${e.message || 'Unknown error'}</p>
       <button class="retry-btn" onclick="loadData()">Retry</button>
     </div>`;
   }
