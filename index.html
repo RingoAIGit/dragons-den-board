@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dragon's Den — Review</title>
+<script>
+// Auth guard — must be first thing in <head>
+(function() {
+  if (!sessionStorage.getItem('dd_auth')) {
+    window.location.href = 'login.html';
+  }
+})();
+</script>
 <style>
 :root {
   --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a; --text: #e4e6f0; --text-dim: #8b8fa3;
@@ -101,6 +109,7 @@ header nav a:hover, header nav a.active { color: var(--accent); }
   <nav>
     <a href="index.html" class="active">Review</a>
     <a href="kanban.html">Kanban</a>
+    <a href="#" onclick="logout()" style="color:var(--text-dim);">Logout</a>
     <span class="sync-timer" id="syncTimer"></span>
   </nav>
 </header>
@@ -372,6 +381,11 @@ function updateSyncTimer() {
 document.getElementById('searchText').addEventListener('input', debounce(renderCards, 300));
 
 function debounce(fn, ms) { let t; return () => { clearTimeout(t); t = setTimeout(fn, ms); }; }
+
+function logout() {
+  sessionStorage.removeItem('dd_auth');
+  window.location.href = 'login.html';
+}
 
 // Auto-refresh every 60s
 loadData();

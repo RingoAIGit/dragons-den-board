@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dragon's Den — Kanban</title>
+<script>
+// Auth guard — must be first thing in <head>
+(function() {
+  if (!sessionStorage.getItem('dd_auth')) {
+    window.location.href = 'login.html';
+  }
+})();
+</script>
 <style>
 :root {
   --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a; --text: #e4e6f0; --text-dim: #8b8fa3;
@@ -86,6 +94,7 @@ header nav a:hover, header nav a.active { color: var(--accent); }
   <nav>
     <a href="index.html">Review</a>
     <a href="kanban.html" class="active">Kanban</a>
+    <a href="#" onclick="logout()" style="color:var(--text-dim);">Logout</a>
     <span class="sync-timer" id="syncTimer"></span>
   </nav>
 </header>
@@ -263,6 +272,11 @@ function updateSyncTimer() {
   if (mins < 60) d.textContent = 'Updated ' + mins + 'm ago';
   else if (mins < 1440) d.textContent = 'Updated ' + Math.floor(mins/60) + 'h ago';
   else d.textContent = 'Updated ' + Math.floor(mins/1440) + 'd ago';
+}
+
+function logout() {
+  sessionStorage.removeItem('dd_auth');
+  window.location.href = 'login.html';
 }
 
 loadData();

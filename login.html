@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon's Den — Login</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a; --text: #e4e6f0; --text-dim: #8b8fa3;
+  --accent: #6c5ce7; --red: #e17055;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg); color: var(--text);
+  display: flex; justify-content: center; align-items: center; min-height: 100vh;
+}
+.login-box {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 40px; width: 100%; max-width: 360px; text-align: center;
+}
+.login-box h1 { font-size: 1.5rem; margin-bottom: 8px; }
+.login-box p { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 24px; }
+.login-box input {
+  width: 100%; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 1rem; margin-bottom: 12px;
+}
+.login-box input:focus { outline: none; border-color: var(--accent); }
+.login-box button {
+  width: 100%; padding: 12px; background: var(--accent); border: none; border-radius: 8px;
+  color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+}
+.login-box button:hover { opacity: 0.9; }
+.error { color: var(--red); font-size: 0.85rem; margin-top: 12px; display: none; }
+</style>
+</head>
+<body>
+<div class="login-box">
+  <h1>🐉 Dragon's Den</h1>
+  <p>Enter password to access the board</p>
+  <input type="password" id="pw" placeholder="Password" autofocus>
+  <button onclick="login()">Enter</button>
+  <div class="error" id="err">Wrong password</div>
+</div>
+
+<script>
+// SHA-256 hash of the password — change this when you change the password
+// To generate: run in browser console: crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword')).then(h => [...new Uint8Array(h)].map(b => b.toString(16).padStart(2,'0')).join(''))
+const PASSWORD_HASH = '21499b8293b51b616bbe1008434f3f604f527c37c93c156528fc868dc31d06c3'; // default: "dragons"
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function login() {
+  const pw = document.getElementById('pw').value;
+  const hash = await sha256(pw);
+  if (hash === PASSWORD_HASH) {
+    sessionStorage.setItem('dd_auth', '1');
+    window.location.href = 'index.html';
+  } else {
+    document.getElementById('err').style.display = 'block';
+    document.getElementById('pw').value = '';
+    document.getElementById('pw').focus();
+  }
+}
+
+document.getElementById('pw').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+</script>
+</body>
+</html>
