@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon's Den — Kanban</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a; --text: #e4e6f0; --text-dim: #8b8fa3;
+  --accent: #6c5ce7; --blue: #74b9ff; --green: #00b894; --yellow: #fdcb6e; --red: #e17055;
+  --purple: #a29bfe;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); }
+a { color: var(--accent); text-decoration: none; }
+header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+header h1 { font-size: 1.4rem; }
+header nav a { margin-left: 20px; font-size: 0.9rem; color: var(--text-dim); }
+header nav a:hover, header nav a.active { color: var(--accent); }
+.sync-timer { font-size: 0.75rem; color: var(--text-dim); }
+
+.kanban { display: flex; gap: 16px; padding: 20px 24px; overflow-x: auto; min-height: calc(100vh - 80px); align-items: flex-start; }
+.column { min-width: 280px; max-width: 320px; flex: 1; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); }
+.column-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.column-header h2 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.column-header .count { font-size: 0.75rem; color: var(--text-dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+.column-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 60px; }
+.kanban-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
+  cursor: pointer; transition: all 0.2s; position: relative;
+}
+.kanban-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.kanban-card .title { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
+.kanban-card .meta { display: flex; gap: 6px; align-items: center; font-size: 0.7rem; color: var(--text-dim); }
+.kanban-card .fit { font-weight: 700; color: var(--accent); }
+.kanban-card .evidence { padding: 1px 5px; border-radius: 3px; font-size: 0.65rem; font-weight: 600; }
+.evidence.strong { background: rgba(0,184,148,.15); color: var(--green); }
+.evidence.solid { background: rgba(116,185,255,.15); color: var(--blue); }
+.evidence.thin { background: rgba(253,203,110,.15); color: var(--yellow); }
+.evidence.none { background: rgba(225,112,85,.15); color: var(--red); }
+.kanban-card .source { position: absolute; top: 8px; right: 8px; font-size: 0.65rem; }
+.kanban-card .reviewed-mark { color: var(--green); font-size: 0.7rem; }
+
+/* Column accent colors */
+.column[data-status="New"] .column-header { border-top: 3px solid var(--blue); }
+.column[data-status="Validating"] .column-header { border-top: 3px solid var(--yellow); }
+.column[data-status="Probing"] .column-header { border-top: 3px solid var(--purple); }
+.column[data-status="Building"] .column-header { border-top: 3px solid var(--accent); }
+.column[data-status="Live"] .column-header { border-top: 3px solid var(--green); }
+.column[data-status="Parked"] .column-header { border-top: 3px solid var(--text-dim); }
+.column[data-status="Dropped"] .column-header { border-top: 3px solid var(--red); }
+
+/* Modal */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.7); z-index: 200; justify-content: center; align-items: center; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 640px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 24px; }
+.modal h2 { font-size: 1.1rem; margin-bottom: 12px; }
+.modal .close { position: absolute; top: 16px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-dim); }
+.modal .section { margin-top: 14px; }
+.modal .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 4px; }
+.modal .section-content { font-size: 0.9rem; }
+.modal .catch { background: rgba(225,112,85,.08); border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 6px 6px 0; }
+.modal .ask { background: rgba(0,184,148,.08); border-left: 3px solid var(--green); padding: 10px 14px; border-radius: 0 6px 6px 0; }
+.modal .decision-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.decision-btn {
+  padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.decision-btn:hover { border-color: var(--accent); }
+.decision-btn.validate { border-color: var(--yellow); color: var(--yellow); }
+.decision-btn.probe { border-color: var(--purple); color: var(--purple); }
+.decision-btn.build { border-color: var(--accent); color: var(--accent); }
+.decision-btn.live { border-color: var(--green); color: var(--green); }
+.decision-btn.park { border-color: var(--text-dim); color: var(--text-dim); }
+.decision-btn.drop { border-color: var(--red); color: var(--red); }
+.decision-btn.reviewed { border-color: var(--blue); color: var(--blue); }
+.empty-col { text-align: center; padding: 20px; color: var(--text-dim); font-size: 0.8rem; }
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; z-index: 1000; display: none; }
+.toast.show { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🐉 Dragon's Den</h1>
+  <nav>
+    <a href="index.html">Review</a>
+    <a href="kanban.html" class="active">Kanban</a>
+    <span class="sync-timer" id="syncTimer"></span>
+  </nav>
+</header>
+
+<div class="kanban" id="kanban"></div>
+<div class="toast" id="toast"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent" onclick="event.stopPropagation()"></div>
+</div>
+
+<script>
+const STATUSES = ['New','Validating','Probing','Building','Live','Parked','Dropped'];
+let allCards = [];
+let lastSync = null;
+
+async function loadData() {
+  try {
+    const resp = await fetch('http://localhost:5000/api/data');
+    const data = await resp.json();
+    allCards = data.opportunities || [];
+    lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
+    renderKanban();
+    updateSyncTimer();
+  } catch(e) {
+    document.getElementById('kanban').innerHTML = '<div style="padding:40px;color:var(--text-dim);">⚠️ Could not load data.</div>';
+  }
+}
+
+function renderKanban() {
+  const container = document.getElementById('kanban');
+  container.innerHTML = '';
+  
+  STATUSES.forEach(status => {
+    const cards = allCards.filter(c => c.status === status);
+    cards.sort((a,b) => (b.fit_score||0) - (a.fit_score||0));
+    
+    const col = document.createElement('div');
+    col.className = 'column';
+    col.dataset.status = status;
+    
+    col.innerHTML = `
+      <div class="column-header">
+        <h2>${status}</h2>
+        <span class="count">${cards.length}</span>
+      </div>
+      <div class="column-body">
+        ${cards.length === 0 ? '<div class="empty-col">No cards</div>' : ''}
+        ${cards.map(c => `
+          <div class="kanban-card" onclick="openCard('${c.id}')">
+            <div class="source">${c.source_stream === 'pain-point' ? '🩹' : '🌏'}</div>
+            <div class="title">${c.title}</div>
+            <div class="meta">
+              <span class="fit">${c.fit_score}</span>
+              <span class="evidence ${c.evidence||'none'}">${c.evidence||'—'}</span>
+              ${c.reviewed ? '<span class="reviewed-mark">✓</span>' : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(col);
+  });
+}
+
+function openCard(id) {
+  const c = allCards.find(x => x.id === id);
+  if (!c) return;
+  
+  const modal = document.getElementById('modalContent');
+  modal.innerHTML = `
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>${c.title}</h2>
+    <div style="display:flex;gap:10px;font-size:0.75rem;color:var(--text-dim);margin-bottom:16px;">
+      <span style="color:var(--accent);font-weight:700;">Fit: ${c.fit_score}</span>
+      <span class="evidence ${c.evidence||'none'}" style="padding:1px 6px;border-radius:4px;">${c.evidence||'—'}</span>
+      <span>${c.source_stream === 'pain-point' ? '🩹 Pain Point' : '🌏 Overseas'}</span>
+      <span>${c.date_found}</span>
+      <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:0.65rem;font-weight:600;text-transform:uppercase;background:rgba(108,92,231,.15);color:var(--accent);">${c.status}</span>
+    </div>
+    <div class="section"><div class="section-title">Pain Point</div><div class="section-content">${c.pain_point||'—'}</div></div>
+    <div class="section"><div class="section-title">Target Audience</div><div class="section-content">${c.target_audience||'—'}</div></div>
+    <div class="section"><div class="section-title">Proposed Solution</div><div class="section-content">${c.proposed_solution||'—'}</div></div>
+    <div class="section"><div class="section-title">The Catch ⚠️</div><div class="catch">${c.the_catch||'—'}</div></div>
+    <div class="section"><div class="section-title">The Ask 🚀</div><div class="ask">${c.the_ask||'—'}</div></div>
+    ${c.drop_reason ? `<div class="section"><div class="section-title">Drop Reason</div><div class="section-content" style="color:var(--red);">${c.drop_reason}</div></div>` : ''}
+    <div class="decision-row">
+      <button class="decision-btn reviewed ${c.reviewed?'active':''}" onclick="setReviewed('${c.id}',this)">✓ Reviewed</button>
+      <button class="decision-btn validate" onclick="setStatus('${c.id}','Validating',this)">→ Validating</button>
+      <button class="decision-btn probe" onclick="setStatus('${c.id}','Probing',this)">→ Probing</button>
+      <button class="decision-btn build" onclick="setStatus('${c.id}','Building',this)">→ Building</button>
+      <button class="decision-btn live" onclick="setStatus('${c.id}','Live',this)">→ Live</button>
+      <button class="decision-btn park" onclick="setStatus('${c.id}','Parked',this)">→ Park</button>
+      <button class="decision-btn drop" onclick="promptDrop('${c.id}')">→ Drop</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay') || e.target.classList.contains('close')) {
+    document.getElementById('modalOverlay').classList.remove('show');
+  }
+}
+
+async function setStatus(id, status) {
+  const card = allCards.find(c => c.id === id);
+  if (card) {
+    card.status = status;
+    card.last_updated = new Date().toISOString();
+  }
+  try {
+    await fetch('http://localhost:5000/api/update', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id, status})
+    });
+  } catch(e) {}
+  renderKanban();
+  closeModal();
+  showToast(`→ ${card?.title?.substring(0,40)||id} → ${status}`);
+}
+
+async function setReviewed(id, btn) {
+  const card = allCards.find(c => c.id === id);
+  if (card) {
+    card.reviewed = !card.reviewed;
+    card.last_updated = new Date().toISOString();
+  }
+  try {
+    await fetch('http://localhost:5000/api/update', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id, reviewed: card.reviewed})
+    });
+  } catch(e) {}
+  renderKanban();
+  openCard(id); // refresh modal
+  showToast(card.reviewed ? '✓ Reviewed' : 'Unreviewed');
+}
+
+function promptDrop(id) {
+  const reason = prompt('Why are you dropping this opportunity?\n\nEnter a brief reason:');
+  if (reason === null) return;
+  const card = allCards.find(c => c.id === id);
+  if (card) {
+    card.status = 'Dropped';
+    card.drop_reason = reason;
+    card.last_updated = new Date().toISOString();
+  }
+  fetch('http://localhost:5000/api/update', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id, status: 'Dropped', drop_reason: reason})
+  }).catch(() => {});
+  renderKanban();
+  closeModal();
+  showToast('→ ' + (card?.title?.substring(0,40)||id) + ' dropped');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function updateSyncTimer() {
+  if (!lastSync) return;
+  const d = document.getElementById('syncTimer');
+  const then = new Date(lastSync);
+  const now = new Date();
+  const mins = Math.floor((now - then) / 60000);
+  if (mins < 60) d.textContent = 'Updated ' + mins + 'm ago';
+  else if (mins < 1440) d.textContent = 'Updated ' + Math.floor(mins/60) + 'h ago';
+  else d.textContent = 'Updated ' + Math.floor(mins/1440) + 'd ago';
+}
+
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>

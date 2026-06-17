@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dragon's Den — Review</title>
+<style>
+:root {
+  --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a; --text: #e4e6f0; --text-dim: #8b8fa3;
+  --accent: #6c5ce7; --accent-hover: #7d6ff0; --green: #00b894; --yellow: #fdcb6e; --red: #e17055;
+  --blue: #74b9ff; --purple: #a29bfe; --orange: #e17055;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+header h1 { font-size: 1.4rem; }
+header nav a { margin-left: 20px; font-size: 0.9rem; color: var(--text-dim); }
+header nav a:hover, header nav a.active { color: var(--accent); }
+.filters { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.filters label { font-size: 0.8rem; color: var(--text-dim); }
+.filters select, .filters input { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 0.85rem; }
+.filters select:focus, .filters input:focus { outline: none; border-color: var(--accent); }
+.stats { padding: 16px 24px; display: flex; gap: 20px; font-size: 0.85rem; color: var(--text-dim); }
+.stats span { color: var(--text); font-weight: 600; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px 40px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s; }
+.card:hover { border-color: var(--accent); }
+.card-header { padding: 14px 18px; display: flex; justify-content: space-between; align-items: flex-start; cursor: pointer; }
+.card-header-left { flex: 1; min-width: 0; }
+.card-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+.card-meta { display: flex; gap: 10px; font-size: 0.75rem; color: var(--text-dim); }
+.card-meta .fit { color: var(--accent); font-weight: 700; }
+.card-meta .evidence { padding: 1px 6px; border-radius: 4px; font-weight: 600; }
+.evidence.strong { background: rgba(0,184,148,.15); color: var(--green); }
+.evidence.solid { background: rgba(116,185,255,.15); color: var(--blue); }
+.evidence.thin { background: rgba(253,203,110,.15); color: var(--yellow); }
+.evidence.none { background: rgba(225,112,85,.15); color: var(--red); }
+.status-badge { padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+.status-New { background: rgba(116,185,255,.15); color: var(--blue); }
+.status-Validating { background: rgba(253,203,110,.15); color: var(--yellow); }
+.status-Probing { background: rgba(162,155,254,.15); color: var(--purple); }
+.status-Building { background: rgba(108,92,231,.2); color: var(--accent); }
+.status-Live { background: rgba(0,184,148,.15); color: var(--green); }
+.status-Parked { background: rgba(139,143,163,.15); color: var(--text-dim); }
+.status-Dropped { background: rgba(225,112,85,.15); color: var(--red); }
+.status-Reviewed { background: rgba(0,184,148,.15); color: var(--green); }
+.card-body { padding: 0 18px 18px; display: none; border-top: 1px solid var(--border); }
+.card.expanded .card-body { display: block; }
+.card-body .section { margin-top: 14px; }
+.card-body .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 4px; }
+.card-body .section-content { font-size: 0.9rem; }
+.card-body .catch { background: rgba(225,112,85,.08); border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 6px 6px 0; }
+.card-body .ask { background: rgba(0,184,148,.08); border-left: 3px solid var(--green); padding: 10px 14px; border-radius: 0 6px 6px 0; }
+.card-body .drop-reason { background: rgba(225,112,85,.08); border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85rem; }
+.fit-bars { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; margin-top: 4px; }
+.fit-bar { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; }
+.fit-bar-fill { height: 4px; border-radius: 2px; background: var(--border); flex: 1; }
+.fit-bar-fill div { height: 100%; border-radius: 2px; background: var(--accent); }
+.decision-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.decision-btn {
+  padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.decision-btn:hover { border-color: var(--accent); background: rgba(108,92,231,.1); }
+.decision-btn.validate { border-color: var(--yellow); color: var(--yellow); }
+.decision-btn.validate:hover { background: rgba(253,203,110,.1); }
+.decision-btn.probe { border-color: var(--purple); color: var(--purple); }
+.decision-btn.probe:hover { background: rgba(162,155,254,.1); }
+.decision-btn.build { border-color: var(--accent); color: var(--accent); }
+.decision-btn.build:hover { background: rgba(108,92,231,.1); }
+.decision-btn.live { border-color: var(--green); color: var(--green); }
+.decision-btn.live:hover { background: rgba(0,184,148,.1); }
+.decision-btn.park { border-color: var(--text-dim); color: var(--text-dim); }
+.decision-btn.park:hover { background: rgba(139,143,163,.1); }
+.decision-btn.drop { border-color: var(--red); color: var(--red); }
+.decision-btn.drop:hover { background: rgba(225,112,85,.1); }
+.decision-btn.reviewed { border-color: var(--blue); color: var(--blue); }
+.decision-btn.reviewed:hover { background: rgba(116,185,255,.1); }
+.decision-btn.active { color: #fff; }
+.decision-btn.validate.active { background: var(--yellow); }
+.decision-btn.probe.active { background: var(--purple); }
+.decision-btn.build.active { background: var(--accent); }
+.decision-btn.live.active { background: var(--green); }
+.decision-btn.park.active { background: var(--text-dim); }
+.decision-btn.drop.active { background: var(--red); }
+.decision-btn.reviewed.active { background: var(--blue); }
+.source-pain-point { color: var(--green); }
+.source-overseas { color: var(--blue); }
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; z-index: 1000; display: none; }
+.toast.show { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.sync-timer { font-size: 0.75rem; color: var(--text-dim); }
+.empty { text-align: center; padding: 60px 20px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🐉 Dragon's Den</h1>
+  <nav>
+    <a href="index.html" class="active">Review</a>
+    <a href="kanban.html">Kanban</a>
+    <span class="sync-timer" id="syncTimer"></span>
+  </nav>
+</header>
+
+<div class="filters">
+  <label>Status:</label>
+  <select id="filterStatus"><option value="">All</option></select>
+  <label>Source:</label>
+  <select id="filterSource"><option value="">All</option></select>
+  <label>Evidence:</label>
+  <select id="filterEvidence"><option value="">All</option></select>
+  <label>Sort:</label>
+  <select id="sortBy">
+    <option value="fit_desc">Fit: High → Low</option>
+    <option value="fit_asc">Fit: Low → High</option>
+    <option value="date_desc">Newest First</option>
+    <option value="date_asc">Oldest First</option>
+    <option value="name_asc">A → Z</option>
+  </select>
+  <input type="text" id="searchText" placeholder="🔍 Search titles..." style="width:200px;margin-left:auto;">
+</div>
+
+<div class="stats" id="statsBar"></div>
+<div class="container" id="cardList"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STATUSES = ['New','Validating','Probing','Building','Live','Parked','Dropped'];
+const STATUS_LABELS = {'New':'New','Validating':'Validating','Probing':'Probing','Building':'Building','Building':'Building','Live':'Live','Parked':'Parked','Dropped':'Dropped'};
+
+let allCards = [];
+let lastSync = null;
+
+async function loadData() {
+  try {
+    const resp = await fetch('http://localhost:5000/api/data');
+    const data = await resp.json();
+    allCards = data.opportunities || [];
+    lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
+    populateFilters();
+    renderCards();
+    updateSyncTimer();
+  } catch(e) {
+    document.getElementById('cardList').innerHTML = '<div class="empty"><p>⚠️ Could not load data. Make sure data.json is in the repo.</p></div>';
+  }
+}
+
+function populateFilters() {
+  const statusSel = document.getElementById('filterStatus');
+  const sourceSel = document.getElementById('filterSource');
+  const evidenceSel = document.getElementById('filterEvidence');
+  
+  const statuses = [...new Set(allCards.map(c => c.status))];
+  const sources = [...new Set(allCards.map(c => c.source_stream))];
+  const evidences = [...new Set(allCards.map(c => c.evidence))];
+  
+  statusSel.innerHTML = '<option value="">All (' + allCards.length + ')</option>' +
+    statuses.map(s => `<option value="${s}">${s} (${allCards.filter(c=>c.status===s).length})</option>`).join('');
+  sourceSel.innerHTML = '<option value="">All</option>' +
+    sources.map(s => `<option value="${s}">${s} (${allCards.filter(c=>c.source_stream===s).length})</option>`).join('');
+  evidenceSel.innerHTML = '<option value="">All</option>' +
+    evidences.map(e => `<option value="${e}">${e} (${allCards.filter(c=>c.evidence===e).length})</option>`).join('');
+}
+
+function getFilteredCards() {
+  const status = document.getElementById('filterStatus').value;
+  const source = document.getElementById('filterSource').value;
+  const evidence = document.getElementById('filterEvidence').value;
+  const search = document.getElementById('searchText').value.toLowerCase();
+  const sort = document.getElementById('sortBy').value;
+  
+  let cards = [...allCards];
+  if (status) cards = cards.filter(c => c.status === status);
+  if (source) cards = cards.filter(c => c.source_stream === source);
+  if (evidence) cards = cards.filter(c => c.evidence === evidence);
+  if (search) cards = cards.filter(c => c.title.toLowerCase().includes(search) || c.pain_point.toLowerCase().includes(search));
+  
+  switch(sort) {
+    case 'fit_desc': cards.sort((a,b) => (b.fit_score||0) - (a.fit_score||0)); break;
+    case 'fit_asc': cards.sort((a,b) => (a.fit_score||0) - (b.fit_score||0)); break;
+    case 'date_desc': cards.sort((a,b) => (b.date_found||'').localeCompare(a.date_found||'')); break;
+    case 'date_asc': cards.sort((a,b) => (a.date_found||'').localeCompare(b.date_found||'')); break;
+    case 'name_asc': cards.sort((a,b) => (a.title||'').localeCompare(b.title||'')); break;
+  }
+  return cards;
+}
+
+function renderCards() {
+  const cards = getFilteredCards();
+  
+  // Stats
+  const total = allCards.length;
+  const byStatus = {};
+  STATUSES.forEach(s => byStatus[s] = allCards.filter(c => c.status === s).length);
+  document.getElementById('statsBar').innerHTML =
+    `<span>${cards.length}</span> of <span>${total}</span> cards showing` +
+    STATUSES.filter(s => byStatus[s]).map(s + ': <span>' + byStatus[s] + '</span>').join(' · ');
+  
+  if (!cards.length) {
+    document.getElementById('cardList').innerHTML = '<div class="empty"><p>No cards match your filters.</p></div>';
+    return;
+  }
+  
+  document.getElementById('cardList').innerHTML = cards.map(c => renderCard(c)).join('');
+}
+
+function renderCard(c) {
+  const fitBreakdown = c.fit_breakdown || {};
+  const fitBars = Object.entries(fitBreakdown).map(([k,v]) => {
+    const label = k.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    const pct = (v / 10) * 100;
+    return `<div class="fit-bar"><span style="width:130px">${label}</span><div class="fit-bar-fill"><div style="width:${pct}%"></div></div><span>${v}/10</span></div>`;
+  }).join('');
+  
+  const isReviewed = c.reviewed ? ' ✓' : '';
+  
+  return `<div class="card" id="card-${c.id}">
+    <div class="card-header" onclick="toggleCard('${c.id}')">
+      <div class="card-header-left">
+        <div class="card-title">${c.title}${isReviewed ? '<span style="color:var(--green);font-size:0.75em;margin-left:6px;">✓ Reviewed</span>' : ''}</div>
+        <div class="card-meta">
+          <span class="fit">Fit: ${c.fit_score}</span>
+          <span class="evidence ${c.evidence || 'none'}">${c.evidence || 'none'}</span>
+          <span class="source-${c.source_stream}">${c.source_stream === 'pain-point' ? '🩹 Pain Point' : '🌏 Overseas'}</span>
+          <span>${c.date_found}</span>
+          <span class="status-badge status-${c.status}">${c.status}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="section">
+        <div class="section-title">Pain Point</div>
+        <div class="section-content">${c.pain_point || '—'}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Target Audience</div>
+        <div class="section-content">${c.target_audience || '—'}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Proposed Solution</div>
+        <div class="section-content">${c.proposed_solution || '—'}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Roles</div>
+        <div class="section-content">
+          <strong>Ringo:</strong> ${c.ringo_role || '—'}<br>
+          <strong>Neil:</strong> ${c.neil_role || '—'}
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">The Catch ⚠️</div>
+        <div class="catch">${c.the_catch || '—'}</div>
+      </div>
+      <div class="section">
+        <div class="section-title">The Ask 🚀</div>
+        <div class="ask">${c.the_ask || '—'}</div>
+      </div>
+      ${c.drop_reason ? `<div class="section"><div class="section-title">Drop Reason</div><div class="drop-reason">${c.drop_reason}</div></div>` : ''}
+      ${c.recommendation ? `<div class="section"><div class="section-title">Ringo's Recommendation</div><div class="section-content"><em>${c.recommendation}</em></div></div>` : ''}
+      <div class="section">
+        <div class="section-title">Fit Breakdown</div>
+        <div class="fit-bars">${fitBars}</div>
+      </div>
+      <div class="decision-row">
+        <button class="decision-btn reviewed ${c.reviewed ? 'active' : ''}" onclick="setReviewed('${c.id}', this)">✓ Reviewed</button>
+        <button class="decision-btn validate" onclick="setStatus('${c.id}','Validating',this)">→ Validating</button>
+        <button class="decision-btn probe" onclick="setStatus('${c.id}','Probing',this)">→ Probing</button>
+        <button class="decision-btn build" onclick="setStatus('${c.id}','Building',this)">→ Building</button>
+        <button class="decision-btn live" onclick="setStatus('${c.id}','Live',this)">→ Live</button>
+        <button class="decision-btn park" onclick="setStatus('${c.id}','Parked',this)">→ Park</button>
+        <button class="decision-btn drop" onclick="promptDrop('${c.id}', this)">→ Drop</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleCard(id) {
+  const el = document.getElementById('card-' + id);
+  el.classList.toggle('expanded');
+}
+
+async function setStatus(id, status, btn) {
+  // Update locally for immediate feedback
+  const card = allCards.find(c => c.id === id);
+  if (card) {
+    card.status = status;
+    card.last_updated = new Date().toISOString();
+  }
+  
+  // POST to the local API server
+  try {
+    await fetch('http://localhost:5000/api/update', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id, status})
+    });
+  } catch(e) {
+    console.warn('API server not running — changes saved locally only');
+  }
+  
+  renderCards();
+  showToast(`→ ${card?.title?.substring(0,40) || id} moved to ${status}`);
+}
+
+async function setReviewed(id, btn) {
+  const card = allCards.find(c => c.id === id);
+  if (card) {
+    card.reviewed = !card.reviewed;
+    card.last_updated = new Date().toISOString();
+  }
+  
+  try {
+    await fetch('http://localhost:5000/api/update', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id, reviewed: card.reviewed})
+    });
+  } catch(e) {
+    console.warn('API server not running');
+  }
+  
+  renderCards();
+  showToast(card.reviewed ? '✓ Marked as reviewed' : 'Marked as unreviewed');
+}
+
+function promptDrop(id) {
+  const reason = prompt('Why are you dropping this opportunity?\n\nEnter a brief reason:');
+  if (reason === null) return; // cancelled
+  
+  const card = allCards.find(c => c.id === id);
+  if (card) {
+    card.status = 'Dropped';
+    card.drop_reason = reason;
+    card.last_updated = new Date().toISOString();
+  }
+  
+  fetch('http://localhost:5000/api/update', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id, status: 'Dropped', drop_reason: reason})
+  }).catch(() => {});
+  
+  renderCards();
+  showToast('→ ' + (card?.title?.substring(0,40) || id) + ' dropped');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function updateSyncTimer() {
+  if (!lastSync) return;
+  const d = document.getElementById('syncTimer');
+  const then = new Date(lastSync);
+  const now = new Date();
+  const mins = Math.floor((now - then) / 60000);
+  if (mins < 60) d.textContent = 'Updated ' + mins + 'm ago';
+  else if (mins < 1440) d.textContent = 'Updated ' + Math.floor(mins/60) + 'h ago';
+  else d.textContent = 'Updated ' + Math.floor(mins/1440) + 'd ago';
+}
+
+// Filter listeners
+['filterStatus','filterSource','filterEvidence','sortBy'].forEach(id => {
+  document.getElementById(id).addEventListener('change', renderCards);
+});
+document.getElementById('searchText').addEventListener('input', debounce(renderCards, 300));
+
+function debounce(fn, ms) { let t; return () => { clearTimeout(t); t = setTimeout(fn, ms); }; }
+
+// Auto-refresh every 60s
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>
