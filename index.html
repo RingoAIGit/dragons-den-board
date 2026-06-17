@@ -14,139 +14,212 @@
 </script>
 <style>
 :root {
-  --bg: #0f1117; --surface: #1a1d27; --border: #2a2d3a; --text: #e4e6f0; --text-dim: #8b8fa3;
-  --accent: #6c5ce7; --accent-hover: #7d6ff0; --green: #00b894; --yellow: #fdcb6e; --red: #e17055;
-  --blue: #74b9ff; --purple: #a29bfe;
+  --bg: #0d0f14; --surface: #161822; --surface2: #1c1f2b; --border: #252836;
+  --text: #e8eaf0; --text-dim: #7a7e90; --text-bright: #ffffff;
+  --accent: #7c6cf0; --accent2: #a78bfa;
+  --green: #34d399; --yellow: #fbbf24; --red: #f87171; --blue: #60a5fa; --purple: #c084fc;
+  --radius: 12px; --radius-sm: 8px; --space: 16px; --space-sm: 8px; --space-xs: 4px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-text-size-adjust: 100%; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; font-size: 16px; }
 a { color: var(--accent); text-decoration: none; }
 
-/* ── Header ── */
-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 16px; position: sticky; top: 0; z-index: 100; }
-.header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-header h1 { font-size: 1.2rem; white-space: nowrap; }
-header nav { display: flex; gap: 16px; align-items: center; }
-header nav a { font-size: 0.85rem; color: var(--text-dim); padding: 4px 0; }
-header nav a:hover, header nav a.active { color: var(--accent); }
-.sync-timer { font-size: 0.7rem; color: var(--text-dim); }
+/* ═══════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════ */
+header {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: var(--space-sm) var(--space); position: sticky; top: 0; z-index: 100;
+}
+.header-row { display: flex; justify-content: space-between; align-items: center; }
+header h1 { font-size: 1.15rem; font-weight: 700; color: var(--text-bright); letter-spacing: -0.01em; }
+.sync-timer { font-size: 0.7rem; color: var(--text-dim); font-weight: 500; }
+nav { display: flex; gap: var(--space-sm); margin-top: var(--space-xs); }
+nav a {
+  font-size: 0.8rem; font-weight: 600; color: var(--text-dim);
+  padding: 6px 12px; border-radius: 20px; transition: all 0.15s;
+}
+nav a:hover { color: var(--text); }
+nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
 
-/* ── Filters ── */
-.filters { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 16px; }
-.filter-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
-.filter-row:last-child { margin-bottom: 0; }
-.filters label { font-size: 0.75rem; color: var(--text-dim); min-width: 52px; }
+/* ═══════════════════════════════════════
+   FILTERS — single column stack on mobile
+   ═══════════════════════════════════════ */
+.filters {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: var(--space-sm) var(--space);
+}
+.filter-group { margin-bottom: var(--space-sm); }
+.filter-group:last-child { margin-bottom: 0; }
+.filter-label {
+  display: block; font-size: 0.7rem; font-weight: 600; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-xs);
+}
+.filter-row { display: flex; gap: var(--space-sm); }
+.filter-row > * { flex: 1; }
 .filters select, .filters input[type=text] {
   background: var(--bg); border: 1px solid var(--border); color: var(--text);
-  padding: 10px 12px; border-radius: 8px; font-size: 0.85rem;
-  min-height: 44px; flex: 1; -webkit-appearance: none; appearance: none;
+  padding: 0 14px; border-radius: var(--radius-sm); font-size: 0.875rem;
+  height: 48px; width: 100%; -webkit-appearance: none; appearance: none;
+  font-weight: 500;
 }
-.filters select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b8fa3' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
-.filters select:focus, .filters input:focus { outline: none; border-color: var(--accent); }
-.filters input[type=text] { width: 100%; }
+.filters select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%237a7e90' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+}
+.filters select:focus, .filters input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,108,240,0.15); }
+.filters input[type=text]::placeholder { color: var(--text-dim); }
 
-/* ── Stats ── */
-.stats { padding: 10px 16px; font-size: 0.8rem; color: var(--text-dim); border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
-.stats span { color: var(--text); font-weight: 600; }
+/* ═══════════════════════════════════════
+   STATS BAR
+   ═══════════════════════════════════════ */
+.stats {
+  padding: var(--space-sm) var(--space); font-size: 0.75rem; color: var(--text-dim);
+  border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap;
+  font-weight: 500;
+}
+.stats strong { color: var(--text); font-weight: 700; }
 
-/* ── Container ── */
-.container { padding: 0 12px 40px; }
-
-/* ── Cards ── */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
-.card-header { padding: 12px 14px; cursor: pointer; }
-.card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
-.card-meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 0.7rem; color: var(--text-dim); align-items: center; }
-.card-meta .fit { color: var(--accent); font-weight: 700; }
-.card-meta .evidence { padding: 2px 6px; border-radius: 4px; font-weight: 600; font-size: 0.65rem; }
-.evidence.strong { background: rgba(0,184,148,.15); color: var(--green); }
-.evidence.solid { background: rgba(116,185,255,.15); color: var(--blue); }
-.evidence.thin { background: rgba(253,203,110,.15); color: var(--yellow); }
-.evidence.none { background: rgba(225,112,85,.15); color: var(--red); }
-.status-badge { padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; }
-.status-New { background: rgba(116,185,255,.15); color: var(--blue); }
-.status-Validating { background: rgba(253,203,110,.15); color: var(--yellow); }
-.status-Probing { background: rgba(162,155,254,.15); color: var(--purple); }
-.status-Building { background: rgba(108,92,231,.2); color: var(--accent); }
-.status-Live { background: rgba(0,184,148,.15); color: var(--green); }
-.status-Parked { background: rgba(139,143,163,.15); color: var(--text-dim); }
-.status-Dropped { background: rgba(225,112,85,.15); color: var(--red); }
+/* ═══════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════ */
+.container { padding: var(--space-sm) var(--space) 60px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); margin-bottom: var(--space-sm); overflow: hidden;
+}
+.card-header { padding: var(--space); cursor: pointer; }
+.card-title { font-size: 0.95rem; font-weight: 600; color: var(--text-bright); margin-bottom: 6px; line-height: 1.35; }
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.tag {
+  display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 6px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.02em;
+}
+.tag-fit { background: rgba(124,108,240,0.15); color: var(--accent); }
+.tag-strong { background: rgba(52,211,153,0.12); color: var(--green); }
+.tag-solid { background: rgba(96,165,250,0.12); color: var(--blue); }
+.tag-thin { background: rgba(251,191,36,0.12); color: var(--yellow); }
+.tag-none { background: rgba(248,113,113,0.12); color: var(--red); }
+.tag-new { background: rgba(96,165,250,0.12); color: var(--blue); }
+.tag-validating { background: rgba(251,191,36,0.12); color: var(--yellow); }
+.tag-probing { background: rgba(192,132,252,0.12); color: var(--purple); }
+.tag-building { background: rgba(124,108,240,0.15); color: var(--accent); }
+.tag-live { background: rgba(52,211,153,0.12); color: var(--green); }
+.tag-parked { background: rgba(122,126,144,0.12); color: var(--text-dim); }
+.tag-dropped { background: rgba(248,113,113,0.12); color: var(--red); }
+.tag-source { background: rgba(122,126,144,0.1); color: var(--text-dim); }
+.tag-reviewed { background: rgba(52,211,153,0.1); color: var(--green); font-size: 0.6rem; }
 
 /* ── Card Body ── */
-.card-body { padding: 0 14px 14px; display: none; border-top: 1px solid var(--border); }
+.card-body { padding: 0 var(--space) var(--space); display: none; border-top: 1px solid var(--border); }
 .card.expanded .card-body { display: block; }
-.card-body .section { margin-top: 12px; }
-.card-body .section-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); margin-bottom: 4px; }
-.card-body .section-content { font-size: 0.85rem; line-height: 1.5; }
-.card-body .catch { background: rgba(225,112,85,.08); border-left: 3px solid var(--red); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 0.85rem; }
-.card-body .ask { background: rgba(0,184,148,.08); border-left: 3px solid var(--green); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 0.85rem; }
-.card-body .drop-reason { background: rgba(225,112,85,.08); border-left: 3px solid var(--red); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 0.85rem; }
-.fit-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px; }
-.fit-bar { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; }
-.fit-bar-fill { height: 4px; border-radius: 2px; background: var(--border); flex: 1; }
-.fit-bar-fill div { height: 100%; border-radius: 2px; background: var(--accent); }
+.card-body .section { margin-top: 14px; }
+.card-body .section-label {
+  font-size: 0.65rem; font-weight: 700; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
+}
+.card-body .section-text { font-size: 0.875rem; line-height: 1.55; color: var(--text); }
+.card-body .catch { background: rgba(248,113,113,0.06); border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; }
+.card-body .ask { background: rgba(52,211,153,0.06); border-left: 3px solid var(--green); padding: 10px 14px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; }
+.card-body .drop-reason { background: rgba(248,113,113,0.06); border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; }
+.card-body .recommendation { background: rgba(124,108,240,0.06); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; font-style: italic; }
+
+/* ── Fit Breakdown ── */
+.fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+.fit-item { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; color: var(--text-dim); }
+.fit-bar { height: 4px; border-radius: 2px; background: var(--border); flex: 1; overflow: hidden; }
+.fit-bar > div { height: 100%; border-radius: 2px; background: var(--accent); }
+.fit-score { font-weight: 700; color: var(--text); min-width: 20px; text-align: right; }
 
 /* ── Decision Buttons ── */
-.decision-row { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+.decisions { display: flex; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
 .decision-btn {
-  padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg);
-  color: var(--text); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-  min-height: 44px; display: flex; align-items: center; justify-content: center; flex: 1 1 auto;
+  flex: 1 1 calc(50% - 3px); padding: 12px 8px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--surface2);
+  color: var(--text); font-size: 0.75rem; font-weight: 600; cursor: pointer;
+  transition: all 0.15s; min-height: 48px; display: flex; align-items: center; justify-content: center;
+  text-align: center; line-height: 1.2;
 }
-.decision-btn:hover { border-color: var(--accent); background: rgba(108,92,231,.1); }
+.decision-btn:hover { border-color: var(--accent); background: rgba(124,108,240,0.08); }
+.decision-btn.reviewed { border-color: var(--blue); color: var(--blue); }
 .decision-btn.validate { border-color: var(--yellow); color: var(--yellow); }
 .decision-btn.probe { border-color: var(--purple); color: var(--purple); }
 .decision-btn.build { border-color: var(--accent); color: var(--accent); }
 .decision-btn.live { border-color: var(--green); color: var(--green); }
 .decision-btn.park { border-color: var(--text-dim); color: var(--text-dim); }
 .decision-btn.drop { border-color: var(--red); color: var(--red); }
-.decision-btn.reviewed { border-color: var(--blue); color: var(--blue); }
-.decision-btn.active { color: #fff; }
+.decision-btn.active { color: #fff !important; }
+.decision-btn.reviewed.active { background: var(--blue); }
 .decision-btn.validate.active { background: var(--yellow); }
 .decision-btn.probe.active { background: var(--purple); }
 .decision-btn.build.active { background: var(--accent); }
 .decision-btn.live.active { background: var(--green); }
 .decision-btn.park.active { background: var(--text-dim); }
 .decision-btn.drop.active { background: var(--red); }
-.decision-btn.reviewed.active { background: var(--blue); }
 
-.source-pain-point { color: var(--green); }
-.source-overseas { color: var(--blue); }
-.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; z-index: 1000; display: none; white-space: nowrap; max-width: 90vw; text-align: center; }
-.toast.show { display: block; animation: fadeIn 0.3s; }
-@keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-.empty { text-align: center; padding: 40px 20px; color: var(--text-dim); }
-.empty p { font-size: 0.9rem; line-height: 1.6; }
+/* ═══════════════════════════════════════
+   ERROR STATE
+   ═══════════════════════════════════════ */
+.error-state {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 50vh; padding: var(--space); text-align: center;
+}
+.error-state .icon { font-size: 2.5rem; margin-bottom: var(--space-sm); }
+.error-state h2 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: var(--space-xs); }
+.error-state p { font-size: 0.85rem; color: var(--text-dim); max-width: 280px; line-height: 1.5; }
+.retry-btn {
+  margin-top: var(--space); padding: 12px 24px; border-radius: var(--radius-sm);
+  border: 1px solid var(--accent); background: rgba(124,108,240,0.1);
+  color: var(--accent); font-size: 0.875rem; font-weight: 600; cursor: pointer;
+}
 
-/* ── Desktop ── */
+/* ═══════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--surface2); color: var(--text-bright); border: 1px solid var(--border);
+  padding: 14px 20px; border-radius: var(--radius); font-size: 0.85rem; font-weight: 500;
+  z-index: 1000; display: none; white-space: nowrap; max-width: 90vw; text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.toast.show { display: block; animation: toastIn 0.25s ease-out; }
+@keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+/* ═══════════════════════════════════════
+   DESKTOP (768px+)
+   ═══════════════════════════════════════ */
 @media (min-width: 768px) {
-  header { padding: 16px 24px; }
-  .header-top { margin-bottom: 10px; }
-  header h1 { font-size: 1.4rem; }
-  header nav a { font-size: 0.9rem; margin-left: 20px; }
-  .filters { padding: 12px 24px; }
+  header { padding: 14px 24px; }
+  .header-row { margin-bottom: 8px; }
+  header h1 { font-size: 1.35rem; }
+  nav { gap: 8px; margin-top: 0; }
+  nav a { font-size: 0.85rem; padding: 6px 16px; }
+  .filters { padding: 14px 24px; }
+  .filter-group { margin-bottom: 12px; }
+  .filter-label { font-size: 0.7rem; }
   .filter-row { gap: 12px; }
-  .filters label { font-size: 0.8rem; min-width: 60px; }
-  .filters select, .filters input[type=text] { font-size: 0.85rem; }
-  .stats { padding: 16px 24px; font-size: 0.85rem; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px 40px; }
-  .card-header { padding: 14px 18px; }
-  .card-title { font-size: 1rem; }
-  .card-meta { font-size: 0.75rem; }
-  .card-body { padding: 0 18px 18px; }
-  .card-body .section-content { font-size: 0.9rem; }
-  .fit-bars { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-  .decision-btn { font-size: 0.8rem; padding: 8px 16px; }
+  .filters select, .filters input[type=text] { height: 44px; font-size: 0.85rem; }
+  .stats { padding: 12px 24px; font-size: 0.8rem; }
+  .container { max-width: 960px; margin: 0 auto; padding: 16px 24px 60px; }
+  .card { margin-bottom: 12px; }
+  .card-header { padding: 16px 20px; }
+  .card-title { font-size: 1.05rem; }
+  .card-body { padding: 0 20px 20px; }
+  .card-body .section-text { font-size: 0.9rem; }
+  .fit-grid { grid-template-columns: repeat(3, 1fr); }
+  .decision-btn { flex: 1 1 auto; font-size: 0.8rem; padding: 10px 16px; }
   .toast { left: auto; right: 24px; transform: none; }
-  .toast.show { animation: fadeInDesktop 0.3s; }
-  @keyframes fadeInDesktop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .toast.show { animation: toastInDesktop 0.25s ease-out; }
+  @keyframes toastInDesktop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-top">
+  <div class="header-row">
     <h1>🐉 Dragon's Den</h1>
     <span class="sync-timer" id="syncTimer"></span>
   </div>
@@ -158,16 +231,20 @@ header nav a:hover, header nav a.active { color: var(--accent); }
 </header>
 
 <div class="filters">
-  <div class="filter-row">
-    <label>Status:</label>
+  <div class="filter-group">
+    <label class="filter-label">Status</label>
     <select id="filterStatus"><option value="">All</option></select>
-    <label>Source:</label>
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">Source</label>
     <select id="filterSource"><option value="">All</option></select>
   </div>
-  <div class="filter-row">
-    <label>Evidence:</label>
+  <div class="filter-group">
+    <label class="filter-label">Evidence</label>
     <select id="filterEvidence"><option value="">All</option></select>
-    <label>Sort:</label>
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">Sort</label>
     <select id="sortBy">
       <option value="fit_desc">Fit: High → Low</option>
       <option value="fit_asc">Fit: Low → High</option>
@@ -176,8 +253,9 @@ header nav a:hover, header nav a.active { color: var(--accent); }
       <option value="name_asc">A → Z</option>
     </select>
   </div>
-  <div class="filter-row">
-    <input type="text" id="searchText" placeholder="🔍 Search titles...">
+  <div class="filter-group">
+    <label class="filter-label">Search</label>
+    <input type="text" id="searchText" placeholder="Search titles...">
   </div>
 </div>
 
@@ -211,7 +289,12 @@ async function loadData() {
     renderCards();
     updateSyncTimer();
   } catch(e) {
-    document.getElementById('cardList').innerHTML = '<div class="empty"><p>⚠️ Could not load data. Make sure data.json is in the repo.</p></div>';
+    document.getElementById('cardList').innerHTML = `<div class="error-state">
+      <div class="icon">⚠️</div>
+      <h2>Could not load data</h2>
+      <p>Make sure data.json is in the repo and refresh.</p>
+      <button class="retry-btn" onclick="loadData()">Retry</button>
+    </div>`;
   }
 }
 
@@ -267,7 +350,7 @@ function renderCards() {
     STATUSES.filter(s => byStatus[s]).map(s + ': <span>' + byStatus[s] + '</span>').join(' · ');
   
   if (!cards.length) {
-    document.getElementById('cardList').innerHTML = '<div class="empty"><p>No cards match your filters.</p></div>';
+    document.getElementById('cardList').innerHTML = '<div class="error-state"><div class="icon">🔍</div><h2>No cards match</h2><p>Try adjusting your filters.</p></div>';
     return;
   }
   
@@ -275,70 +358,67 @@ function renderCards() {
 }
 
 function renderCard(c) {
-  const fitBreakdown = c.fit_breakdown || {};
-  const fitBars = Object.entries(fitBreakdown).map(([k,v]) => {
+  const fb = c.fit_breakdown || {};
+  const fitItems = Object.entries(fb).map(([k,v]) => {
     const label = k.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     const pct = (v / 10) * 100;
-    return `<div class="fit-bar"><span style="width:130px">${label}</span><div class="fit-bar-fill"><div style="width:${pct}%"></div></div><span>${v}/10</span></div>`;
+    return `<div class="fit-item"><span>${label}</span><div class="fit-bar"><div style="width:${pct}%"></div></div><span class="fit-score">${v}</span></div>`;
   }).join('');
-  
-  const isReviewed = c.reviewed ? ' ✓' : '';
-  
+
+  const ev = c.evidence || 'none';
+  const st = c.status || 'New';
+  const src = c.source_stream === 'pain-point' ? '🩹 Pain' : '🌏 Overseas';
+
   return `<div class="card" id="card-${c.id}">
     <div class="card-header" onclick="toggleCard('${c.id}')">
-      <div class="card-header-left">
-        <div class="card-title">${c.title}${isReviewed ? '<span style="color:var(--green);font-size:0.75em;margin-left:6px;">✓ Reviewed</span>' : ''}</div>
-        <div class="card-meta">
-          <span class="fit">Fit: ${c.fit_score}</span>
-          <span class="evidence ${c.evidence || 'none'}">${c.evidence || 'none'}</span>
-          <span class="source-${c.source_stream}">${c.source_stream === 'pain-point' ? '🩹 Pain Point' : '🌏 Overseas'}</span>
-          <span>${c.date_found}</span>
-          <span class="status-badge status-${c.status}">${c.status}</span>
-        </div>
+      <div class="card-title">${c.title}</div>
+      <div class="card-tags">
+        <span class="tag tag-fit">${c.fit_score}</span>
+        <span class="tag tag-${ev}">${ev}</span>
+        <span class="tag tag-${st.toLowerCase()}">${st}</span>
+        <span class="tag tag-source">${src}</span>
+        ${c.reviewed ? '<span class="tag tag-reviewed">✓</span>' : ''}
       </div>
     </div>
     <div class="card-body">
       <div class="section">
-        <div class="section-title">Pain Point</div>
-        <div class="section-content">${c.pain_point || '—'}</div>
+        <div class="section-label">Pain Point</div>
+        <div class="section-text">${c.pain_point || '—'}</div>
       </div>
       <div class="section">
-        <div class="section-title">Target Audience</div>
-        <div class="section-content">${c.target_audience || '—'}</div>
+        <div class="section-label">Target Audience</div>
+        <div class="section-text">${c.target_audience || '—'}</div>
       </div>
       <div class="section">
-        <div class="section-title">Proposed Solution</div>
-        <div class="section-content">${c.proposed_solution || '—'}</div>
+        <div class="section-label">Proposed Solution</div>
+        <div class="section-text">${c.proposed_solution || '—'}</div>
       </div>
       <div class="section">
-        <div class="section-title">Roles</div>
-        <div class="section-content">
-          <strong>Ringo:</strong> ${c.ringo_role || '—'}<br>
-          <strong>Neil:</strong> ${c.neil_role || '—'}
-        </div>
+        <div class="section-label">Roles</div>
+        <div class="section-text"><strong>Ringo:</strong> ${c.ringo_role || '—'}<br><strong>Neil:</strong> ${c.neil_role || '—'}</div>
       </div>
       <div class="section">
-        <div class="section-title">The Catch ⚠️</div>
+        <div class="section-label">The Catch ⚠️</div>
         <div class="catch">${c.the_catch || '—'}</div>
       </div>
       <div class="section">
-        <div class="section-title">The Ask 🚀</div>
+        <div class="section-label">The Ask 🚀</div>
         <div class="ask">${c.the_ask || '—'}</div>
       </div>
-      ${c.drop_reason ? `<div class="section"><div class="section-title">Drop Reason</div><div class="drop-reason">${c.drop_reason}</div></div>` : ''}
-      ${c.recommendation ? `<div class="section"><div class="section-title">Ringo's Recommendation</div><div class="section-content"><em>${c.recommendation}</em></div></div>` : ''}
+      ${c.drop_reason ? `<div class="section"><div class="section-label">Drop Reason</div><div class="drop-reason">${c.drop_reason}</div></div>` : ''}
+      ${c.recommendation ? `<div class="section"><div class="section-label">Ringo's Take</div><div class="recommendation">${c.recommendation}</div></div>` : ''}
       <div class="section">
-        <div class="section-title">Fit Breakdown</div>
-        <div class="fit-bars">${fitBars}</div>
+        <div class="section-label">Fit Breakdown</div>
+        <div class="fit-grid">${fitItems}</div>
       </div>
-      <div class="decision-row">
-        <button class="decision-btn reviewed ${c.reviewed ? 'active' : ''}" onclick="setReviewed('${c.id}', this)">✓ Reviewed</button>
+      <div class="decisions">
+        <button class="decision-btn reviewed ${c.reviewed ? 'active' : ''}" onclick="setReviewed('${c.id}',this)">✓ Reviewed</button>
         <button class="decision-btn validate" onclick="setStatus('${c.id}','Validating',this)">→ Validating</button>
         <button class="decision-btn probe" onclick="setStatus('${c.id}','Probing',this)">→ Probing</button>
         <button class="decision-btn build" onclick="setStatus('${c.id}','Building',this)">→ Building</button>
         <button class="decision-btn live" onclick="setStatus('${c.id}','Live',this)">→ Live</button>
         <button class="decision-btn park" onclick="setStatus('${c.id}','Parked',this)">→ Park</button>
-        <button class="decision-btn drop" onclick="promptDrop('${c.id}', this)">→ Drop</button>
+        <button class="decision-btn drop" onclick="promptDrop('${c.id}',this)">→ Drop</button>
       </div>
     </div>
   </div>`;
