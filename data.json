@@ -3,15 +3,15 @@
     "version": 1,
     "created": "2026-06-08",
     "last_discovery": "2026-06-17T00:00:00.000000+00:00",
-    "last_maintenance": "2026-06-17T07:49:44.991322"
+    "last_maintenance": "2026-06-18T00:00:00.000000"
   },
   "settings": {
     "max_active_pursuits": 3,
     "min_daily_cards": 5,
-    "dashboard_url": "https://colleagues-modern-fwd-taxes.trycloudflare.com",
+    "dashboard_url": "http://localhost:5000",
     "telegram_bot_token": null,
     "telegram_chat_id": null,
-    "cloudflare_tunnel_url": "https://colleagues-modern-fwd-taxes.trycloudflare.com"
+    "cloudflare_tunnel_url": "http://localhost:5000"
   },
   "opportunities": [
     {
