@@ -815,7 +815,7 @@
     {
       "id": "opp-023",
       "date_found": "2026-06-11",
-      "last_updated": "2026-06-11T12:00:00.000000",
+      "last_updated": "2026-06-17T21:23:06.094875+00:00",
       "reviewed": false,
       "source_stream": "pain-point",
       "title": "NZ Rental Property Management AI Co-Landlord",
@@ -837,7 +837,7 @@
       "evidence": "solid",
       "the_catch": "This combines opp-004 and opp-011 into a single product \u2014 which means it's a bigger build and those individual cards become redundant. The legal compliance risk is the same as opp-004. The maintenance tradie marketplace feature adds a two-sided marketplace complexity.",
       "the_ask": "Greenlight = I combine the validation approaches from opp-004 and opp-011: check Tenancy Services API availability, test Claude Vision on property photos, and post in NZ property investment Facebook groups about the unified product concept. Cost: 5 hours.",
-      "status": "New",
+      "status": "Parked",
       "gate": 1,
       "validation": {},
       "recommendation": "Strong pursue IF opp-004 and opp-011 are merged into this card \u2014 this is the natural evolution of both.",
