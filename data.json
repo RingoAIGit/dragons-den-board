@@ -1291,7 +1291,7 @@
     {
       "id": "opp-037",
       "date_found": "2026-06-16",
-      "last_updated": "2026-06-16T00:00:00.000000+00:00",
+      "last_updated": "2026-06-18T10:48:00.417962+00:00",
       "reviewed": false,
       "source_stream": "overseas",
       "title": "NZ Agri-Tech Export Documentation Agent",
@@ -1313,12 +1313,12 @@
       "evidence": "thin",
       "the_catch": "This is adjacent to opp-013 (Export Compliance AI) but focused specifically on agri-tech/phytosanitary documentation. The overlap needs to be managed \u2014 could be combined with opp-013. The TAM is modest (~500 agri-tech exporters). MPI and NZ Customs may not have APIs, requiring manual data entry.",
       "the_ask": "Greenlight = I interview 5 NZ agri-tech exporters about their documentation process and pain points. Cost: 2 hours. Proves: the documentation burden is severe enough to justify a specialised tool.",
-      "status": "New",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Approach with caution \u2014 consider combining with opp-013 (Export Compliance AI) into a single export documentation platform if both greenlit.",
       "next_action": "Interview 5 NZ agri-tech exporters about documentation pain",
-      "drop_reason": null,
+      "drop_reason": "Needs subject matter expertise",
       "trello_card_url": "https://trello.com/c/t1sn2qYv",
       "trello_card_id": "6a308c6e73b0ba3a87f499fc"
     },
