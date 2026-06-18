@@ -353,9 +353,9 @@ function getFilteredCards() {
   
   let cards = [...allCards];
   
-  // Default: hide reviewed AND dropped cards unless toggled
+  // Review page: only show New cards (not yet pursued)
   if (!showReviewed) {
-    cards = cards.filter(c => !c.reviewed && c.status !== 'Dropped');
+    cards = cards.filter(c => c.status === 'New');
   }
   
   if (source) cards = cards.filter(c => c.source_stream === source);
@@ -376,12 +376,11 @@ function renderCards() {
   const cards = getFilteredCards();
   
   const total = allCards.length;
-  const unreviewed = allCards.filter(c => !c.reviewed).length;
-  const reviewed = total - unreviewed;
+  const newCount = allCards.filter(c => c.status === 'New').length;
   
   document.getElementById('statsBar').innerHTML =
     `<strong>${cards.length}</strong> showing` +
-    (showReviewed ? ` of <strong>${total}</strong> total` : ` · <strong>${unreviewed}</strong> unreviewed · <strong>${reviewed}</strong> reviewed`);
+    (showReviewed ? ` of <strong>${total}</strong> total` : ` · <strong>${newCount}</strong> new in queue`);
   
   if (!cards.length) {
     document.getElementById('cardList').innerHTML = `<div class="error-state">
