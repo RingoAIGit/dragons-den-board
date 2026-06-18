@@ -301,7 +301,7 @@ fetch('config.json?t=' + Date.now())
 
 async function loadData() {
   try {
-    const resp = await fetch('data.json?t=' + Date.now());
+    const resp = await fetch('data.json?v=2&t=' + Date.now());
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     allCards = data.opportunities || [];
