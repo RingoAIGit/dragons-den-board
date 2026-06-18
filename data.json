@@ -1325,7 +1325,7 @@
     {
       "id": "opp-038",
       "date_found": "2026-06-17",
-      "last_updated": "2026-06-17T00:00:00.000000+00:00",
+      "last_updated": "2026-06-18T06:15:37.729723+00:00",
       "reviewed": false,
       "source_stream": "overseas",
       "title": "AI-Powered Right-to-Repair Assistant for NZ Consumers",
@@ -1347,12 +1347,12 @@
       "evidence": "solid",
       "the_catch": "This is a two-sided marketplace \u2014 you need both consumers AND repair businesses. Consumer acquisition is challenging (people search for repair help once, then leave). The parts scraping is fragile. Also, appliance diagnosis via photo is harder than it looks \u2014 AI may misdiagnose, leading to frustrated consumers. The Consumer NZ partnership would be valuable but requires their cooperation. Monetisation at NZ$4.99/mo needs high volume.",
       "the_ask": "Greenlight = I test the AI diagnosis engine on 50 common appliance repairs, assess accuracy, and post in NZ sustainability/repair Facebook groups to gauge interest. Cost: 6 hours. Proves: AI diagnosis is accurate enough and consumers will use a repair assistant.",
-      "status": "New",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Pursue to validation \u2014 the Consumer NZ campaign provides a strong tailwind, and the sustainability angle resonates with environmentally conscious Kiwis. The key risk is two-sided marketplace cold start.",
       "next_action": "Test AI diagnosis on 50 appliance repairs + Facebook group validation",
-      "drop_reason": null,
+      "drop_reason": "Not interested, two sides marketplace nature adds complexity ",
       "trello_card_url": "https://trello.com/c/FLtUu9wS/43-fit-71-evidence-solid-ai-powered-right-to-repair-assistant-for-nz-consumers",
       "trello_card_id": "6a31bdd315aa68637ea2a819"
     },
