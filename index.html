@@ -71,6 +71,18 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
 .filters select:focus, .filters input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,108,240,0.15); }
 .filters input[type=text]::placeholder { color: var(--text-dim); }
 
+/* ── Reviewed Toggle ── */
+.toggle-reviewed-btn {
+  width: 100%; height: 48px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--text-dim); font-size: 0.875rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.toggle-reviewed-btn.active {
+  border-color: var(--green); color: var(--green);
+  background: rgba(52,211,153,0.08);
+}
+
 /* ═══════════════════════════════════════
    STATS BAR
    ═══════════════════════════════════════ */
@@ -232,10 +244,6 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
 
 <div class="filters">
   <div class="filter-group">
-    <label class="filter-label">Status</label>
-    <select id="filterStatus"><option value="">All</option></select>
-  </div>
-  <div class="filter-group">
     <label class="filter-label">Source</label>
     <select id="filterSource"><option value="">All</option></select>
   </div>
@@ -246,9 +254,8 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
   <div class="filter-group">
     <label class="filter-label">Sort</label>
     <select id="sortBy">
-      <option value="fit_desc">Fit: High → Low</option>
-      <option value="fit_asc">Fit: Low → High</option>
       <option value="date_desc">Newest First</option>
+      <option value="fit_desc">Fit: High → Low</option>
       <option value="date_asc">Oldest First</option>
       <option value="name_asc">A → Z</option>
     </select>
@@ -257,6 +264,11 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
     <label class="filter-label">Search</label>
     <input type="text" id="searchText" placeholder="Search titles...">
   </div>
+  <div class="filter-group">
+    <button class="toggle-reviewed-btn" id="toggleReviewed" onclick="toggleShowReviewed()">
+      👁 Show Reviewed
+    </button>
+  </div>
 </div>
 
 <div class="stats" id="statsBar"></div>
@@ -264,11 +276,9 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
 <div class="toast" id="toast"></div>
 
 <script>
-const STATUSES = ['New','Validating','Probing','Building','Live','Parked','Dropped'];
-const STATUS_LABELS = {'New':'New','Validating':'Validating','Probing':'Probing','Building':'Building','Building':'Building','Live':'Live','Parked':'Parked','Dropped':'Dropped'};
-
 let allCards = [];
 let lastSync = null;
+let showReviewed = false; // default: hide reviewed cards
 
 let API_URL = 'http://localhost:5000'; // default for local use
 
@@ -318,14 +328,18 @@ function populateFilters() {
 }
 
 function getFilteredCards() {
-  const status = document.getElementById('filterStatus').value;
   const source = document.getElementById('filterSource').value;
   const evidence = document.getElementById('filterEvidence').value;
   const search = document.getElementById('searchText').value.toLowerCase();
   const sort = document.getElementById('sortBy').value;
   
   let cards = [...allCards];
-  if (status) cards = cards.filter(c => c.status === status);
+  
+  // Default: hide reviewed cards unless toggled
+  if (!showReviewed) {
+    cards = cards.filter(c => !c.reviewed);
+  }
+  
   if (source) cards = cards.filter(c => c.source_stream === source);
   if (evidence) cards = cards.filter(c => c.evidence === evidence);
   if (search) cards = cards.filter(c => c.title.toLowerCase().includes(search) || c.pain_point.toLowerCase().includes(search));
@@ -344,14 +358,19 @@ function renderCards() {
   const cards = getFilteredCards();
   
   const total = allCards.length;
-  const byStatus = {};
-  STATUSES.forEach(s => byStatus[s] = allCards.filter(c => c.status === s).length);
+  const unreviewed = allCards.filter(c => !c.reviewed).length;
+  const reviewed = total - unreviewed;
+  
   document.getElementById('statsBar').innerHTML =
-    `<span>${cards.length}</span> of <span>${total}</span> cards showing` +
-    STATUSES.filter(s => byStatus[s]).map(s => s + ': <span>' + byStatus[s] + '</span>').join(' · ');
+    `<strong>${cards.length}</strong> showing` +
+    (showReviewed ? ` of <strong>${total}</strong> total` : ` · <strong>${unreviewed}</strong> unreviewed · <strong>${reviewed}</strong> reviewed`);
   
   if (!cards.length) {
-    document.getElementById('cardList').innerHTML = '<div class="error-state"><div class="icon">🔍</div><h2>No cards match</h2><p>Try adjusting your filters.</p></div>';
+    document.getElementById('cardList').innerHTML = `<div class="error-state">
+      <div class="icon">${showReviewed ? '🔍' : '✅'}</div>
+      <h2>${showReviewed ? 'No cards match' : 'All caught up!'}</h2>
+      <p>${showReviewed ? 'Try adjusting your filters.' : 'You\'ve reviewed everything. Toggle "Show Reviewed" to see them all.'}</p>
+    </div>`;
     return;
   }
   
@@ -433,6 +452,19 @@ function renderCard(c) {
 function toggleCard(id) {
   const el = document.getElementById('card-' + id);
   el.classList.toggle('expanded');
+}
+
+function toggleShowReviewed() {
+  showReviewed = !showReviewed;
+  const btn = document.getElementById('toggleReviewed');
+  if (showReviewed) {
+    btn.textContent = '🙈 Hide Reviewed';
+    btn.classList.add('active');
+  } else {
+    btn.textContent = '👁 Show Reviewed';
+    btn.classList.remove('active');
+  }
+  renderCards();
 }
 
 async function setStatus(id, status, btn) {
