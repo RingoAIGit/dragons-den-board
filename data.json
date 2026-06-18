@@ -1359,7 +1359,7 @@
     {
       "id": "opp-039",
       "date_found": "2026-06-17",
-      "last_updated": "2026-06-17T00:00:00.000000+00:00",
+      "last_updated": "2026-06-18T10:01:48.551549+00:00",
       "reviewed": false,
       "source_stream": "pain-point",
       "title": "NZ Online Marketplace Scam Shield \u2014 AI Transaction Protector",
@@ -1381,12 +1381,12 @@
       "evidence": "solid",
       "the_catch": "Scam detection is an arms race \u2014 as AI scam tools improve, scammers adapt. False positives are a serious problem \u2014 blocking a legitimate buyer's message destroys trust. The escrow service adds regulatory complexity (may need to be a registered financial service). TradeMe already has Guardian protection \u2014 competing with a platform feature is hard. The 18% rise in scam complaints is concerning but also means the problem is getting worse, not better.",
       "the_ask": "Greenlight = I collect 500 known NZ marketplace scam messages, train a simple classifier, test precision/recall, and post in NZ Facebook buy/sell groups. Cost: 6 hours. Proves: scam detection accuracy is sufficient and sellers want protection.",
-      "status": "New",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Pursue to validation \u2014 the 18% rise in scam complaints is a strong demand signal, and the RNZ reporting gives it urgency. Focus on the detection/alert angle first, escrow second.",
       "next_action": "Collect scam message dataset + train classifier + Facebook group validation",
-      "drop_reason": null,
+      "drop_reason": "Helping people determine if something is a scam is a good concept but this doesn\u2019t quite land it",
       "trello_card_url": "https://trello.com/c/4KiTTiox/44-fit-72-evidence-solid-nz-online-marketplace-scam-shield-ai-transaction-protector",
       "trello_card_id": "6a31bdd4ba0e121b688e2332"
     },
