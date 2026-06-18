@@ -311,16 +311,12 @@ async function loadData() {
 }
 
 function populateFilters() {
-  const statusSel = document.getElementById('filterStatus');
   const sourceSel = document.getElementById('filterSource');
   const evidenceSel = document.getElementById('filterEvidence');
   
-  const statuses = [...new Set(allCards.map(c => c.status))];
   const sources = [...new Set(allCards.map(c => c.source_stream))];
   const evidences = [...new Set(allCards.map(c => c.evidence))];
   
-  statusSel.innerHTML = '<option value="">All (' + allCards.length + ')</option>' +
-    statuses.map(s => `<option value="${s}">${s} (${allCards.filter(c=>c.status===s).length})</option>`).join('');
   sourceSel.innerHTML = '<option value="">All</option>' +
     sources.map(s => `<option value="${s}">${s} (${allCards.filter(c=>c.source_stream===s).length})</option>`).join('');
   evidenceSel.innerHTML = '<option value="">All</option>' +
