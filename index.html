@@ -280,6 +280,17 @@ let allCards = [];
 let lastSync = null;
 let showReviewed = false; // default: hide reviewed cards
 
+// Load local overrides (drops, reviewed marks) from localStorage
+function loadLocalOverrides() {
+  try {
+    const saved = localStorage.getItem('dd_overrides');
+    return saved ? JSON.parse(saved) : {};
+  } catch(e) { return {}; }
+}
+function saveLocalOverrides(overrides) {
+  try { localStorage.setItem('dd_overrides', JSON.stringify(overrides)); } catch(e) {}
+}
+
 let API_URL = 'http://localhost:5000'; // default for local use
 
 // Load config.json to get the tunnel URL (for remote access)
@@ -295,6 +306,17 @@ async function loadData() {
     const data = await resp.json();
     allCards = data.opportunities || [];
     if (allCards.length === 0) throw new Error('No opportunities found in data.json');
+    
+    // Apply local overrides (drops, reviewed marks from this browser)
+    const overrides = loadLocalOverrides();
+    allCards.forEach(c => {
+      if (overrides[c.id]) {
+        if (overrides[c.id].status) c.status = overrides[c.id].status;
+        if (overrides[c.id].drop_reason) c.drop_reason = overrides[c.id].drop_reason;
+        if (overrides[c.id].reviewed !== undefined) c.reviewed = overrides[c.id].reviewed;
+      }
+    });
+    
     lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
     populateFilters();
     renderCards();
@@ -331,9 +353,9 @@ function getFilteredCards() {
   
   let cards = [...allCards];
   
-  // Default: hide reviewed cards unless toggled
+  // Default: hide reviewed AND dropped cards unless toggled
   if (!showReviewed) {
-    cards = cards.filter(c => !c.reviewed);
+    cards = cards.filter(c => !c.reviewed && c.status !== 'Dropped');
   }
   
   if (source) cards = cards.filter(c => c.source_stream === source);
@@ -471,7 +493,13 @@ async function setStatus(id, status, btn) {
     card.last_updated = new Date().toISOString();
   }
   
-  // POST to the local API server
+  // Save override to localStorage so it persists across refreshes
+  const overrides = loadLocalOverrides();
+  if (!overrides[id]) overrides[id] = {};
+  overrides[id].status = status;
+  saveLocalOverrides(overrides);
+  
+  // POST to the local API server (updates source of truth on your Mac)
   try {
     await fetch(API_URL + '/api/update', {
       method: 'POST',
@@ -492,6 +520,12 @@ async function setReviewed(id, btn) {
     card.reviewed = !card.reviewed;
     card.last_updated = new Date().toISOString();
   }
+  
+  // Save to localStorage
+  const overrides = loadLocalOverrides();
+  if (!overrides[id]) overrides[id] = {};
+  overrides[id].reviewed = card.reviewed;
+  saveLocalOverrides(overrides);
   
   try {
     await fetch(API_URL + '/api/update', {
@@ -517,6 +551,13 @@ function promptDrop(id) {
     card.drop_reason = reason;
     card.last_updated = new Date().toISOString();
   }
+  
+  // Save to localStorage so it persists
+  const overrides = loadLocalOverrides();
+  if (!overrides[id]) overrides[id] = {};
+  overrides[id].status = 'Dropped';
+  overrides[id].drop_reason = reason;
+  saveLocalOverrides(overrides);
   
   fetch(API_URL + '/api/update', {
     method: 'POST',
