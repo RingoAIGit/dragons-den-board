@@ -1155,7 +1155,7 @@
     {
       "id": "opp-033",
       "date_found": "2026-06-16",
-      "last_updated": "2026-06-16T00:00:00.000000+00:00",
+      "last_updated": "2026-06-18T10:47:14.749879+00:00",
       "reviewed": false,
       "source_stream": "overseas",
       "title": "AI Customer Service Agent for NZ SMBs",
@@ -1177,12 +1177,12 @@
       "evidence": "strong",
       "the_catch": "The Salesforce/Fin acquisition at $3.6B proves the market but also means a well-funded competitor may enter NZ. Zendesk, Intercom, and Freshdesk all have AI features. The differentiation is NZ-specific pre-configuration, but that's a thin moat. Also, SMBs are price-sensitive \u2014 NZ$49/mo is a tough sell for a 5-person business already struggling with costs. The channel integration complexity (each platform has different APIs) is a significant build effort.",
       "the_ask": "Greenlight = I interview 15 NZ SMB owners about their current customer response process and whether they'd pay NZ$49/mo for an AI agent. Cost: 3 hours. Proves: the pain is real and the price point works.",
-      "status": "New",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Pursue to validation \u2014 the Salesforce/Fin acquisition is the strongest possible demand signal. The key risk is competition from incumbents and SMB price sensitivity.",
       "next_action": "Interview 15 NZ SMB owners about customer response pain",
-      "drop_reason": null,
+      "drop_reason": "Too many big competitors",
       "trello_card_url": "https://trello.com/c/c7r2dGyM",
       "trello_card_id": "6a308c6c238955e27f215979"
     },
