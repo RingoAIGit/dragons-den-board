@@ -547,7 +547,7 @@ function updateSyncTimer() {
 }
 
 // Filter listeners
-['filterStatus','filterSource','filterEvidence','sortBy'].forEach(id => {
+['filterSource','filterEvidence','sortBy'].forEach(id => {
   document.getElementById(id).addEventListener('change', renderCards);
 });
 document.getElementById('searchText').addEventListener('input', debounce(renderCards, 300));
