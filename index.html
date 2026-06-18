@@ -509,7 +509,23 @@ async function setStatus(id, status, btn) {
     console.warn('API server not running — changes saved locally only');
   }
   
-  renderCards();
+  // Remove card from list without re-rendering (preserves expanded state of other cards)
+  const cardEl = document.getElementById('card-' + id);
+  if (cardEl) {
+    cardEl.style.transition = 'opacity 0.2s, max-height 0.3s';
+    cardEl.style.opacity = '0';
+    cardEl.style.maxHeight = '0';
+    cardEl.style.overflow = 'hidden';
+    cardEl.style.margin = '0';
+    setTimeout(() => cardEl.remove(), 300);
+  }
+  
+  // Update in-memory counts for the stats bar
+  const newCount = allCards.filter(c => c.status === 'New').length;
+  document.getElementById('statsBar').innerHTML =
+    `<strong>${newCount}</strong> showing` +
+    (showReviewed ? ` of <strong>${allCards.length}</strong> total` : ` · <strong>${newCount}</strong> new in queue`);
+  
   showToast(`→ ${card?.title?.substring(0,40) || id} moved to ${status}`);
 }
 
@@ -536,7 +552,26 @@ async function setReviewed(id, btn) {
     console.warn('API server not running');
   }
   
-  renderCards();
+  // Update just this card's tags without re-rendering the whole list
+  const cardEl = document.getElementById('card-' + id);
+  if (cardEl) {
+    const tagsEl = cardEl.querySelector('.card-tags');
+    if (tagsEl) {
+      // Remove existing reviewed tag
+      const existing = tagsEl.querySelector('.tag-reviewed');
+      if (existing) existing.remove();
+      // Add reviewed tag if needed
+      if (card.reviewed) {
+        const span = document.createElement('span');
+        span.className = 'tag tag-reviewed';
+        span.textContent = '✓';
+        tagsEl.appendChild(span);
+      }
+    }
+    // Update reviewed button state
+    const reviewedBtn = cardEl.querySelector('.decision-btn.reviewed');
+    if (reviewedBtn) reviewedBtn.classList.toggle('active', card.reviewed);
+  }
   showToast(card.reviewed ? '✓ Marked as reviewed' : 'Marked as unreviewed');
 }
 
@@ -564,7 +599,23 @@ function promptDrop(id) {
     body: JSON.stringify({id, status: 'Dropped', drop_reason: reason})
   }).catch(() => {});
   
-  renderCards();
+  // Animate card removal without re-rendering the whole list
+  const cardEl = document.getElementById('card-' + id);
+  if (cardEl) {
+    cardEl.style.transition = 'opacity 0.2s, max-height 0.3s';
+    cardEl.style.opacity = '0';
+    cardEl.style.maxHeight = '0';
+    cardEl.style.overflow = 'hidden';
+    cardEl.style.margin = '0';
+    setTimeout(() => cardEl.remove(), 300);
+  }
+  
+  // Update stats bar
+  const newCount = allCards.filter(c => c.status === 'New').length;
+  document.getElementById('statsBar').innerHTML =
+    `<strong>${newCount}</strong> showing` +
+    (showReviewed ? ` of <strong>${allCards.length}</strong> total` : ` · <strong>${newCount}</strong> new in queue`);
+  
   showToast('→ ' + (card?.title?.substring(0,40) || id) + ' dropped');
 }
 
