@@ -1325,7 +1325,7 @@
     {
       "id": "opp-038",
       "date_found": "2026-06-17",
-      "last_updated": "2026-06-18T06:15:37.729723+00:00",
+      "last_updated": "2026-06-18T06:15:56.161642+00:00",
       "reviewed": false,
       "source_stream": "overseas",
       "title": "AI-Powered Right-to-Repair Assistant for NZ Consumers",
@@ -1352,7 +1352,7 @@
       "validation": {},
       "recommendation": "Pursue to validation \u2014 the Consumer NZ campaign provides a strong tailwind, and the sustainability angle resonates with environmentally conscious Kiwis. The key risk is two-sided marketplace cold start.",
       "next_action": "Test AI diagnosis on 50 appliance repairs + Facebook group validation",
-      "drop_reason": "Not interested, two sides marketplace nature adds complexity ",
+      "drop_reason": "",
       "trello_card_url": "https://trello.com/c/FLtUu9wS/43-fit-71-evidence-solid-ai-powered-right-to-repair-assistant-for-nz-consumers",
       "trello_card_id": "6a31bdd315aa68637ea2a819"
     },
