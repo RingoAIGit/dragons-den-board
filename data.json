@@ -2,7 +2,7 @@
   "meta": {
     "version": 1,
     "created": "2026-06-08",
-    "last_discovery": "2026-06-20T08:37:06.256358+00:00",
+    "last_discovery": "2026-06-20T08:39:33.484364+00:00",
     "last_maintenance": "2026-06-20T12:00:00.000000"
   },
   "settings": {
@@ -1765,7 +1765,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-044",
+      "id": "opp-052",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.255909+00:00",
       "reviewed": false,
@@ -1799,7 +1799,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-045",
+      "id": "opp-053",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.256062+00:00",
       "reviewed": false,
@@ -1833,7 +1833,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-046",
+      "id": "opp-054",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.256064+00:00",
       "reviewed": false,
@@ -1867,7 +1867,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-047",
+      "id": "opp-055",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.256067+00:00",
       "reviewed": false,
@@ -1901,7 +1901,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-048",
+      "id": "opp-056",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.256070+00:00",
       "reviewed": false,
@@ -1935,7 +1935,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-049",
+      "id": "opp-057",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.256072+00:00",
       "reviewed": false,
@@ -1969,7 +1969,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-050",
+      "id": "opp-058",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.256074+00:00",
       "reviewed": false,
@@ -2003,7 +2003,7 @@
       "trello_card_id": null
     },
     {
-      "id": "opp-051",
+      "id": "opp-059",
       "date_found": "2026-06-20",
       "last_updated": "2026-06-20T08:37:06.256076+00:00",
       "reviewed": false,
