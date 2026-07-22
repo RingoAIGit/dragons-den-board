@@ -12,7 +12,7 @@
 set -e
 
 REPO_DIR="/Users/cerebral/dragons-den-board"
-API_PORT=5000
+API_PORT=5001
 CONFIG_FILE="$REPO_DIR/config.json"
 LOG_FILE="/tmp/dragons-den-tunnel.log"
 

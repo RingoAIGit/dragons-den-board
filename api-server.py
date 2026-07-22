@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.expanduser("~/.hermes/data/opportunities.json")
-PORT = 5000
+PORT = 5001
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):

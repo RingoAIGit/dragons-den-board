@@ -292,7 +292,7 @@ function saveLocalOverrides(overrides) {
   try { localStorage.setItem('dd_overrides', JSON.stringify(overrides)); } catch(e) {}
 }
 
-let API_URL = 'http://localhost:5000'; // default for local use
+let API_URL = 'http://localhost:5001'; // default for local use
 
 // Load config.json to get the tunnel URL (for remote access)
 fetch('config.json?t=' + Date.now())
