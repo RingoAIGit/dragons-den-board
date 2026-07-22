@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+<title>Dragon's Den — Swipe</title>
+<script>
+(function(){if(!sessionStorage.getItem('dd_auth')){window.location.href='login.html';}})();
+</script>
+<style>
+:root {
+  --bg: #0d0f14; --surface: #161822; --surface2: #1c1f2b; --border: #252836;
+  --text: #e8eaf0; --text-dim: #7a7e90; --text-bright: #ffffff;
+  --accent: #7c6cf0; --accent2: #a78bfa;
+  --green: #34d399; --yellow: #fbbf24; --red: #f87171; --blue: #60a5fa; --purple: #c084fc;
+  --radius: 16px; --radius-sm: 8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.5;font-size:16px;
+  height:100%;overflow:hidden;display:flex;flex-direction:column;
+}
+a{color:var(--accent);text-decoration:none}
+
+/* ─── HEADER ─── */
+header{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:8px 16px;flex-shrink:0;
+}
+.header-row{display:flex;justify-content:space-between;align-items:center}
+header h1{font-size:1.15rem;font-weight:700;color:var(--text-bright);letter-spacing:-0.01em}
+.sync-timer{font-size:0.7rem;color:var(--text-dim);font-weight:500}
+nav{display:flex;gap:8px;margin-top:4px}
+nav a{
+  font-size:0.8rem;font-weight:600;color:var(--text-dim);
+  padding:6px 12px;border-radius:20px;transition:all 0.15s;
+}
+nav a:hover{color:var(--text)}
+nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
+
+/* ─── PROGRESS BAR ─── */
+.progress-section{flex-shrink:0;padding:12px 16px 6px}
+.progress-bar-wrap{
+  height:6px;background:var(--border);border-radius:3px;overflow:hidden;
+}
+.progress-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.4s ease}
+.progress-text{
+  display:flex;justify-content:space-between;
+  font-size:0.75rem;color:var(--text-dim);margin-top:6px;font-weight:500;
+}
+.progress-text strong{color:var(--text);font-weight:700}
+
+/* ─── CARD STAGE ─── */
+.card-stage{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:12px 16px 0;position:relative;overflow:hidden;
+  min-height:0; /* flex fix */
+}
+
+/* ─── SWIPE INDICATORS ─── */
+.swipe-indicator{
+  position:absolute;top:50%;transform:translateY(-50%);
+  padding:12px 24px;border-radius:12px;font-size:1.4rem;
+  font-weight:800;letter-spacing:0.06em;z-index:10;
+  opacity:0;transition:opacity 0.15s;pointer-events:none;
+  text-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+.swipe-indicator.right{right:24px;color:var(--green);border:4px solid var(--green);background:rgba(13,15,20,0.7)}
+.swipe-indicator.left{left:24px;color:var(--red);border:4px solid var(--red);background:rgba(13,15,20,0.7)}
+.swipe-indicator.up{
+  top:24px;left:50%;transform:translateX(-50%);color:var(--purple);
+  border:4px solid var(--purple);background:rgba(13,15,20,0.7)
+}
+
+/* ─── THE CARD ─── */
+.card{
+  width:100%;max-width:520px;height:100%;max-height:75vh;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  display:flex;flex-direction:column;
+  position:relative;touch-action:none;user-select:none;
+  transition:box-shadow 0.2s;
+  box-shadow:0 8px 40px rgba(0,0,0,0.3);
+}
+.card.dragging{transition:none;box-shadow:0 12px 60px rgba(0,0,0,0.4)}
+.card.flying{transition:transform 0.35s ease-out,opacity 0.3s}
+.card.hidden{opacity:0;pointer-events:none;transition:none}
+.card.paused{transition:none!important}
+
+/* ─── CARD HEADER (always visible) ─── */
+.card-header{
+  flex-shrink:0;padding:20px 20px 12px;
+}
+.card-tags{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tag{
+  display:inline-flex;align-items:center;padding:4px 10px;border-radius:6px;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.02em;
+}
+.tag-fit{background:rgba(124,108,240,0.15);color:var(--accent);font-size:0.85rem;padding:4px 12px}
+.tag-strong{background:rgba(52,211,153,0.12);color:var(--green)}
+.tag-solid{background:rgba(96,165,250,0.12);color:var(--blue)}
+.tag-thin{background:rgba(251,191,36,0.12);color:var(--yellow)}
+.tag-none{background:rgba(248,113,113,0.12);color:var(--red)}
+.tag-source{background:rgba(122,126,144,0.1);color:var(--text-dim)}
+
+.card-title{
+  font-size:1.2rem;font-weight:700;color:var(--text-bright);
+  line-height:1.3;letter-spacing:-0.01em;
+}
+
+/* ─── CARD BODY (scrollable) ─── */
+.card-body{
+  flex:1;overflow-y:auto;padding:0 20px 12px;
+  -webkit-overflow-scrolling:touch;
+}
+.card-body::-webkit-scrollbar{width:3px}
+.card-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.section{margin-top:14px}
+.section-label{
+  font-size:0.65rem;font-weight:700;color:var(--text-dim);
+  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;
+}
+.section-text{font-size:0.85rem;line-height:1.55;color:var(--text)}
+.catch{
+  background:rgba(248,113,113,0.06);border-left:3px solid var(--red);
+  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:0.85rem;line-height:1.4;
+}
+.recommendation{
+  background:rgba(124,108,240,0.06);border-left:3px solid var(--accent);
+  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:0.85rem;font-style:italic;line-height:1.4;
+}
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.fit-item{display:flex;align-items:center;gap:8px;font-size:0.7rem;color:var(--text-dim)}
+.fit-bar{height:4px;border-radius:2px;background:var(--border);flex:1;overflow:hidden}
+.fit-bar>div{height:100%;border-radius:2px;background:var(--accent)}
+.fit-score{font-weight:700;color:var(--text);min-width:20px;text-align:right}
+
+/* ─── SWIPE HINT (bottom of card) ─── */
+.swipe-hint{
+  flex-shrink:0;text-align:center;padding:10px 20px 14px;
+  font-size:0.7rem;color:var(--text-dim);font-weight:500;
+  border-top:1px solid var(--border);letter-spacing:0.02em;
+}
+.swipe-hint span{margin:0 10px}
+.swipe-hint .hint-red{color:var(--red)}
+.swipe-hint .hint-green{color:var(--green)}
+.swipe-hint .hint-purple{color:var(--purple)}
+
+/* ─── DESKTOP BUTTONS ─── */
+.actions{
+  flex-shrink:0;display:flex;gap:10px;padding:12px 16px 20px;
+  max-width:520px;width:100%;margin:0 auto;justify-content:center;
+}
+.action-btn{
+  flex:1;max-width:140px;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:14px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);
+  background:var(--surface2);color:var(--text);font-size:0.8rem;font-weight:600;
+  cursor:pointer;transition:all 0.15s;min-height:52px;
+}
+.action-btn:hover{border-color:var(--accent)}
+.action-btn.drop{color:var(--red)}.action-btn.drop:hover{border-color:var(--red);background:rgba(248,113,113,0.08)}
+.action-btn.park{color:var(--purple)}.action-btn.park:hover{border-color:var(--purple);background:rgba(192,132,252,0.08)}
+.action-btn.pursue{color:var(--green)}.action-btn.pursue:hover{border-color:var(--green);background:rgba(52,211,153,0.08)}
+.action-btn .key{font-size:0.6rem;opacity:0.5;font-weight:400}
+
+/* ─── DROP REASON MODAL ─── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+  z-index:200;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.show{display:flex}
+.modal{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;max-width:400px;width:100%;
+}
+.modal h3{font-size:1rem;font-weight:600;color:var(--text-bright);margin-bottom:4px}
+.modal p{font-size:0.8rem;color:var(--text-dim);margin-bottom:12px}
+.modal textarea{
+  width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);
+  padding:12px;border-radius:var(--radius-sm);font-size:0.85rem;
+  resize:vertical;min-height:70px;font-family:inherit;line-height:1.4;
+}
+.modal textarea:focus{outline:none;border-color:var(--red)}
+.modal-actions{display:flex;gap:8px;margin-top:12px}
+.modal-actions button{
+  flex:1;padding:12px;border-radius:var(--radius-sm);font-size:0.85rem;
+  font-weight:600;cursor:pointer;transition:all 0.15s;
+}
+.btn-confirm{background:var(--red);color:#fff;border:none}.btn-confirm:hover{opacity:0.9}
+.btn-skip{background:var(--surface2);color:var(--text-dim);border:1px solid var(--border)}.btn-skip:hover{border-color:var(--text-dim)}
+.btn-cancel{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-cancel:hover{border-color:var(--text-dim)}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--surface2);color:var(--text-bright);border:1px solid var(--border);
+  padding:14px 20px;border-radius:var(--radius);font-size:0.85rem;font-weight:500;
+  z-index:1000;display:none;white-space:nowrap;max-width:90vw;text-align:center;
+  box-shadow:0 8px 32px rgba(0,0,0,0.4);
+}
+.toast.show{display:block;animation:toastIn 0.25s ease-out}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ─── EMPTY / DONE STATE ─── */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 20px;text-align:center;
+}
+.empty-state .icon{font-size:3rem;margin-bottom:12px}
+.empty-state h2{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.empty-state p{font-size:0.85rem;color:var(--text-dim);max-width:280px;line-height:1.5}
+
+/* ─── RESPONSIVE ─── */
+@media(min-width:768px){
+  .card-header{padding:28px 28px 16px}
+  .card-body{padding:0 28px 16px}
+  .card-title{font-size:1.4rem}
+  .swipe-hint{padding:12px 28px 16px}
+  .actions{padding:16px 16px 24px}
+}
+@media(max-height:640px){
+  .card{max-height:85vh}
+  .card-header{padding:14px 16px 8px}
+  .card-body{padding:0 16px 8px}
+  .swipe-hint{padding:6px 16px 10px;font-size:0.65rem}
+  .card-title{font-size:1rem}
+  .actions{padding:8px 16px 12px}
+  .action-btn{padding:10px 8px;min-height:44px;font-size:0.75rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <h1>🐉 Dragon's Den</h1>
+    <span class="sync-timer" id="syncTimer"></span>
+  </div>
+  <nav>
+    <a href="index.html">Review</a>
+    <a href="kanban.html">Kanban</a>
+    <a href="swipe.html" class="active">Swipe</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </nav>
+</header>
+
+<div class="progress-section">
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-text">
+    <span id="progressLeft">0 remaining</span>
+    <span id="progressTotal">0 of 0 reviewed</span>
+  </div>
+</div>
+
+<div class="card-stage" id="cardStage">
+  <div class="swipe-indicator left" id="indLeft">DROP</div>
+  <div class="swipe-indicator right" id="indRight">PURSUE</div>
+  <div class="swipe-indicator up" id="indUp">PARK</div>
+  <div id="cardContainer"></div>
+</div>
+
+<div class="actions" id="actions">
+  <button class="action-btn drop" onclick="makeDecision('Dropped')" id="btnDrop">← Drop <span class="key">⌨←</span></button>
+  <button class="action-btn park" onclick="makeDecision('Parked')" id="btnPark">↑ Park <span class="key">⌨↑</span></button>
+  <button class="action-btn pursue" onclick="makeDecision('Validating')" id="btnPursue">Pursue → <span class="key">⌨→</span></button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Drop Reason Modal -->
+<div class="modal-overlay" id="dropModal">
+  <div class="modal">
+    <h3>Why drop this?</h3>
+    <p>Brief reason helps me learn what to avoid next time</p>
+    <textarea id="dropReason" placeholder="e.g. Too complex, needs trust, not my space..." rows="2"></textarea>
+    <div class="modal-actions">
+      <button class="btn-skip" onclick="confirmDrop('')">Quick Drop</button>
+      <button class="btn-confirm" onclick="confirmDrop(document.getElementById('dropReason').value)">Drop & Log Reason</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── STATE ───
+let allCards = [];
+let remainingCards = [];
+let doneCount = 0;
+let totalCount = 0;
+let currentSwipeDirection = null;
+let isAnimating = false;
+let pendingDropId = null;
+let API_URL = 'http://localhost:5000';
+
+// Load config.json for tunnel URL
+fetch('config.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(cfg => { if (cfg.api_url) API_URL = cfg.api_url; })
+  .catch(() => {});
+
+// ─── DATA LOADING ───
+async function loadData() {
+  try {
+    const resp = await fetch('data.json?v=2&t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    allCards = (data.opportunities || []).filter(c => c.status === 'New');
+    // Sort by fit score descending — best first while fresh
+    allCards.sort((a,b) => (b.fit_score||0) - (a.fit_score||0));
+    remainingCards = [...allCards];
+    doneCount = allCards.filter(c => c.reviewed).length;
+    totalCount = allCards.length;
+    renderNextCard();
+    updateProgress();
+    updateSyncTimer(data.meta?.last_maintenance);
+  } catch(e) {
+    document.getElementById('cardContainer').innerHTML = `
+      <div class="empty-state">
+        <div class="icon">⚠️</div>
+        <h2>Couldn't load opportunities</h2>
+        <p>${e.message}</p>
+        <button onclick="loadData()" style="margin-top:16px;padding:12px 24px;border-radius:8px;border:1px solid var(--accent);background:rgba(124,108,240,0.1);color:var(--accent);font-size:0.875rem;font-weight:600;cursor:pointer">Retry</button>
+      </div>`;
+  }
+}
+
+// ─── RENDER ───
+function renderNextCard() {
+  const container = document.getElementById('cardContainer');
+  const actions = document.getElementById('actions');
+
+  if (remainingCards.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">✅</div>
+        <h2>All caught up!</h2>
+        <p>You've reviewed all ${totalCount} new opportunities. Time for a brew.</p>
+        <a href="kanban.html" style="margin-top:16px;padding:12px 24px;border-radius:8px;border:1px solid var(--accent);background:rgba(124,108,240,0.1);color:var(--accent);font-size:0.875rem;font-weight:600;display:inline-block">View Board →</a>
+      </div>`;
+    actions.style.display = 'none';
+    return;
+  }
+  actions.style.display = 'flex';
+
+  const c = remainingCards[0];
+  const fb = c.fit_breakdown || {};
+  const fitItems = Object.entries(fb).map(([k,v]) => {
+    const label = k.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+    const pct = (v/10)*100;
+    return `<div class="fit-item"><span>${label}</span><div class="fit-bar"><div style="width:${pct}%"></div></div><span class="fit-score">${v}</span></div>`;
+  }).join('');
+
+  const ev = c.evidence || 'none';
+  const src = c.source_stream === 'pain-point' ? '🩹 Pain' : '🌏 Overseas';
+
+  container.innerHTML = `
+    <div class="card" id="swipeCard">
+      <div class="card-header">
+        <div class="card-tags">
+          <span class="tag tag-fit">${c.fit_score}</span>
+          <span class="tag tag-${ev}">${ev}</span>
+          <span class="tag tag-source">${src}</span>
+        </div>
+        <div class="card-title">${c.title}</div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-label">Pain Point</div>
+          <div class="section-text">${c.pain_point || '—'}</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Target Audience</div>
+          <div class="section-text">${c.target_audience || '—'}</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Solution</div>
+          <div class="section-text">${c.proposed_solution || '—'}</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Roles</div>
+          <div class="section-text"><strong>Ringo:</strong> ${c.ringo_role || '—'}<br><strong>Neil:</strong> ${c.neil_role || '—'}</div>
+        </div>
+        <div class="section">
+          <div class="section-label">The Catch ⚠️</div>
+          <div class="catch">${c.the_catch || '—'}</div>
+        </div>
+        <div class="section">
+          <div class="section-label">The Ask 🚀</div>
+          <div class="recommendation">${c.the_ask || '—'}</div>
+        </div>
+        <div class="section">
+          <div class="section-label">Ringo's Take</div>
+          <div class="recommendation">${c.recommendation || '—'}</div>
+        </div>
+        <div class="section" style="padding-bottom:8px">
+          <div class="section-label">Fit Breakdown</div>
+          <div class="fit-grid">${fitItems}</div>
+        </div>
+      </div>
+      <div class="swipe-hint">
+        <span class="hint-red">← Drop</span>
+        <span class="hint-purple">↑ Park</span>
+        <span class="hint-green">Pursue →</span>
+      </div>
+    </div>
+  `;
+
+  // Bind touch/mouse events to the fresh card
+  const card = document.getElementById('swipeCard');
+  bindDrag(card);
+}
+
+// ─── DRAG / SWIPE ───
+function bindDrag(el) {
+  let startX=0, startY=0, curX=0, curY=0;
+  let isDragging=false;
+  const THRESHOLD = 80; // px to trigger
+  const MAX_TILT = 15; // deg
+
+  const indLeft = document.getElementById('indLeft');
+  const indRight = document.getElementById('indRight');
+  const indUp = document.getElementById('indUp');
+
+  function onStart(x,y) {
+    if (isAnimating) return;
+    // Don't start drag if scrolling within the card body
+    const target = event.target;
+    if (target.closest('.card-body') && !target.closest('.swipe-hint')) {
+      // Allow card-body scroll, still allow drag from header/hint area
+      const body = target.closest('.card-body');
+      if (body && (body.scrollTop > 0 || body.scrollHeight > body.clientHeight)) {
+        return;
+      }
+    }
+    isDragging = true;
+    startX = x; startY = y;
+    curX = 0; curY = 0;
+    el.classList.add('dragging');
+  }
+
+  function onMove(x,y) {
+    if (!isDragging) return;
+    const dx = x - startX;
+    const dy = y - startY;
+    curX = dx; curY = dy;
+
+    const tilt = Math.max(-MAX_TILT, Math.min(MAX_TILT, dx * 0.04));
+    el.style.transform = `translate(${dx}px, ${dy}px) rotate(${tilt}deg)`;
+
+    // Show/hide swipe indicators
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+    const opacity = Math.min(1, Math.max(0, (Math.max(absX,absY) - 20) / 60));
+
+    indLeft.style.opacity = '0';
+    indRight.style.opacity = '0';
+    indUp.style.opacity = '0';
+
+    if (absX > absY && dx > 0) {
+      indRight.style.opacity = opacity;
+      currentSwipeDirection = 'right';
+    } else if (absX > absY && dx < 0) {
+      indLeft.style.opacity = opacity;
+      currentSwipeDirection = 'left';
+    } else if (absY > absX && dy < 0) {
+      indUp.style.opacity = opacity;
+      currentSwipeDirection = 'up';
+    } else {
+      currentSwipeDirection = null;
+    }
+  }
+
+  function onEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    el.classList.remove('dragging');
+    indLeft.style.opacity = '0';
+    indRight.style.opacity = '0';
+    indUp.style.opacity = '0';
+
+    const dx = curX, dy = curY;
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+
+    if (absX > THRESHOLD && absX > absY && dx < 0) {
+      // LEFT — need reason first
+      flyCard(dir='left');
+    } else if (absX > THRESHOLD && absX > absY && dx > 0) {
+      // RIGHT — Validating
+      flyCard(dir='right');
+    } else if (absY > THRESHOLD && dy < 0) {
+      // UP — Parked
+      flyCard(dir='up');
+    } else {
+      // Snap back
+      el.style.transition = 'transform 0.25s ease-out';
+      el.style.transform = '';
+      currentSwipeDirection = null;
+      setTimeout(() => { el.style.transition = ''; }, 300);
+    }
+  }
+
+  // Touch
+  el.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    onStart(t.clientX, t.clientY);
+  }, {passive: true});
+  el.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    onMove(t.clientX, t.clientY);
+  }, {passive: true});
+  el.addEventListener('touchend', onEnd, {passive: true});
+
+  // Mouse
+  el.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    onStart(e.clientX, e.clientY);
+  });
+  document.addEventListener('mousemove', e => {
+    onMove(e.clientX, e.clientY);
+  });
+  document.addEventListener('mouseup', onEnd);
+}
+
+// ─── FLY CARD OFF ───
+function flyCard(dir) {
+  if (isAnimating) return;
+  isAnimating = true;
+  const card = document.getElementById('swipeCard');
+  if (!card) return;
+
+  let translateX = 0, translateY = 0, rotate = 0;
+  let status = '';
+
+  if (dir === 'left') {
+    translateX = -600;
+    rotate = -20;
+    status = 'Dropped';
+  } else if (dir === 'right') {
+    translateX = 600;
+    rotate = 20;
+    status = 'Validating';
+  } else if (dir === 'up') {
+    translateY = -600;
+    status = 'Parked';
+  }
+
+  card.classList.add('flying');
+  card.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotate}deg)`;
+  card.style.opacity = '0';
+
+  if (status === 'Dropped') {
+    // Show drop reason modal before saving
+    pendingDropId = remainingCards[0]?.id;
+    setTimeout(() => {
+      card.classList.add('hidden');
+      document.getElementById('dropModal').classList.add('show');
+      document.getElementById('dropReason').value = '';
+      document.getElementById('dropReason').focus();
+      isAnimating = false;
+    }, 400);
+  } else {
+    // Save immediately
+    const c = remainingCards[0];
+    if (c) {
+      saveDecision(c.id, status);
+      showToast(status === 'Validating' ? '→ ' + c.title.substring(0,40) + ' — Pursuing' : '↑ ' + c.title.substring(0,40) + ' — Parked');
+    }
+    advanceCard();
+  }
+
+  currentSwipeDirection = null;
+}
+
+function confirmDrop(reason) {
+  document.getElementById('dropModal').classList.remove('show');
+  const c = remainingCards[0];
+  if (c && pendingDropId === c.id) {
+    saveDecision(c.id, 'Dropped', reason || 'Not for me');
+    showToast('✗ ' + c.title.substring(0,40) + ' — Dropped');
+  }
+  pendingDropId = null;
+  advanceCard();
+}
+
+function advanceCard() {
+  remainingCards.shift();
+  doneCount++;
+  updateProgress();
+  setTimeout(() => {
+    renderNextCard();
+    isAnimating = false;
+  }, 100);
+}
+
+// ─── SAVE DECISION ───
+async function saveDecision(id, status, dropReason) {
+  const body = {id, status, reviewed: true};
+  if (dropReason) body.drop_reason = dropReason;
+
+  // Save to localStorage as override
+  try {
+    const saved = localStorage.getItem('dd_overrides');
+    const overrides = saved ? JSON.parse(saved) : {};
+    if (!overrides[id]) overrides[id] = {};
+    overrides[id].status = status;
+    overrides[id].reviewed = true;
+    if (dropReason) overrides[id].drop_reason = dropReason;
+    localStorage.setItem('dd_overrides', JSON.stringify(overrides));
+  } catch(e) {}
+
+  // POST to API server
+  try {
+    await fetch(API_URL + '/api/update', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+  } catch(e) {
+    console.warn('API server not running — saved locally');
+  }
+}
+
+// ─── DESKTOP BUTTONS ───
+function makeDecision(status) {
+  if (isAnimating || remainingCards.length === 0) return;
+  const c = remainingCards[0];
+  if (!c) return;
+
+  if (status === 'Dropped') {
+    flyCard('left');
+  } else if (status === 'Validating') {
+    flyCard('right');
+  } else if (status === 'Parked') {
+    flyCard('up');
+  }
+}
+
+// ─── KEYBOARD SHORTCUTS ───
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+  if (document.getElementById('dropModal').classList.contains('show')) {
+    if (e.key === 'Enter') {
+      confirmDrop(document.getElementById('dropReason').value);
+    }
+    return;
+  }
+  if (e.key === 'ArrowLeft') makeDecision('Dropped');
+  else if (e.key === 'ArrowRight') makeDecision('Validating');
+  else if (e.key === 'ArrowUp') makeDecision('Parked');
+});
+
+// ─── PROGRESS ───
+function updateProgress() {
+  const total = totalCount;
+  const done = doneCount;
+  const remaining = total - done;
+  const pct = total > 0 ? (done / total) * 100 : 0;
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLeft').textContent = remaining + ' remaining';
+  document.getElementById('progressTotal').textContent = done + ' of ' + total + ' reviewed';
+}
+
+function updateSyncTimer(lastSync) {
+  if (!lastSync) return;
+  const d = document.getElementById('syncTimer');
+  const then = new Date(lastSync);
+  const now = new Date();
+  const mins = Math.floor((now - then) / 60000);
+  if (mins < 60) d.textContent = 'Updated ' + mins + 'm ago';
+  else if (mins < 1440) d.textContent = 'Updated ' + Math.floor(mins/60) + 'h ago';
+  else d.textContent = 'Updated ' + Math.floor(mins/1440) + 'd ago';
+}
+
+function logout() {
+  sessionStorage.removeItem('dd_auth');
+  window.location.href = 'login.html';
+}
+
+// ─── BOOT ───
+loadData();
+</script>
+</body>
+</html>

@@ -28,7 +28,7 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pad
 .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 header h1 { font-size: 1.15rem; font-weight: 700; color: var(--text-bright); letter-spacing: -0.01em; }
 header nav { display: flex; gap: 12px; align-items: center; }
-header nav a { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); padding: 6px 12px; border-radius: 20px; }
+header nav a { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); padding: 6px 12px; border-radius: 20px; white-space: nowrap; }
 header nav a:hover, header nav a.active { color: var(--accent); }
 header nav a.active { background: rgba(124,108,240,0.12); }
 .sync-timer { font-size: 0.7rem; color: var(--text-dim); font-weight: 500; }
@@ -123,6 +123,7 @@ header nav a.active { background: rgba(124,108,240,0.12); }
   </div>
   <nav>
     <a href="index.html">Review</a>
+    <a href="swipe.html">Swipe</a>
     <a href="kanban.html" class="active">Kanban</a>
     <a href="#" onclick="logout()">Logout</a>
   </nav>
