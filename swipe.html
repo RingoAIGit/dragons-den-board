@@ -42,54 +42,38 @@ nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
 
 /* ─── PROGRESS BAR ─── */
 .progress-section{flex-shrink:0;padding:12px 16px 6px}
-.progress-bar-wrap{
-  height:6px;background:var(--border);border-radius:3px;overflow:hidden;
-}
+.progress-bar-wrap{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
 .progress-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.4s ease}
-.progress-text{
-  display:flex;justify-content:space-between;
-  font-size:0.75rem;color:var(--text-dim);margin-top:6px;font-weight:500;
-}
+.progress-text{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text-dim);margin-top:6px;font-weight:500}
 .progress-text strong{color:var(--text);font-weight:700}
 
 /* ─── CARD STAGE ─── */
-.card-stage{
-  flex:1;display:flex;align-items:center;justify-content:center;
-  padding:12px 16px 0;position:relative;overflow:hidden;
-  min-height:0; /* flex fix */
-}
+.card-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:12px 16px 0;position:relative;overflow:hidden;min-height:0}
 
 /* ─── SWIPE INDICATORS ─── */
 .swipe-indicator{
-  position:absolute;top:50%;transform:translateY(-50%);
+  position:absolute;z-index:10;pointer-events:none;
   padding:12px 24px;border-radius:12px;font-size:1.4rem;
-  font-weight:800;letter-spacing:0.06em;z-index:10;
-  opacity:0;transition:opacity 0.15s;pointer-events:none;
+  font-weight:800;letter-spacing:0.06em;opacity:0;
   text-shadow:0 2px 8px rgba(0,0,0,0.5);
+  transition:opacity 0.08s ease;
 }
-.swipe-indicator.right{right:24px;color:var(--green);border:4px solid var(--green);background:rgba(13,15,20,0.7)}
-.swipe-indicator.left{left:24px;color:var(--red);border:4px solid var(--red);background:rgba(13,15,20,0.7)}
-.swipe-indicator.up{
-  top:24px;left:50%;transform:translateX(-50%);color:var(--purple);
-  border:4px solid var(--purple);background:rgba(13,15,20,0.7)
-}
+.swipe-indicator.right{right:24px;top:50%;transform:translateY(-50%);color:var(--green);border:4px solid var(--green);background:rgba(13,15,20,0.7)}
+.swipe-indicator.left{left:24px;top:50%;transform:translateY(-50%);color:var(--red);border:4px solid var(--red);background:rgba(13,15,20,0.7)}
+.swipe-indicator.up{top:24px;left:50%;transform:translateX(-50%);color:var(--purple);border:4px solid var(--purple);background:rgba(13,15,20,0.7)}
 
 /* ─── THE CARD ─── */
 .card{
   width:100%;max-width:520px;height:100%;max-height:75vh;
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--radius);overflow:hidden;
-  display:flex;flex-direction:column;
-  position:relative;touch-action:none;user-select:none;
-  transition:box-shadow 0.2s;
-  box-shadow:0 8px 40px rgba(0,0,0,0.3);
+  display:flex;flex-direction:column;position:relative;
+  user-select:none;box-shadow:0 8px 40px rgba(0,0,0,0.3);
+  will-change:transform;
 }
-.card.dragging{transition:none;box-shadow:0 12px 60px rgba(0,0,0,0.4)}
-.card.flying{transition:transform 0.35s ease-out,opacity 0.3s}
-.card.hidden{opacity:0;pointer-events:none;transition:none}
-.card.paused{transition:none!important}
+.card.dragging{box-shadow:0 12px 60px rgba(0,0,0,0.4)}
 
-/* ─── CARD HEADER (always visible) ─── */
+/* ─── CARD HEADER (always visible, swipe zone) ─── */
 .card-header{
   flex-shrink:0;padding:20px 20px 12px;
 }
@@ -104,11 +88,7 @@ nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
 .tag-thin{background:rgba(251,191,36,0.12);color:var(--yellow)}
 .tag-none{background:rgba(248,113,113,0.12);color:var(--red)}
 .tag-source{background:rgba(122,126,144,0.1);color:var(--text-dim)}
-
-.card-title{
-  font-size:1.2rem;font-weight:700;color:var(--text-bright);
-  line-height:1.3;letter-spacing:-0.01em;
-}
+.card-title{font-size:1.2rem;font-weight:700;color:var(--text-bright);line-height:1.3;letter-spacing:-0.01em}
 
 /* ─── CARD BODY (scrollable) ─── */
 .card-body{
@@ -119,28 +99,17 @@ nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
 .card-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
 .section{margin-top:14px}
-.section-label{
-  font-size:0.65rem;font-weight:700;color:var(--text-dim);
-  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;
-}
+.section-label{font-size:0.65rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
 .section-text{font-size:0.85rem;line-height:1.55;color:var(--text)}
-.catch{
-  background:rgba(248,113,113,0.06);border-left:3px solid var(--red);
-  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
-  font-size:0.85rem;line-height:1.4;
-}
-.recommendation{
-  background:rgba(124,108,240,0.06);border-left:3px solid var(--accent);
-  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
-  font-size:0.85rem;font-style:italic;line-height:1.4;
-}
+.catch{background:rgba(248,113,113,0.06);border-left:3px solid var(--red);padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:0.85rem;line-height:1.4}
+.recommendation{background:rgba(124,108,240,0.06);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:0.85rem;font-style:italic;line-height:1.4}
 .fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
 .fit-item{display:flex;align-items:center;gap:8px;font-size:0.7rem;color:var(--text-dim)}
 .fit-bar{height:4px;border-radius:2px;background:var(--border);flex:1;overflow:hidden}
 .fit-bar>div{height:100%;border-radius:2px;background:var(--accent)}
 .fit-score{font-weight:700;color:var(--text);min-width:20px;text-align:right}
 
-/* ─── SWIPE HINT (bottom of card) ─── */
+/* ─── SWIPE HINT (bottom of card, swipe zone) ─── */
 .swipe-hint{
   flex-shrink:0;text-align:center;padding:10px 20px 14px;
   font-size:0.7rem;color:var(--text-dim);font-weight:500;
@@ -152,10 +121,7 @@ nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
 .swipe-hint .hint-purple{color:var(--purple)}
 
 /* ─── DESKTOP BUTTONS ─── */
-.actions{
-  flex-shrink:0;display:flex;gap:10px;padding:12px 16px 20px;
-  max-width:520px;width:100%;margin:0 auto;justify-content:center;
-}
+.actions{flex-shrink:0;display:flex;gap:10px;padding:12px 16px 20px;max-width:520px;width:100%;margin:0 auto;justify-content:center}
 .action-btn{
   flex:1;max-width:140px;display:flex;align-items:center;justify-content:center;gap:6px;
   padding:14px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);
@@ -169,31 +135,17 @@ nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
 .action-btn .key{font-size:0.6rem;opacity:0.5;font-weight:400}
 
 /* ─── DROP REASON MODAL ─── */
-.modal-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-  z-index:200;align-items:center;justify-content:center;padding:20px;
-}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex}
-.modal{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:24px;max-width:400px;width:100%;
-}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:400px;width:100%}
 .modal h3{font-size:1rem;font-weight:600;color:var(--text-bright);margin-bottom:4px}
 .modal p{font-size:0.8rem;color:var(--text-dim);margin-bottom:12px}
-.modal textarea{
-  width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);
-  padding:12px;border-radius:var(--radius-sm);font-size:0.85rem;
-  resize:vertical;min-height:70px;font-family:inherit;line-height:1.4;
-}
+.modal textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px;border-radius:var(--radius-sm);font-size:0.85rem;resize:vertical;min-height:70px;font-family:inherit;line-height:1.4}
 .modal textarea:focus{outline:none;border-color:var(--red)}
 .modal-actions{display:flex;gap:8px;margin-top:12px}
-.modal-actions button{
-  flex:1;padding:12px;border-radius:var(--radius-sm);font-size:0.85rem;
-  font-weight:600;cursor:pointer;transition:all 0.15s;
-}
+.modal-actions button{flex:1;padding:12px;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.15s}
 .btn-confirm{background:var(--red);color:#fff;border:none}.btn-confirm:hover{opacity:0.9}
 .btn-skip{background:var(--surface2);color:var(--text-dim);border:1px solid var(--border)}.btn-skip:hover{border-color:var(--text-dim)}
-.btn-cancel{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-cancel:hover{border-color:var(--text-dim)}
 
 /* ─── TOAST ─── */
 .toast{
@@ -207,10 +159,7 @@ nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 /* ─── EMPTY / DONE STATE ─── */
-.empty-state{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 20px;text-align:center;
-}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center}
 .empty-state .icon{font-size:3rem;margin-bottom:12px}
 .empty-state h2{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:6px}
 .empty-state p{font-size:0.85rem;color:var(--text-dim);max-width:280px;line-height:1.5}
@@ -282,7 +231,7 @@ nav a.active{color:var(--accent);background:rgba(124,108,240,0.12)}
     <textarea id="dropReason" placeholder="e.g. Too complex, needs trust, not my space..." rows="2"></textarea>
     <div class="modal-actions">
       <button class="btn-skip" onclick="confirmDrop('')">Quick Drop</button>
-      <button class="btn-confirm" onclick="confirmDrop(document.getElementById('dropReason').value)">Drop & Log Reason</button>
+      <button class="btn-confirm" onclick="handleDropConfirm()">Drop & Log Reason</button>
     </div>
   </div>
 </div>
@@ -293,9 +242,9 @@ let allCards = [];
 let remainingCards = [];
 let doneCount = 0;
 let totalCount = 0;
-let currentSwipeDirection = null;
 let isAnimating = false;
 let pendingDropId = null;
+let pendingDropTitle = '';
 let API_URL = 'http://localhost:5001';
 
 // Load config.json for tunnel URL
@@ -311,7 +260,6 @@ async function loadData() {
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     allCards = (data.opportunities || []).filter(c => c.status === 'New');
-    // Sort by fit score descending — best first while fresh
     allCards.sort((a,b) => (b.fit_score||0) - (a.fit_score||0));
     remainingCards = [...allCards];
     doneCount = allCards.filter(c => c.reviewed).length;
@@ -325,7 +273,7 @@ async function loadData() {
         <div class="icon">⚠️</div>
         <h2>Couldn't load opportunities</h2>
         <p>${e.message}</p>
-        <button onclick="loadData()" style="margin-top:16px;padding:12px 24px;border-radius:8px;border:1px solid var(--accent);background:rgba(124,108,240,0.1);color:var(--accent);font-size:0.875rem;font-weight:600;cursor:pointer">Retry</button>
+        <button onclick="location.reload()" style="margin-top:16px;padding:12px 24px;border-radius:8px;border:1px solid var(--accent);background:rgba(124,108,240,0.1);color:var(--accent);font-size:0.875rem;font-weight:600;cursor:pointer">Retry</button>
       </div>`;
   }
 }
@@ -404,207 +352,287 @@ function renderNextCard() {
         </div>
       </div>
       <div class="swipe-hint">
-        <span class="hint-red">← Drop</span>
+        <span class="hint-red">← Swipe to Drop</span>
         <span class="hint-purple">↑ Park</span>
         <span class="hint-green">Pursue →</span>
       </div>
     </div>
   `;
 
-  // Bind touch/mouse events to the fresh card
-  const card = document.getElementById('swipeCard');
-  bindDrag(card);
+  bindDrag(document.getElementById('swipeCard'));
 }
 
 // ─── DRAG / SWIPE ───
+// Dynamic direction detection: if the user moves horizontally, it's a swipe (prevent scroll).
+// If mostly vertical, let the browser scroll the card-body naturally.
 function bindDrag(el) {
   let startX=0, startY=0, curX=0, curY=0;
   let isDragging=false;
-  const THRESHOLD = 80; // px to trigger
-  const MAX_TILT = 15; // deg
+  let axisLocked=false; // 'h' or 'v' once we determine direction
+  let lastX=0, lastY=0;
+  const SWIPE_THRESHOLD = 80;
+  const AXIS_LOCK_THRESHOLD = 12; // px before locking axis
+  const MAX_TILT = 15;
 
   const indLeft = document.getElementById('indLeft');
   const indRight = document.getElementById('indRight');
   const indUp = document.getElementById('indUp');
 
-  function onStart(x,y) {
+  function resetIndicators() {
+    indLeft.style.opacity = '0';
+    indRight.style.opacity = '0';
+    indUp.style.opacity = '0';
+  }
+
+  function getCard(el) {
+    return el.closest ? el.closest('.card') : el;
+  }
+
+  // Touch
+  el.addEventListener('touchstart', function(e) {
     if (isAnimating) return;
-    // Don't start drag if scrolling within the card body
-    const target = event.target;
-    if (target.closest('.card-body') && !target.closest('.swipe-hint')) {
-      // Allow card-body scroll, still allow drag from header/hint area
-      const body = target.closest('.card-body');
-      if (body && (body.scrollTop > 0 || body.scrollHeight > body.clientHeight)) {
+    const t = e.touches[0];
+    startX = t.clientX; startY = t.clientY;
+    lastX = startX; lastY = startY;
+    curX = 0; curY = 0;
+    axisLocked = false;
+    isDragging = true;
+    el.classList.add('dragging');
+  }, {passive: true});
+
+  el.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    const t = e.touches[0];
+    const dx = t.clientX - startX;
+    const dy = t.clientY - startY;
+    curX = dx; curY = dy;
+
+    // Determine axis lock after minimum movement
+    if (!axisLocked) {
+      const moveX = Math.abs(t.clientX - lastX);
+      const moveY = Math.abs(t.clientY - lastY);
+      const totalX = Math.abs(dx);
+      const totalY = Math.abs(dy);
+
+      if (totalX + totalY > AXIS_LOCK_THRESHOLD) {
+        if (totalX > totalY * 1.5) {
+          axisLocked = 'h';
+          // prevent default to stop vertical scrolling
+          e.preventDefault();
+        } else if (totalY > totalX * 1.5) {
+          axisLocked = 'v';
+          // Let vertical scrolling happen naturally
+        } else {
+          // Too diagonal, keep waiting
+          lastX = t.clientX;
+          lastY = t.clientY;
+          return;
+        }
+      } else {
+        lastX = t.clientX;
+        lastY = t.clientY;
         return;
       }
     }
-    isDragging = true;
-    startX = x; startY = y;
-    curX = 0; curY = 0;
-    el.classList.add('dragging');
-  }
 
-  function onMove(x,y) {
+    if (axisLocked === 'v') {
+      // Let the browser handle vertical scrolling
+      return;
+    }
+
+    // Horizontal drag — apply transform
+    e.preventDefault();
+    const tilt = Math.max(-MAX_TILT, Math.min(MAX_TILT, dx * 0.04));
+    el.style.transform = `translate(${dx}px, ${dy}px) rotate(${tilt}deg)`;
+
+    // Swipe indicators
+    const absX = Math.abs(dx);
+    const opacity = Math.min(1, Math.max(0, (absX - 20) / 60));
+    resetIndicators();
+    if (dx > 0) {
+      indRight.style.opacity = String(opacity);
+    } else {
+      indLeft.style.opacity = String(opacity);
+    }
+  }, {passive: false});
+
+  el.addEventListener('touchend', function(e) {
     if (!isDragging) return;
-    const dx = x - startX;
-    const dy = y - startY;
+    isDragging = false;
+    el.classList.remove('dragging');
+    resetIndicators();
+
+    // If we were scrolling vertically, do nothing
+    if (axisLocked === 'v') return;
+
+    const dx = curX;
+    const absX = Math.abs(dx);
+
+    if (absX > SWIPE_THRESHOLD) {
+      if (dx < 0) {
+        doDrop();
+      } else {
+        doPursue();
+      }
+    } else if (curY < -SWIPE_THRESHOLD && axisLocked !== 'h' && axisLocked !== 'v') {
+      // Short swipe up — park
+      doPark();
+    } else {
+      // Snap back
+      el.style.transition = 'transform 0.25s ease-out';
+      el.style.transform = '';
+      setTimeout(() => { el.style.transition = ''; }, 300);
+    }
+  }, {passive: true});
+
+  // Mouse (desktop)
+  let mouseActive = false;
+  let mouseStartX = 0, mouseStartY = 0;
+
+  el.addEventListener('mousedown', function(e) {
+    if (e.button !== 0 || isAnimating) return;
+    mouseActive = true;
+    mouseStartX = e.clientX; mouseStartY = e.clientY;
+    curX = 0; curY = 0;
+    isDragging = true;
+    el.classList.add('dragging');
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!mouseActive || !isDragging) return;
+    const dx = e.clientX - mouseStartX;
+    const dy = e.clientY - mouseStartY;
     curX = dx; curY = dy;
 
     const tilt = Math.max(-MAX_TILT, Math.min(MAX_TILT, dx * 0.04));
     el.style.transform = `translate(${dx}px, ${dy}px) rotate(${tilt}deg)`;
 
-    // Show/hide swipe indicators
     const absX = Math.abs(dx);
-    const absY = Math.abs(dy);
-    const opacity = Math.min(1, Math.max(0, (Math.max(absX,absY) - 20) / 60));
-
-    indLeft.style.opacity = '0';
-    indRight.style.opacity = '0';
-    indUp.style.opacity = '0';
-
-    if (absX > absY && dx > 0) {
-      indRight.style.opacity = opacity;
-      currentSwipeDirection = 'right';
-    } else if (absX > absY && dx < 0) {
-      indLeft.style.opacity = opacity;
-      currentSwipeDirection = 'left';
-    } else if (absY > absX && dy < 0) {
-      indUp.style.opacity = opacity;
-      currentSwipeDirection = 'up';
+    const opacity = Math.min(1, Math.max(0, (absX - 20) / 60));
+    resetIndicators();
+    if (dx > 0) {
+      indRight.style.opacity = String(opacity);
     } else {
-      currentSwipeDirection = null;
+      indLeft.style.opacity = String(opacity);
     }
-  }
+  });
 
-  function onEnd() {
+  document.addEventListener('mouseup', function(e) {
+    if (!mouseActive) return;
+    mouseActive = false;
     if (!isDragging) return;
     isDragging = false;
     el.classList.remove('dragging');
-    indLeft.style.opacity = '0';
-    indRight.style.opacity = '0';
-    indUp.style.opacity = '0';
+    resetIndicators();
 
-    const dx = curX, dy = curY;
+    const dx = curX;
     const absX = Math.abs(dx);
-    const absY = Math.abs(dy);
 
-    if (absX > THRESHOLD && absX > absY && dx < 0) {
-      // LEFT — need reason first
-      flyCard(dir='left');
-    } else if (absX > THRESHOLD && absX > absY && dx > 0) {
-      // RIGHT — Validating
-      flyCard(dir='right');
-    } else if (absY > THRESHOLD && dy < 0) {
-      // UP — Parked
-      flyCard(dir='up');
+    if (absX > SWIPE_THRESHOLD) {
+      if (dx < 0) {
+        doDrop();
+      } else {
+        doPursue();
+      }
+    } else if (curY < -SWIPE_THRESHOLD) {
+      doPark();
     } else {
-      // Snap back
       el.style.transition = 'transform 0.25s ease-out';
       el.style.transform = '';
-      currentSwipeDirection = null;
       setTimeout(() => { el.style.transition = ''; }, 300);
     }
-  }
-
-  // Touch
-  el.addEventListener('touchstart', e => {
-    const t = e.touches[0];
-    onStart(t.clientX, t.clientY);
-  }, {passive: true});
-  el.addEventListener('touchmove', e => {
-    const t = e.touches[0];
-    onMove(t.clientX, t.clientY);
-  }, {passive: true});
-  el.addEventListener('touchend', onEnd, {passive: true});
-
-  // Mouse
-  el.addEventListener('mousedown', e => {
-    if (e.button !== 0) return;
-    onStart(e.clientX, e.clientY);
   });
-  document.addEventListener('mousemove', e => {
-    onMove(e.clientX, e.clientY);
-  });
-  document.addEventListener('mouseup', onEnd);
 }
 
-// ─── FLY CARD OFF ───
-function flyCard(dir) {
-  if (isAnimating) return;
+// ─── DECISION ACTIONS ───
+function doDrop() {
+  if (!remainingCards[0]) return;
+  pendingDropId = remainingCards[0].id;
+  pendingDropTitle = remainingCards[0].title;
   isAnimating = true;
+
   const card = document.getElementById('swipeCard');
-  if (!card) return;
-
-  let translateX = 0, translateY = 0, rotate = 0;
-  let status = '';
-
-  if (dir === 'left') {
-    translateX = -600;
-    rotate = -20;
-    status = 'Dropped';
-  } else if (dir === 'right') {
-    translateX = 600;
-    rotate = 20;
-    status = 'Validating';
-  } else if (dir === 'up') {
-    translateY = -600;
-    status = 'Parked';
-  }
-
-  card.classList.add('flying');
-  card.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotate}deg)`;
-  card.style.opacity = '0';
-
-  if (status === 'Dropped') {
-    // Show drop reason modal before saving
-    pendingDropId = remainingCards[0]?.id;
+  if (card) {
+    card.classList.add('dragging');
+    card.style.transition = 'transform 0.35s ease-out, opacity 0.3s';
+    card.style.transform = 'translate(-600px, 0px) rotate(-20deg)';
+    card.style.opacity = '0';
     setTimeout(() => {
-      card.classList.add('hidden');
+      card.style.display = 'none';
       document.getElementById('dropModal').classList.add('show');
       document.getElementById('dropReason').value = '';
-      document.getElementById('dropReason').focus();
+      setTimeout(() => {
+        document.getElementById('dropReason').focus();
+      }, 100);
       isAnimating = false;
-    }, 400);
+    }, 380);
   } else {
-    // Save immediately
-    const c = remainingCards[0];
-    if (c) {
-      saveDecision(c.id, status);
-      showToast(status === 'Validating' ? '→ ' + c.title.substring(0,40) + ' — Pursuing' : '↑ ' + c.title.substring(0,40) + ' — Parked');
-    }
-    advanceCard();
+    // No card element — just show modal
+    document.getElementById('dropModal').classList.add('show');
+    isAnimating = false;
   }
-
-  currentSwipeDirection = null;
 }
 
+function doPursue() {
+  if (!remainingCards[0]) return;
+  const c = remainingCards[0];
+  isAnimating = true;
+
+  const card = document.getElementById('swipeCard');
+  if (card) {
+    card.classList.add('dragging');
+    card.style.transition = 'transform 0.35s ease-out, opacity 0.3s';
+    card.style.transform = 'translate(600px, 0px) rotate(20deg)';
+    card.style.opacity = '0';
+    setTimeout(() => advanceCard(c.id, 'Validating', ''), 380);
+  } else {
+    advanceCard(c.id, 'Validating', '');
+  }
+}
+
+function doPark() {
+  if (!remainingCards[0]) return;
+  const c = remainingCards[0];
+  isAnimating = true;
+
+  const card = document.getElementById('swipeCard');
+  if (card) {
+    card.classList.add('dragging');
+    card.style.transition = 'transform 0.35s ease-out, opacity 0.3s';
+    card.style.transform = 'translate(0px, -600px) rotate(0deg)';
+    card.style.opacity = '0';
+    setTimeout(() => advanceCard(c.id, 'Parked', ''), 380);
+  } else {
+    advanceCard(c.id, 'Parked', '');
+  }
+}
+
+// ─── MODAL HANDLING ───
 function confirmDrop(reason) {
   document.getElementById('dropModal').classList.remove('show');
   const c = remainingCards[0];
   if (c && pendingDropId === c.id) {
-    saveDecision(c.id, 'Dropped', reason || 'Not for me');
-    showToast('✗ ' + c.title.substring(0,40) + ' — Dropped');
+    advanceCard(c.id, 'Dropped', reason || 'Not for me');
+  } else {
+    // Card already advanced somehow — just clean up
+    isAnimating = false;
   }
   pendingDropId = null;
-  advanceCard();
 }
 
-function advanceCard() {
-  remainingCards.shift();
-  doneCount++;
-  updateProgress();
-  setTimeout(() => {
-    renderNextCard();
-    isAnimating = false;
-  }, 100);
+function handleDropConfirm() {
+  confirmDrop(document.getElementById('dropReason').value);
 }
 
-// ─── SAVE DECISION ───
-async function saveDecision(id, status, dropReason) {
+// ─── SAVE & ADVANCE ───
+async function advanceCard(id, status, dropReason) {
+  const c = remainingCards[0];
+  const title = c ? c.title.substring(0,40) : id;
+
+  // Save
   const body = {id, status, reviewed: true};
   if (dropReason) body.drop_reason = dropReason;
 
-  // Save to localStorage as override
   try {
     const saved = localStorage.getItem('dd_overrides');
     const overrides = saved ? JSON.parse(saved) : {};
@@ -615,7 +643,6 @@ async function saveDecision(id, status, dropReason) {
     localStorage.setItem('dd_overrides', JSON.stringify(overrides));
   } catch(e) {}
 
-  // POST to API server
   try {
     await fetch(API_URL + '/api/update', {
       method: 'POST',
@@ -625,21 +652,27 @@ async function saveDecision(id, status, dropReason) {
   } catch(e) {
     console.warn('API server not running — saved locally');
   }
+
+  // Remove card and render next
+  remainingCards.shift();
+  doneCount++;
+  updateProgress();
+
+  // Show toast
+  const icon = status === 'Validating' ? '→' : status === 'Parked' ? '↑' : '✗';
+  showToast(`${icon} ${title} — ${status}`);
+
+  // Render next card
+  isAnimating = false;
+  renderNextCard();
 }
 
 // ─── DESKTOP BUTTONS ───
 function makeDecision(status) {
   if (isAnimating || remainingCards.length === 0) return;
-  const c = remainingCards[0];
-  if (!c) return;
-
-  if (status === 'Dropped') {
-    flyCard('left');
-  } else if (status === 'Validating') {
-    flyCard('right');
-  } else if (status === 'Parked') {
-    flyCard('up');
-  }
+  if (status === 'Dropped') doDrop();
+  else if (status === 'Validating') doPursue();
+  else if (status === 'Parked') doPark();
 }
 
 // ─── KEYBOARD SHORTCUTS ───
@@ -647,7 +680,7 @@ document.addEventListener('keydown', e => {
   if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
   if (document.getElementById('dropModal').classList.contains('show')) {
     if (e.key === 'Enter') {
-      confirmDrop(document.getElementById('dropReason').value);
+      handleDropConfirm();
     }
     return;
   }
@@ -662,7 +695,6 @@ function updateProgress() {
   const done = doneCount;
   const remaining = total - done;
   const pct = total > 0 ? (done / total) * 100 : 0;
-
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLeft').textContent = remaining + ' remaining';
   document.getElementById('progressTotal').textContent = done + ' of ' + total + ' reviewed';
@@ -677,6 +709,13 @@ function updateSyncTimer(lastSync) {
   if (mins < 60) d.textContent = 'Updated ' + mins + 'm ago';
   else if (mins < 1440) d.textContent = 'Updated ' + Math.floor(mins/60) + 'h ago';
   else d.textContent = 'Updated ' + Math.floor(mins/1440) + 'd ago';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 
 function logout() {
