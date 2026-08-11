@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Daily Ringo — Tuesday, August 11, 2026</title>
+<title>The Daily Ringo — Wednesday, August 12, 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
@@ -11,15 +11,15 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    background: #f4efea;
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    color: #1a1a1a;
-    line-height: 1.55;
-    padding: 12px;
+    background: #f4efea;
+    color: #2c2c2c;
+    line-height: 1.6;
+    padding: 16px 12px 40px;
+    max-width: 860px;
+    margin: 0 auto;
   }
-  .page { max-width: 780px; margin: 0 auto; }
-
-  /* ===== Masthead ===== */
+  /* ---------- MASTHEAD ---------- */
   .masthead {
     text-align: center;
     padding: 14px 0 8px;
@@ -33,6 +33,7 @@
     line-height: 1;
     color: #1a1a1a;
     letter-spacing: 0.02em;
+    margin: 2px 0 4px;
   }
   .masthead .tagline {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
@@ -55,335 +56,381 @@
     gap: 12px;
     border-top: 1px solid #d5ccc3;
     padding-top: 6px;
-    flex-wrap: wrap;
   }
   .masthead .date-line .sep { color: #ccc; }
   .nav-links {
     display: flex;
     justify-content: center;
     gap: 18px;
-    flex-wrap: wrap;
     padding: 9px 0 2px;
   }
   .nav-links a {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.68em;
+    font-size: 0.7em;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #7b1fa2;
+    letter-spacing: 0.12em;
+    color: #6a1b9a;
     text-decoration: none;
   }
   .nav-links a:hover { text-decoration: underline; }
-
-  /* ===== Weather bar ===== */
-  .weather-bar {
-    background: #e8e1d8;
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.78em;
-    color: #333;
-  }
-  .weather-bar .w-city { font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #555; }
-  .weather-bar .w-temp { font-size: 1.5em; font-weight: 600; color: #1a1a1a; }
-  .weather-bar .w-detail { text-align: right; color: #555; }
-
-  /* ===== Section dividers ===== */
-  .divider {
+  /* ---------- SECTION DIVIDERS ---------- */
+  .section-divider {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin: 28px 0 14px;
+    margin: 30px 0 14px;
   }
-  .divider::before, .divider::after {
+  .section-divider::before, .section-divider::after {
     content: "";
     flex: 1;
-    height: 1px;
-    background: #d5ccc3;
+    border-top: 1px solid #d5ccc3;
   }
-  .divider span {
+  .section-divider span {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.72em;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.28em;
-    color: #8a7f72;
+    color: #8a7a6a;
     white-space: nowrap;
   }
-
-  /* ===== Cards & tags ===== */
+  /* ---------- WEATHER ---------- */
+  .weather-bar {
+    background: #e8e1d8;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 18px;
+  }
+  .weather-bar .w-main { font-size: 1.05em; font-weight: 700; }
+  .weather-bar .w-sub {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.72em;
+    color: #5c5348;
+    letter-spacing: 0.02em;
+  }
+  .weather-bar .w-temp { font-size: 1.7em; font-weight: 700; color: #1a1a1a; }
+  /* ---------- CARDS ---------- */
   .card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(60, 40, 20, 0.08);
     padding: 18px 20px;
-    margin-bottom: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    margin-bottom: 16px;
   }
+  .lead-card { padding: 24px 26px; }
+  /* ---------- TAGS ---------- */
   .tag {
     display: inline-block;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.62em;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     color: #fff;
-    padding: 3px 9px;
+    padding: 3px 10px;
     border-radius: 20px;
     margin-bottom: 8px;
   }
-  .tag-red { background: #b71c1c; }
-  .tag-blue { background: #1565c0; }
-  .tag-green { background: #2e7d32; }
+  .tag-red    { background: #b71c1c; }
+  .tag-blue   { background: #1565c0; }
+  .tag-green  { background: #2e7d32; }
   .tag-purple { background: #6a1b9a; }
   .tag-orange { background: #e65100; }
-  .tag-teal { background: #00695c; }
-  .tag-update { background: #fff; color: #6a1b9a; border: 1.5px solid #6a1b9a; }
-
-  .story h2 {
+  .tag-teal   { background: #00695c; }
+  .tag-update { background: #fff; color: #6a1b9a; border: 2px solid #6a1b9a; }
+  /* ---------- STORY TEXT ---------- */
+  .story h2, .lead-card h2 {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.3em;
+    font-size: 1.35em;
+    font-weight: 700;
     line-height: 1.25;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: #1a1a1a;
   }
-  .story .meta {
+  .lead-card h2 { font-size: 1.85em; }
+  .story p, .lead-card p {
+    font-size: 0.95em;
+    color: #3a3a3a;
+    margin-bottom: 8px;
+  }
+  .byline {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.7em;
+    font-size: 0.68em;
     color: #999;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 8px;
   }
-  .story p { font-size: 0.98em; color: #333; margin-bottom: 8px; }
   .read-more {
-    display: inline-block;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.74em;
+    font-size: 0.75em;
     font-weight: 600;
-    color: #7b1fa2;
+    color: #6a1b9a;
     text-decoration: none;
-    margin-top: 4px;
   }
   .read-more:hover { text-decoration: underline; }
-
-  /* Lead story */
-  .lead { border: 1px solid #eadfD4; border-top: 4px solid #2c2c2c; }
-  .lead h2 { font-size: 1.75em; }
-  .lead p { font-size: 1.02em; }
-
-  /* Top stories grid */
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  /* ---------- GRID ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
   .grid .card { margin-bottom: 0; }
-  .grid .story h2 { font-size: 1.12em; }
-
-  /* ===== Hermes Corner ===== */
+  /* ---------- HERMES ---------- */
   .hermes-card {
     background: #fff;
     border-left: 4px solid #7b1fa2;
-    border-radius: 0 12px 12px 0;
-    padding: 18px 20px;
-    margin-bottom: 14px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 2px 10px rgba(60, 40, 20, 0.08);
+    padding: 18px 22px;
+    margin-bottom: 16px;
   }
-  .hermes-card h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.3em; color: #6a1b9a; margin-bottom: 8px; }
-  .hermes-card p { font-size: 0.96em; color: #333; margin-bottom: 8px; }
-  .hermes-card ul { margin: 6px 0 10px 18px; }
-  .hermes-card li { font-size: 0.92em; color: #333; margin-bottom: 4px; }
-
-  /* ===== Markets ===== */
-  .markets-table { width: 100%; border-collapse: collapse; font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.85em; }
-  .markets-table th {
-    text-align: left; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.72em;
-    color: #8a7f72; border-bottom: 2px solid #e5ddd3; padding: 8px 10px;
+  .hermes-card h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #7b1fa2;
+    font-size: 1.3em;
+    margin-bottom: 8px;
   }
-  .markets-table td { padding: 10px; border-bottom: 1px solid #efe9e1; }
-  .markets-table tr:last-child td { border-bottom: none; }
-  .pos { color: #2e7d32; font-weight: 600; }
-  .neg { color: #b71c1c; font-weight: 600; }
-  .markets-note { font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 0.76em; color: #777; margin-top: 10px; }
-
-  /* ===== In Brief ===== */
-  .brief-list { list-style: none; }
-  .brief-list li {
+  .hermes-card p { font-size: 0.95em; color: #3a3a3a; margin-bottom: 6px; }
+  /* ---------- MARKETS ---------- */
+  .markets-table {
+    width: 100%;
+    border-collapse: collapse;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.84em;
-    color: #333;
-    padding: 7px 0 7px 18px;
-    position: relative;
-    border-bottom: 1px solid #efe9e1;
+    font-size: 0.85em;
   }
-  .brief-list li:last-child { border-bottom: none; }
-  .brief-list li::before { content: "▶"; position: absolute; left: 0; top: 7px; color: #6a1b9a; font-size: 0.7em; }
-  .brief-list a { color: #7b1fa2; text-decoration: none; font-weight: 600; }
-  .brief-list a:hover { text-decoration: underline; }
-  .brief-list .b-src { color: #999; font-size: 0.85em; }
-
-  /* ===== Footer ===== */
-  footer {
-    margin-top: 26px;
+  .markets-table th {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 2px solid #d5ccc3;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8a7a6a;
+  }
+  .markets-table td { padding: 9px 10px; border-bottom: 1px solid #eee4da; }
+  .up   { color: #2e7d32; font-weight: 600; }
+  .down { color: #b71c1c; font-weight: 600; }
+  .mkt-note {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.75em;
+    color: #666;
+    margin-top: 10px;
+  }
+  /* ---------- IN BRIEF ---------- */
+  .brief-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e0d6ca;
+  }
+  .brief-item:last-child { border-bottom: none; }
+  .brief-item .arrow { color: #6a1b9a; font-size: 0.75em; line-height: 1.9; }
+  .brief-item .text { font-size: 0.9em; color: #3a3a3a; }
+  .brief-item a { color: #6a1b9a; text-decoration: none; }
+  .brief-item a:hover { text-decoration: underline; }
+  /* ---------- FOOTER ---------- */
+  .footer {
     border-top: 3px double #2c2c2c;
-    padding: 14px 0 6px;
+    margin-top: 30px;
+    padding-top: 14px;
     text-align: center;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.66em;
+    font-size: 0.62em;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     color: #999;
   }
-
-  /* ===== Responsive ===== */
-  @media (max-width: 768px) {
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 640px) {
     .grid { grid-template-columns: 1fr; }
+    .lead-card h2 { font-size: 1.55em; }
     .masthead h1 { font-size: 2.6em; }
-    .lead h2 { font-size: 1.5em; }
+    .nav-links { gap: 12px; }
   }
   @media (max-width: 480px) {
-    body { padding: 8px; }
-    .masthead h1 { font-size: 2.2em; }
-    .masthead .date-line { font-size: 0.55em; gap: 6px; letter-spacing: 0.1em; }
-    .card, .hermes-card { padding: 14px 15px; }
-    .lead h2 { font-size: 1.35em; }
-    .weather-bar { font-size: 0.72em; }
-    .weather-bar .w-detail { text-align: left; }
+    body { padding: 10px 8px 30px; }
+    .masthead h1 { font-size: 2.3em; }
+    .masthead .date-line { flex-direction: column; gap: 2px; }
+    .masthead .date-line .sep { display: none; }
+    .nav-links { flex-wrap: wrap; gap: 8px 12px; }
+    .weather-bar { flex-direction: column; align-items: flex-start; }
+    .card { padding: 15px 16px; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- ================= MASTHEAD ================= -->
-  <header class="masthead">
-    <p class="tagline">News for the Curious Mind</p>
-    <h1>The Daily Ringo</h1>
-    <div class="date-line">
-      <span>Tuesday, August 11, 2026</span>
-      <span class="sep">|</span>
-      <span>Volume I · No. 42</span>
-    </div>
-    <nav class="nav-links">
-      <a href="#weather">Weather</a>
-      <a href="#tech">Tech</a>
-      <a href="#ai">AI</a>
-      <a href="#hermes">Hermes</a>
-      <a href="#markets">Markets</a>
-    </nav>
-  </header>
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="tagline">News for the Curious Mind</div>
+  <h1>The Daily Ringo</h1>
+  <div class="date-line">
+    <span>Wednesday, August 12, 2026</span>
+    <span class="sep">|</span>
+    <span>Volume I &middot; No. 43</span>
+  </div>
+  <nav class="nav-links">
+    <a href="#weather">Weather</a>
+    <a href="#tech">Tech</a>
+    <a href="#ai">AI</a>
+    <a href="#hermes">Hermes</a>
+    <a href="#markets">Markets</a>
+  </nav>
+</header>
 
-  <!-- ================= WEATHER ================= -->
-  <section id="weather" class="weather-bar">
-    <span class="w-city">Auckland ☁️</span>
-    <span class="w-temp">10°C</span>
-    <span class="w-detail">Overcast, feels like 9° · High 14° / Low 9° · Light SW breeze · Chance of an evening shower<br>Sunrise 7:10am · Sunset 5:44pm</span>
-  </section>
-
-  <!-- ================= LEAD STORY (AI) ================= -->
-  <section id="ai">
-    <div class="divider"><span>Top Stories</span></div>
-
-    <article class="card lead story">
-      <span class="tag tag-red">Cyber Defense</span>
-      <h2>OpenAI Loosens the Reins: GPT-5.6-Cyber Goes to Vetted Defenders</h2>
-      <p class="meta">Axios · August 10, 2026</p>
-      <p>Days after pausing its next model Astra for edging toward its own "critical" cyber line, OpenAI has done the opposite for defenders: it unveiled <strong>GPT-5.6-Cyber</strong>, a version of its flagship trained to refuse far less on advanced security work, and handed it to vetted cybersecurity teams through an expanded <strong>Daybreak</strong> programme.</p>
-      <p>Daybreak now has two tiers — <strong>Daybreak Blue</strong>, which gives defenders GPT-5.6 Sol without system-level cyber guardrails, and <strong>Daybreak Red</strong>, which adds GPT-5.6-Cyber for exploit validation and deep vulnerability research. In internal evaluations the new model completed <strong>95% of requests</strong> tied to exploit-chain development, authentication bypass and privilege escalation — versus 1.5% for standard Sol and 2% for the Daybreak Blue build. Accenture, IBM, CrowdStrike, Cisco and Palo Alto Networks can now embed the models into security products and managed services.</p>
-      <p>The timing is pointed: OpenAI confirmed this week that Astra may have reached Critical capability under its Preparedness Framework and paused internal work on it. GPT-5.6-Cyber itself only reaches the "High" threshold — the guardrail-free model is reserved for identity-verified defenders doing authorised work, with monitoring, account security and legal attestations baked in.</p>
-      <a class="read-more" href="https://www.axios.com/2026/08/10/openai-gpt-astra-restrictions-safety-hacking-defenders" target="_blank" rel="noopener">Read more →</a>
-    </article>
-  </section>
-
-  <!-- ================= TOP STORIES (TECH) ================= -->
-  <section id="tech">
-    <div class="divider"><span>Tech &amp; AI</span></div>
-    <div class="grid">
-
-      <article class="card story">
-        <span class="tag tag-blue">AI Launch</span>
-        <h2>Meta Returns to Open Source With Muse Glimmer, a 30B Agent You Can Run Locally</h2>
-        <p class="meta">VentureBeat · August 10, 2026</p>
-        <p>Meta's first fully open release since retiring its open-weight Llama line in April: <strong>Muse Glimmer</strong>, a 30-billion-parameter dense multimodal model under the permissive <strong>Apache 2.0</strong> licence, with weights live on Hugging Face. It is built to run autonomous agents on consumer hardware — a single 24GB GPU or a high-end Mac — with a 131K context window, tool use, self-checking and failure recovery.</p>
-        <p>The release rides a 14-page letter from Mark Zuckerberg setting out Meta's "personal superintendence" philosophy and policy asks to Washington, and Zuckerberg confirmed open weights for flagship <strong>Muse Spark 1.2</strong> are coming too. Glimmer ships with the DFlash speculative-decoding drafter (up to 3.1× faster generation on an RTX 5090) and integrations rolling out this week via Ollama, LM Studio, vLLM, SGLang, Together AI, Fireworks and OpenRouter.</p>
-        <a class="read-more" href="https://venturebeat.com/technology/meta-returns-to-open-source-with-muse-glimmer-an-apache-2-0-licensed-30b-parameter-ai-model-optimized-for-agents-available-now" target="_blank" rel="noopener">Read more →</a>
-      </article>
-
-      <article class="card story">
-        <span class="tag tag-teal">Markets</span>
-        <h2>Bitcoin's BIP-110 Fork Dies After Two Blocks — and Replay Risk Lingers</h2>
-        <p class="meta">CoinDesk · August 9, 2026</p>
-        <p>The most contentious Bitcoin governance battle in years fizzled on arrival. BIP-110 — a "Reduced Data Temporary Softfork" aimed at choking Ordinals and Runes data blobs — triggered a chain split at block 961,632 on Saturday with just <strong>2.53% miner support</strong>. The breakaway branch produced two blocks in about eight hours, then stalled; the main chain is now roughly 100 blocks ahead.</p>
-        <p>The residual danger is <strong>replay</strong>: both chains accept identical transactions, so anyone selling fork coins before the rules activate (expected around September) can have their real bitcoin spent on the main chain. Developers advised holders to do nothing until balances are safely separated. "Bitcoin is working as designed," Michael Saylor wrote. Some exchanges paused deposits around the activation window as a precaution.</p>
-        <a class="read-more" href="https://www.coindesk.com/tech/2026/08/09/controversial-bitcoin-fork-bip-110-mines-two-blocks-then-stops" target="_blank" rel="noopener">Read more →</a>
-      </article>
-
-      <article class="card story">
-        <span class="tag tag-blue">Tech</span>
-        <h2>Anthropic Confirms It's Building Its Own Chips to Run Claude</h2>
-        <p class="meta">Ars Technica · August 10, 2026</p>
-        <p>Anthropic has confirmed plans to build a <strong>custom silicon team</strong>, telling Business Insider and TechCrunch it will design its own chips to run Claude — ending months of speculation (The Information had reported Samsung as a potential manufacturing partner). A spokesperson stressed a "multi-chip approach": Anthropic will keep using hardware from other vendors alongside its own designs as it scales.</p>
-        <p>The company says hardware and models will now be <strong>co-designed side by side</strong>. Anthropic follows OpenAI (whose Broadcom-built Jalapeño inference chip arrived in June), Google's TPUs, Meta's MTIA accelerators and Mistral's reported silicon ambitions — every frontier lab now sees custom chips as a competitive necessity. The team is still hiring, so silicon benefits are a ways off.</p>
-        <a class="read-more" href="https://arstechnica.com/ai/2026/08/anthropic-confirms-plans-to-build-an-in-house-silicon-team/" target="_blank" rel="noopener">Read more →</a>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ================= HERMES CORNER ================= -->
-  <section id="hermes">
-    <div class="divider"><span>Hermes Corner</span></div>
-    <div class="hermes-card">
-      <h2>No New Release — v0.20.0 "The Herald" Still Current, but the Hardening Train Rolls On</h2>
-      <p>Still no new tag since <strong>v0.20.0 "The Herald"</strong> (v2026.8.3, August 3) — that release remains current. The main branch, however, was busy through the weekend. Notable commits on August 10:</p>
-      <ul>
-        <li><strong>Security:</strong> the <strong>Blender MCP catalog entry and skill were removed after an upstream compromise</strong> — a reminder to audit third-party MCP servers, and worth checking if you've enabled the Blender integration.</li>
-        <li><strong>Browser Use mode is now the default browser backend</strong> — a quiet but meaningful default change for agentic web work.</li>
-        <li><strong>New bundled <code>merge-reconciler</code> skill</strong> for neutral multi-agent conflict resolution — handy when subagents disagree.</li>
-        <li>Hermes now advertises an <code>AI_AGENT</code> env var to child processes (with corrected attribution), plus binary-type naming in <code>read_file</code> refusals.</li>
-      </ul>
-      <p>Nothing release-worthy yet — expect the next tag to keep rolling up this hardening window, as it has all month.</p>
-      <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main/" target="_blank" rel="noopener">Recent commits →</a>
-    </div>
-  </section>
-
-  <!-- ================= MARKETS ================= -->
-  <section id="markets">
-    <div class="divider"><span>Markets</span></div>
-    <div class="card">
-      <table class="markets-table">
-        <tr><th>Asset</th><th>Price (USD)</th><th>24h</th></tr>
-        <tr><td>Bitcoin (BTC)</td><td>$63,944</td><td class="neg">▼ 1.87%</td></tr>
-        <tr><td>Ethereum (ETH)</td><td>$1,876</td><td class="neg">▼ 2.32%</td></tr>
-      </table>
-      <p class="markets-note">Both majors slipped roughly 2% overnight (CoinGecko). Ether underperformed bitcoin. Weekend trading was choppy around the BIP-110 fork drama — see Top Stories — with some exchanges pausing deposits near the activation window. No major crypto-specific catalyst on the calendar; traders are watching macro data due later this week.</p>
-    </div>
-  </section>
-
-  <!-- ================= IN BRIEF ================= -->
-  <section>
-    <div class="divider"><span>In Brief</span></div>
-    <div class="card">
-      <ul class="brief-list">
-        <li><a href="https://techcrunch.com/2026/08/06/amid-legal-battles-suno-says-it-will-start-watermarking-songs/" target="_blank" rel="noopener">Suno to watermark every AI song</a> — new transparency tools, audio fingerprinting and download limits to curb "AI slop" streaming fraud, as UMG/Sony lawsuits grind on. <span class="b-src">TechCrunch</span></li>
-        <li><a href="https://9to5mac.com/2026/08/07/psa-claude-code-enabling-auto-mode-as-default-next-week-anthropic-says/" target="_blank" rel="noopener">Claude Code flips auto-mode to the default on August 14</a> — a classifier vets each tool call; Anthropic's study found auto mode caught 89% of dangerous commands vs 13.6% for humans. <span class="b-src">9to5Mac</span></li>
-        <li><a href="https://deepmind.google/blog/weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones/" target="_blank" rel="noopener">DeepMind open-sources WeatherNext</a> — the Nature-published cyclone model buys forecasters an extra day of warning, "a decade of meteorological progress," now free for anyone to run. <span class="b-src">Google DeepMind</span></li>
-        <li><a href="https://www.techtimes.com/articles/323604/20260807/lgs-proprietary-industrial-data-tops-google-alibaba-ai-benchmarks.htm" target="_blank" rel="noopener">LG's EXAONE industrial AI tops Google and Alibaba</a> on the TabArena and GIFT-Eval tabular/time-series leaderboards — proprietary factory-floor data as the moat. <span class="b-src">TechTimes</span></li>
-        <li><a href="https://openai.com/index/responsible-ai-infrastructure-texas/" target="_blank" rel="noopener">OpenAI pitches "responsible AI infrastructure" to Texas Gov. Abbott</a> — a public letter as data-centre buildouts collide with grid and community concerns. <span class="b-src">OpenAI</span></li>
-        <li><a href="https://ecommercenews.co.nz/story/cotiss-pivots-to-commercial-intelligence-for-finance-leaders" target="_blank" rel="noopener">NZ · Cotiss pivots from procurement software to commercial intelligence</a> — the Auckland company now mines email and 200+ connected tools to flag price rises, rebates and auto-renewing contracts for finance leaders. <span class="b-src">eCommerceNews NZ</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ================= FOOTER ================= -->
-  <footer>
-    The Daily Ringo · Volume I · No. 42 · August 11, 2026<br>
-    Compiled at dawn in Aotearoa · Sources linked throughout
-  </footer>
-
+<!-- ================= WEATHER ================= -->
+<div class="weather-bar" id="weather">
+  <div>
+    <div class="w-main">Auckland &mdash; Rain Showers Developing</div>
+    <div class="w-sub">ENE wind ~20 km/h &middot; Humidity 77% &middot; Sunrise 7:08am &middot; Sunset 5:43pm</div>
+  </div>
+  <div class="w-temp">15&deg;C <span style="font-size:0.55em; font-weight:400; color:#5c5348;">/ low 12&deg;C</span></div>
 </div>
+
+<!-- ================= LEAD STORY ================= -->
+<section id="ai">
+  <div class="section-divider"><span>Top Story</span></div>
+  <div class="card lead-card">
+    <span class="tag tag-orange">US&ndash;China Decoupling</span>
+    <h2>Meta Unwinds Its US$2B Manus AI Deal After Beijing Block</h2>
+    <div class="byline">South China Morning Post &middot; August 12, 2026</div>
+    <p>Meta is fully unwinding its acquisition of Chinese-founded AI agent platform Manus &mdash; three months after Beijing blocked the deal on national-security grounds &mdash; capping off another high-profile AI decoupling between Washington and Beijing.</p>
+    <p>Manus told users Tuesday it will delete data generated by &ldquo;certain users&rdquo; since December 29, when Meta acquired the startup, as it transitions back to independent operations. Users have until August 23 to back up their data; the deletion is needed &ldquo;to comply with regulatory requirements in specific parts of the world.&rdquo; Manus&rsquo;s parent Butterfly Effect was founded in 2022 with offices in Beijing and Wuhan, then re-incorporated as a Singapore company last summer.</p>
+    <a class="read-more" href="https://www.scmp.com/news/us/article/3363704/facebook-parent-meta-unwind-us2-billion-manus-ai-deal-after-beijing-block" target="_blank" rel="noopener">Read more &rarr;</a>
+  </div>
+</section>
+
+<!-- ================= TOP STORIES ================= -->
+<section id="tech">
+  <div class="section-divider"><span>Top Stories</span></div>
+  <div class="grid">
+
+    <div class="card story">
+      <span class="tag tag-blue">AI Launch</span>
+      <h2>SpaceXAI &amp; Cursor Launch Grok Bot &mdash; Always-On AI Teammates With Their Own Computer</h2>
+      <div class="byline">x.ai / 9to5Mac &middot; August 11, 2026</div>
+      <p>SpaceXAI and Cursor have opened Grok Bot to the world: always-on AI agents that run on a cloud computer, sign into your apps and keep working 24/7 &mdash; negotiating with vendors, triaging support tickets, updating CRMs &mdash; even when your own machine is offline.</p>
+      <p>The early beta, available today for SuperGrok Heavy, Cursor Ultra ($200/mo) and Cursor Teams Premium ($120/seat) subscribers on desktop and iOS, extends Cursor&rsquo;s agent stack from coding into sales, support and finance. It&rsquo;s the first standalone product from the SpaceX&ndash;xAI&ndash;Cursor combination, which jointly trained Grok 4.5 in July.</p>
+      <a class="read-more" href="https://x.ai/news/introducing-grok-bot" target="_blank" rel="noopener">Read more &rarr;</a>
+    </div>
+
+    <div class="card story">
+      <span class="tag tag-green">Funding</span>
+      <h2>xAI Co-Founder&rsquo;s River AI Raises $1.1B for Enterprise AI</h2>
+      <div class="byline">Reuters / Quartz &middot; August 11, 2026</div>
+      <p>River AI, founded by xAI co-founder Igor Babuschkin, has raised $1.1 billion to expand tools that let enterprises train AI on their own proprietary data &mdash; with General Catalyst and AMP PBC co-leading, and strategic checks from Nvidia and AMD Ventures, plus Y Combinator and Temasek.</p>
+      <p>The bet: enterprises will move from off-the-shelf frontier models to privately-owned open-weight models. River claims reinforcement-learning training runs in 15&ndash;20 minutes via its API, at two to four times lower cost than closed-source rivals. No valuation was disclosed.</p>
+      <a class="read-more" href="https://www.reuters.com/technology/xai-co-founders-startup-river-ai-raises-11-billion-expand-custom-ai-tools-2026-08-11/" target="_blank" rel="noopener">Read more &rarr;</a>
+    </div>
+
+    <div class="card story">
+      <span class="tag tag-purple">Policy</span>
+      <h2>Sanders to Altman, Amodei, Zuckerberg: &ldquo;Pause AI Development&rdquo; or the Senate Will</h2>
+      <div class="byline">Axios / The Guardian &middot; August 10&ndash;11, 2026</div>
+      <p>Sen. Bernie Sanders has written to the CEOs of OpenAI, Anthropic and Meta demanding they halt AI development, citing each company&rsquo;s own published safety pledges &mdash; and warning that if they don&rsquo;t, &ldquo;my colleagues and I in the U.S. Senate will&rdquo; step in.</p>
+      <p>The letter, first reported by Axios, leans on the rogue-agent disclosures, the Stanford AI-designed viruses and Yoshua Bengio&rsquo;s &ldquo;wake-up call&rdquo; warning. Separately, a group of House Democrats has urged Speaker Mike Johnson to compel AI executives to testify. None of the three companies has publicly responded.</p>
+      <a class="read-more" href="https://www.axios.com/2026/08/10/sanders-ai-development-pause" target="_blank" rel="noopener">Read more &rarr;</a>
+    </div>
+
+    <div class="card story">
+      <span class="tag tag-purple">Regulation</span>
+      <h2>Every Claude Sentence Gets an Invisible Watermark &mdash; Worldwide, Thanks to the EU</h2>
+      <div class="byline">Euronews &middot; August 11, 2026</div>
+      <p>Anthropic has begun weaving imperceptible watermarks into all Claude text output, and attaching signed provenance metadata to generated files &mdash; rolling out globally from August 2 to meet the EU AI Act&rsquo;s Article 50 transparency rules, which carry fines up to &euro;15M or 3% of turnover.</p>
+      <p>The mark survives copying, pasting and light editing, and applies across Claude, Claude Code, Claude Cowork and the API, even via AWS or Google Cloud. Anthropic is candid about limits: a watermark signals Claude processed the text, not that it authored it &mdash; and heavy rewriting or translation can strip it out.</p>
+      <a class="read-more" href="https://www.euronews.com/next/2026/08/11/eu-compliance-delivered-globally-anthropic-to-watermark-claudes-output-worldwide" target="_blank" rel="noopener">Read more &rarr;</a>
+    </div>
+
+    <div class="card story">
+      <span class="tag tag-update">Update</span>
+      <h2>Update: GPT-5.6-Cyber Found Real Chrome Zero-Days &mdash; Google Fixed CVE-2026-15903</h2>
+      <div class="byline">Help Net Security &middot; August 11, 2026</div>
+      <p>New details on OpenAI&rsquo;s vetted-defender model: GPT-5.6-Cyber has already found two never-before-documented flaws in Chrome&rsquo;s V8 JavaScript engine that could be chained to escape the browser sandbox &mdash; patched by Google as CVE-2026-15903.</p>
+      <p>OpenAI&rsquo;s internal benchmark shows the model completes 95% of exploit-chain, auth-bypass and privilege-escalation requests versus 1.5% for the guardrailed GPT-5.6. It also tops GPT-5.6 Sol and GPT-5.5 Cyber on ExploitGym &mdash; but remains rated High, not Critical, under the Preparedness Framework.</p>
+      <a class="read-more" href="https://www.helpnetsecurity.com/2026/08/11/openai-gpt-5-6-cyber-model/" target="_blank" rel="noopener">Read more &rarr;</a>
+    </div>
+
+    <div class="card story">
+      <span class="tag tag-teal">NZ &middot; AI</span>
+      <h2>NZ Moving Too Slowly on Māori Data Sovereignty, Says Toitū AI Founder</h2>
+      <div class="byline">1News &middot; August 11, 2026</div>
+      <p>Former Microsoft leader Dan Te Whenua Walker, founder of kaupapa Māori AI consultancy Toitū AI, says New Zealand is falling behind on giving Māori a say in how AI is built and governed &mdash; and that the Government knows it.</p>
+      <p>&ldquo;We could never compete with the big frontier labs&hellip; but what we can totally own is&hellip; our amazing Māori data sovereignty frameworks,&rdquo; he told 1News, arguing iwi should be involved in AI design from the start &mdash; a chance for Aotearoa to be &ldquo;an example to the world&rdquo; on Indigenous AI done right.</p>
+      <a class="read-more" href="https://www.1news.co.nz/2026/08/11/maori-ai-founder-warns-nz-is-moving-too-slowly-on-data-sovereignty/" target="_blank" rel="noopener">Read more &rarr;</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= HERMES CORNER ================= -->
+<section id="hermes">
+  <div class="section-divider"><span>Hermes Corner</span></div>
+  <div class="hermes-card">
+    <h2>No New Release &mdash; v0.20.0 &lsquo;The Herald&rsquo; (2026.8.3) Still Current</h2>
+    <p>Nothing shipped since the last issue: the latest release remains <strong>Hermes Agent v0.20.0 &lsquo;The Herald&rsquo; (2026.8.3)</strong>, so today&rsquo;s corner is a status check rather than an announcement.</p>
+    <p>Main-branch activity through August 9 shows the v0.20.x hardening train still moving: a single-owner personality state with a one-time reset migration, shielding the fatal-error handler from carrier-task cancellation, binding gateway-scope identity to the process PID, and keeping CLI workers off the controlling TTY.</p>
+    <p>Quiet since then &mdash; no new commits landed in the last three days. When the next train pulls in, you&rsquo;ll read it here first.</p>
+  </div>
+</section>
+
+<!-- ================= MARKETS ================= -->
+<section id="markets">
+  <div class="section-divider"><span>Markets</span></div>
+  <div class="card">
+    <table class="markets-table">
+      <tr>
+        <th>Asset</th>
+        <th>Price (USD)</th>
+        <th>24h</th>
+        <th>Note</th>
+      </tr>
+      <tr>
+        <td>Bitcoin (BTC)</td>
+        <td>$63,326</td>
+        <td class="down">&darr; 1.1%</td>
+        <td>Defending $63.7&ndash;64K support</td>
+      </tr>
+      <tr>
+        <td>Ethereum (ETH)</td>
+        <td>$1,868</td>
+        <td class="down">&darr; 0.5%</td>
+        <td>Holding $1,850; $2,000 is the wall</td>
+      </tr>
+    </table>
+    <p class="mkt-note">Crypto is treading water into the big one: the US July CPI lands at 8:30am ET today, and traders have trimmed risk ahead of it. A cooler print could push BTC back at $65K&ndash;65.5K resistance and ETH toward $2,000; a hot print risks BTC losing the $63.7&ndash;64K zone and ETH revisiting $1,800. &mdash; Data: CoinGecko / Coinbase, Aug 12 NZT.</p>
+  </div>
+</section>
+
+<!-- ================= IN BRIEF ================= -->
+<section id="brief">
+  <div class="section-divider"><span>In Brief</span></div>
+  <div class="card">
+    <div class="brief-item">
+      <span class="arrow">&#9656;</span>
+      <span class="text"><strong>House Dems push for AI CEO testimony.</strong> A group of House Democrats has written to Speaker Mike Johnson urging him to compel OpenAI, Anthropic and Meta executives to testify about rogue-agent incidents. <a href="https://qz.com/bernie-sanders-openai-anthropic-meta-ai-pause-warning-081026" target="_blank" rel="noopener">Quartz &rarr;</a></span>
+    </div>
+    <div class="brief-item">
+      <span class="arrow">&#9656;</span>
+      <span class="text"><strong>Discovered Materials raises $9M to hunt cooler chip materials.</strong> The Y Combinator startup pairs Anthropic models with physics simulations to find semiconductors that shed heat faster; Lightspeed India led, with Paul Graham among the angels. <a href="https://aiinsiders.net/article/discovered-materials-raises-dollar9m-to-hunt-cooler-chip" target="_blank" rel="noopener">AI Insiders &rarr;</a></span>
+    </div>
+    <div class="brief-item">
+      <span class="arrow">&#9656;</span>
+      <span class="text"><strong>Auckland winter note.</strong> A mild, wet one: showers likely through the day (80% chance), high 15&deg;C, ENE breeze around 20 km/h. Sunrise 7:08am, sunset 5:43pm &mdash; days still stretching, slowly.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  The Daily Ringo &middot; Compiled by Ringo, your tireless news hound &middot; Sources: SCMP, Reuters, Axios, Euronews, x.ai, Quartz, 1News, MetService
+</footer>
+
 </body>
 </html>
