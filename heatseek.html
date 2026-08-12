@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Daily Ringo - August 12, 2026</title>
+    <title>The Daily Ringo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-text: #1a1a1a;
-            --secondary-text: #4a4a4a;
-            --light-text: #666;
-            --accent-purple: #7b1fa2;
-            --bg-cream: #f4efea;
-            --masthead-border: #2c2c2c;
-            --masthead-date-border: #d5ccc3;
-            --card-bg: #ffffff;
+            --cream-bg: #f4efea;
+            --light-cream-bg: #e8e1d8;
+            --dark-grey: #2c2c2c;
+            --medium-grey: #666;
+            --light-grey: #999;
+            --border-line: #d5ccc3;
             --tag-red: #b71c1c;
             --tag-blue: #1565c0;
             --tag-green: #2e7d32;
@@ -24,34 +22,26 @@
             --tag-orange: #e65100;
             --tag-teal: #00695c;
         }
+
         body {
             font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-            line-height: 1.6;
-            color: var(--primary-text);
-            background-color: var(--bg-cream);
+            background-color: var(--cream-bg);
+            color: #1a1a1a;
             margin: 0;
             padding: 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
         }
-        a {
-            color: var(--accent-purple);
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
         .container {
             max-width: 960px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 0 15px;
         }
 
-        /* Masthead */
         .masthead {
             text-align: center;
             padding: 14px 0 8px;
-            border-bottom: 3px double var(--masthead-border);
+            border-bottom: 3px double var(--dark-grey);
             margin-bottom: 14px;
         }
         .masthead h1 {
@@ -59,7 +49,7 @@
             font-size: 3.2em;
             font-weight: 400;
             line-height: 1;
-            color: var(--primary-text);
+            color: #1a1a1a;
             letter-spacing: 0.02em;
             margin: 0;
         }
@@ -69,67 +59,58 @@
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 0.35em;
-            color: #999;
+            color: var(--light-grey);
             margin: 0 0 6px;
         }
         .masthead .date-line {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.62em;
             font-weight: 400;
-            color: var(--light-text);
+            color: var(--medium-grey);
             text-transform: uppercase;
             letter-spacing: 0.15em;
             display: flex;
             justify-content: center;
             gap: 12px;
-            border-top: 1px solid var(--masthead-date-border);
+            border-top: 1px solid var(--border-line);
             padding-top: 6px;
             margin-top: 6px;
         }
-        .masthead .date-line .sep {
-            color: #ccc;
-        }
+        .masthead .date-line .sep { color: #ccc; }
+
         .nav-links {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            font-size: 0.8em;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            font-size: 0.7em;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-line);
         }
         .nav-links a {
-            color: var(--secondary-text);
-            padding: 5px 10px;
-            border-radius: 3px;
-            transition: background-color 0.2s ease;
+            color: var(--dark-grey);
+            text-decoration: none;
+            padding: 5px 0;
+            transition: color 0.2s ease;
         }
         .nav-links a:hover {
-            background-color: #e0d9d0;
-            text-decoration: none;
+            color: var(--tag-purple);
         }
 
-        /* Section dividers */
         .section-divider {
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 30px 0;
-            color: var(--light-text);
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
+            margin: 40px 0 30px;
         }
         .section-divider::before,
         .section-divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid var(--border-line);
         }
         .section-divider:not(:empty)::before {
             margin-right: .5em;
@@ -137,47 +118,77 @@
         .section-divider:not(:empty)::after {
             margin-left: .5em;
         }
+        .section-divider span {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.8em;
+            color: var(--medium-grey);
+            background-color: var(--cream-bg);
+            padding: 0 10px;
+        }
 
-        /* Story cards */
-        .story-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .story-card h2, .story-card h3 {
-            font-family: 'Playfair Display', serif;
-            margin-top: 0;
-            line-height: 1.3;
-        }
-        .story-card p {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.95em;
-            margin-bottom: 15px;
-        }
-        .story-card .read-more {
+        .weather-bar {
+            background-color: var(--light-cream-bg);
+            padding: 10px 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.85em;
-            font-weight: 600;
-            color: var(--accent-purple);
-            display: inline-block;
-            margin-top: 10px;
+            color: #4a4a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .weather-bar div {
+            padding: 2px 0;
         }
 
-        /* Tags */
-        .tag {
-            display: inline-block;
+        .story-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .story-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.6em;
+            line-height: 1.3;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .story-card p {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .story-card .tag {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.7em;
             font-weight: 600;
+            text-transform: uppercase;
             padding: 4px 8px;
             border-radius: 4px;
             color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
             margin-bottom: 10px;
+            display: inline-block;
         }
+        .story-card .read-more {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: var(--tag-purple);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .story-card .read-more:hover {
+            text-decoration: underline;
+        }
+
         .tag-red { background-color: var(--tag-red); }
         .tag-blue { background-color: var(--tag-blue); }
         .tag-green { background-color: var(--tag-green); }
@@ -185,73 +196,45 @@
         .tag-orange { background-color: var(--tag-orange); }
         .tag-teal { background-color: var(--tag-teal); }
 
-        /* Weather bar */
-        .weather-bar {
-            background-color: #e8e1d8;
-            padding: 10px 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.9em;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .weather-bar span {
-            margin-right: 15px;
-            white-space: nowrap;
-        }
-        .weather-bar span:last-child {
-            margin-right: 0;
-        }
-        .weather-bar strong {
-            font-weight: 600;
+        .lead-story h2 {
+            font-size: 2.2em;
         }
 
-        /* Layouts */
-        .lead-story .story-card {
-            padding: 30px;
-        }
-        .lead-story h2 {
-            font-size: 2em;
-        }
         .top-stories-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .top-stories-grid {
-                grid-template-columns: 1fr;
-            }
+            gap: 25px;
         }
 
-        /* Hermes Corner */
         .hermes-corner-card {
-            background-color: var(--card-bg);
-            border-left: 4px solid var(--accent-purple);
+            background-color: #fff;
+            border-left: 4px solid var(--tag-purple);
             border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .hermes-corner-card h2 {
             font-family: 'Playfair Display', serif;
-            color: var(--accent-purple);
+            font-weight: 700;
             font-size: 1.8em;
-            margin-bottom: 15px;
+            color: var(--tag-purple);
+            margin-top: 0;
+            margin-bottom: 20px;
         }
-        .hermes-corner-card h4 {
+        .hermes-corner-card h3 {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.8em;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--light-text);
-            margin-top: 25px;
-            margin-bottom: 10px;
+            letter-spacing: 0.1em;
+            color: var(--medium-grey);
             border-bottom: 1px dashed #eee;
             padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .hermes-corner-card h3:first-of-type {
+            margin-top: 0;
         }
         .hermes-corner-card ul {
             list-style: none;
@@ -260,123 +243,194 @@
         }
         .hermes-corner-card li {
             font-family: 'Playfair Display', serif;
-            margin-bottom: 10px;
             font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 14px;
         }
-        .hermes-corner-card li:last-child {
-            margin-bottom: 0;
+        .hermes-corner-card li:last-child { margin-bottom: 0; }
+        .hermes-corner-card li .tag {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 8px 2px 0;
+        }
+        .hermes-corner-card li strong {
+            font-weight: 700;
+        }
+        .hermes-corner-card li .read-more {
+            display: block;
+            margin-top: 6px;
         }
 
-        /* Markets Table */
         .markets-card {
-            background-color: var(--card-bg);
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
         }
         .markets-card h2 {
             font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.6em;
             margin-top: 0;
+            margin-bottom: 15px;
         }
         .markets-table {
             width: 100%;
             border-collapse: collapse;
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.9em;
+            margin-bottom: 15px;
         }
         .markets-table th, .markets-table td {
-            border-bottom: 1px solid #eee;
             padding: 10px 0;
             text-align: left;
+            border-bottom: 1px solid #eee;
         }
         .markets-table th {
             font-weight: 600;
-            color: var(--secondary-text);
+            color: var(--medium-grey);
+            font-size: 0.85em;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        .markets-table tr:last-child td {
-            border-bottom: none;
+        .markets-table td {
+            font-size: 0.95em;
+            color: #333;
         }
-        .price-change.positive {
-            color: var(--tag-green);
+        .markets-table .price {
+            font-weight: 600;
         }
-        .price-change.negative {
-            color: var(--tag-red);
+        .markets-table .change {
+            font-weight: 600;
         }
+        .markets-table .change.positive { color: var(--tag-green); }
+        .markets-table .change.negative { color: var(--tag-red); }
 
-        /* In Brief */
         .in-brief-card {
-            background-color: var(--card-bg);
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
         }
         .in-brief-card h2 {
             font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.6em;
             margin-top: 0;
+            margin-bottom: 15px;
         }
-        .in-brief-list {
+        .in-brief-card ul {
             list-style: none;
             padding: 0;
             margin: 0;
-            font-family: 'Playfair Display', serif;
-            font-size: 0.95em;
         }
-        .in-brief-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
+        .in-brief-card li {
             position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            line-height: 1.4;
         }
-        .in-brief-list li::before {
+        .in-brief-card li::before {
             content: '▶';
-            color: var(--accent-purple);
+            color: var(--tag-purple);
             position: absolute;
             left: 0;
-            font-size: 0.8em;
-            line-height: 1.6;
+            font-size: 0.7em;
+            top: 4px;
+        }
+        .in-brief-card li a {
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+        .in-brief-card li a:hover {
+            text-decoration: underline;
         }
 
-        /* Footer */
         .footer {
-            border-top: 3px double var(--masthead-border);
-            padding-top: 14px;
-            margin-top: 30px;
+            border-top: 3px double var(--dark-grey);
+            padding-top: 15px;
+            margin-top: 40px;
             text-align: center;
             font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.65em;
+            font-size: 0.6em;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: var(--light-text);
+            color: var(--medium-grey);
+            padding-bottom: 20px;
         }
 
-        /* Mobile adjustments */
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .top-stories-grid {
+                grid-template-columns: 1fr;
+            }
             .masthead h1 {
                 font-size: 2.5em;
             }
-            .masthead .tagline, .masthead .date-line {
+            .masthead .tagline {
                 font-size: 0.5em;
+                letter-spacing: 0.25em;
+            }
+            .masthead .date-line {
+                font-size: 0.55em;
+                letter-spacing: 0.1em;
             }
             .nav-links {
-                font-size: 0.7em;
+                font-size: 0.65em;
                 gap: 10px;
             }
             .lead-story h2 {
-                font-size: 1.5em;
+                font-size: 1.8em;
             }
-            .story-card {
-                padding: 15px;
+            .story-card h2 {
+                font-size: 1.4em;
+            }
+            .hermes-corner-card h2 {
+                font-size: 1.6em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            .masthead h1 {
+                font-size: 2em;
+            }
+            .masthead .tagline {
+                font-size: 0.45em;
+                letter-spacing: 0.2em;
+            }
+            .masthead .date-line {
+                font-size: 0.5em;
+                letter-spacing: 0.08em;
+                flex-direction: column;
+                gap: 0;
+            }
+            .date-line .sep { display: none; }
+            .nav-links {
+                font-size: 0.6em;
+                gap: 8px;
+                flex-wrap: wrap;
             }
             .weather-bar {
+                font-size: 0.75em;
                 flex-direction: column;
                 align-items: flex-start;
-                font-size: 0.8em;
             }
-            .weather-bar span {
-                margin-bottom: 5px;
+            .weather-bar div {
+                padding: 1px 0;
+            }
+            .story-card h2 {
+                font-size: 1.2em;
+            }
+            .hermes-corner-card h2 {
+                font-size: 1.4em;
+            }
+            .in-brief-card li {
+                font-size: 0.85em;
             }
         }
     </style>
@@ -389,152 +443,135 @@
             <div class="date-line">
                 <span>Wednesday, August 12, 2026</span>
                 <span class="sep">|</span>
-                <span>Volume I · No. 27</span>
+                <span>Volume I · No. 28</span>
             </div>
         </header>
 
         <nav class="nav-links">
             <a href="#weather">Weather</a>
-            <a href="#top-stories">Tech & AI</a>
-            <a href="#hermes-corner">Hermes Corner</a>
+            <a href="#tech-ai">Tech & AI</a>
+            <a href="#hermes">Hermes</a>
             <a href="#markets">Markets</a>
             <a href="#in-brief">In Brief</a>
         </nav>
 
-        <section id="weather" class="weather-bar">
-            <span><strong>Auckland, NZ:</strong> Clear Sky, 0.0°C (32°F)</span>
-            <span>Feels like: 0°C (32°F)</span>
-            <span>High: 0°C / Low: 0°C</span>
-            <span>Sunrise: 7:08 AM</span>
-            <span>Sunset: 5:44 PM</span>
+        <section id="weather">
+            <div class="weather-bar">
+                <div><strong>Auckland, NZ:</strong> Fine with morning frosts in sheltered places. Cloud increasing from afternoon. Northerlies picking up in the morning.</div>
+                <div>High: 15°C | Low: 11°C</div>
+                <div>Sunrise: 7:12 AM | Sunset: 5:42 PM</div>
+            </div>
         </section>
 
-        <section id="top-stories">
-            <h2 class="section-divider">Top Stories</h2>
+        <section id="tech-ai">
+            <div class="section-divider"><span>Top Stories — Tech & AI</span></div>
 
-            <div class="lead-story">
-                <div class="story-card">
-                    <span class="tag tag-blue">AI Launch</span>
-                    <h2>SpaceXAI Unveils Grok Bot: A 24/7 AI Agent for Seamless Workflow Automation</h2>
-                    <p>SpaceXAI has launched "Grok Bot," an innovative AI agent designed to work around the clock across Windows, macOS, Linux, and iOS. Each bot operates from its own dedicated cloud PC, enabling it to sign into tools, navigate websites, and execute tasks autonomously, only seeking user approval when necessary. Grok Bot learns from user interactions and can even collaborate with other AI agents in group chats, offering a new paradigm for personal and professional productivity.</p>
-                    <a href="https://gigazine.net/gsc_news/en/20260812-spacexai-grok-bot/" class="read-more" target="_blank">Read more →</a>
-                </div>
+            <div class="story-card lead-story">
+                <span class="tag tag-red">Breaking</span>
+                <h2>US Government Orders Anthropic to Suspend Powerful AI Models Fable 5 and Mythos 5</h2>
+                <p>The US government ordered Anthropic to suspend access to its Fable 5 and Mythos 5 AI models citing national security concerns, related to a claimed jailbreak that could identify software flaws. Anthropic complied but disagreed, stating the capability level is available in other public models.</p>
+                <a href="https://techcrunch.com/2026/06/12/anthropics-safety-warnings-may-have-just-backfired-the-government-has-pulled-the-plug-on-its-most-powerful-ai/" class="read-more" target="_blank">Read more →</a>
             </div>
 
             <div class="top-stories-grid">
                 <div class="story-card">
-                    <span class="tag tag-blue">AI Infrastructure</span>
-                    <h3>Anthropic Forges Theseus Alliance for Dedicated AI Compute Infrastructure</h3>
-                    <p>Anthropic has partnered with Macquarie Asset Management and Singapore's sovereign wealth fund GIC to create Theseus Infrastructure. This joint venture will develop and lease purpose-built data centers to Anthropic, securing dedicated compute capacity essential for scaling frontier AI models. The initiative mirrors OpenAI's Stargate and includes Anthropic's commitment to offset increased consumer electricity rates, addressing community concerns over data center expansion.</p>
-                    <a href="https://timestabloid.com/anthropic-just-got-its-own-stargate-inside-the-theseus/" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">AI Launch</span>
+                    <h2>OpenAI's GPT-5.6-Cyber Model Shows Reduced Refusals for Security Research</h2>
+                    <p>GPT-5.6-Cyber, built on GPT-5.6 Sol, trained for exploit development and advanced security research, completes 95% of high-risk requests, compared to 1.5% for the standard GPT-5.6. It also uncovered zero-day flaws in Chrome's V8 engine.</p>
+                    <a href="https://www.helpnetsecurity.com/2026/08/11/openai-gpt-5-6-cyber-model/" class="read-more" target="_blank">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <span class="tag tag-blue">AI Research</span>
-                    <h3>South Korea Pioneers 'Lab-in-the-Loop' for AI-Driven Drug Discovery</h3>
-                    <p>The South Korean Ministry of Science and ICT has inaugurated an AI-powered drug discovery hub in Daegu, featuring a "Lab-in-the-Loop" system. This innovative platform connects AI models directly with automated laboratories and integrates data from two million patients to streamline and accelerate the drug development cycle. The initiative aims to reduce the time and cost associated with identifying and validating new drug candidates through a continuous feedback loop between AI predictions and real-world experimentation.</p>
-                    <a href="https://www.asiae.co.kr/en/article/2026081210213257948" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">Tech</span>
+                    <h2>NVIDIA Unveils Nemotron 3.5 Lightning 30B and Advanced Routing Library</h2>
+                    <p>NVIDIA has released Nemotron 3.5 Lightning 30B and a routing library.</p>
+                    <a href="https://blogs.nvidia.com" class="read-more" target="_blank">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <span class="tag tag-purple">AI Regulation</span>
-                    <h3>Colorado's Conversational AI Service Bill Takes Effect</h3>
-                    <p>Colorado's House Bill 26-1263, which sets out requirements for operators of conversational artificial intelligence services, officially comes into force today, August 12, 2026. The legislation includes specific design requirements for AI services, marking a significant step in regulating the burgeoning AI sector with a focus on responsible deployment and transparency, albeit with an initial grace period for compliance.</p>
-                    <a href="https://digitalpolicyalert.org/event/40326-colorado-bill-concerning-requirements-for-an-operator-of-a-conversational-artificial-intelligence-service-hb-26-1263-including-design-requirements-enters-into-force-with-grace-period" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">AI</span>
+                    <h2>Google Gemini Reaches 1 Billion Monthly Users, Matching ChatGPT's Scale</h2>
+                    <p>Google's Gemini AI platform has reached 1 billion monthly active users, a significant milestone that puts it on par with OpenAI's ChatGPT.</p>
+                    <a href="https://aiweekly.co/ai-news-today" class="read-more" target="_blank">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <span class="tag tag-blue">Consumer Tech</span>
-                    <h3>Google Announces Pixel 11 Launch Event Today</h3>
-                    <p>Google has sent out invitations for a major Pixel event scheduled for today, August 12, 2026, in New York City. The company is teasing "the next generation of Pixel," indicating the probable unveiling of the Pixel 11 series, which is expected to include standard, Pro, and Pro XL models, along with a foldable variant. Speculation also suggests the possible debut of the new Pixel Watch, as the Pixel Watch 4 was released a year ago.</p>
-                    <a href="https://www.thurrott.com/google/338524/google-announces-pixel-11-event-on-august-12" class="read-more" target="_blank">Read more →</a>
-                </div>
-                <div class="story-card">
-                    <span class="tag tag-red">Breaking</span>
-                    <h3>OpenAI's Longtime COO Steps Down Amidst Executive Exodus</h3>
-                    <p>OpenAI's long-serving Chief Operating Officer has resigned, marking the fifth high-profile executive departure from the company in recent months. The exit comes amidst a period of intense scrutiny and rapid developments within the frontier AI labs sector, raising questions about internal dynamics and strategic directions at one of the leading AI research organizations.</p>
-                    <a href="https://timestabloid.com/anthropic-just-got-its-own-stargate-inside-the-theseus/" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-red">Security</span>
+                    <h2>Novel Attack Decrypts Chain-of-Thought Reasoning Across Anthropic, OpenAI, and Google AI Models</h2>
+                    <p>A new attack has been discovered that can decrypt Chain-of-Thought (CoT) reasoning across major AI models from Anthropic, OpenAI, and Google.</p>
+                    <a href="https://aiweekly.co/ai-news-today" class="read-more" target="_blank">Read more →</a>
                 </div>
             </div>
         </section>
 
-        <section id="hermes-corner" class="hermes-corner-card">
-            <h2>The Hermes Corner</h2>
+        <section id="hermes">
+            <div class="section-divider"><span>Hermes Corner</span></div>
+            <div class="hermes-corner-card">
+                <h2>Hermes Agent News</h2>
 
-            <h4>What's New</h4>
-            <ul>
-                <li>
-                    <span class="tag tag-purple">Update</span>
-                    <strong>Hermes Agent v2026.8.3 'The Sentinel' Released:</strong> This critical update resolves cron job delivery issues, particularly for relay-fronted platforms like Discord, by ensuring canonical home channel configurations are respected.
-                    <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.3" class="read-more" target="_blank">Read more →</a>
-                </li>
-            </ul>
+                <h3>What's New</h3>
+                <ul>
+                    <li><span class="tag tag-purple">Update</span> <strong>Hermes Cron Delivery Fixed for Relay-Fronted Platforms:</strong> A recent fix addresses issues where cron jobs targeting relay-fronted platforms (like Discord via relay connector) failed due to incorrect target resolution and delivery gate rejections. <a href="https://github.com/NousResearch/hermes-agent/commit/76d832d3857551a029c4b39c23945eb47c16fe5b" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Update</span> <strong>Hermes Gateway Now Self-Suspends for Efficient Scale-to-Zero Operation:</strong> The gateway now handles its own suspension via the flaps socket in scale-to-zero environments, improving efficiency and preventing suspensions during active processing. <a href="https://github.com/NousResearch/hermes-agent/commit/356c702b55be6e96e68f7d0cb5e11815f791909c" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Feature</span> <strong>Hermes Agent Now Auto-Installs Browser Use CLI:</strong> Hermes Agent will now auto-install the Browser Use CLI, ensuring users don't silently fall back to built-in browser tools when uv/uvx is not present. <a href="https://github.com/NousResearch/hermes-agent/commit/baa6b2e34d802da92efef59d371b85b47e8aff4a" class="read-more" target="_blank">Read more →</a></li>
+                </ul>
 
-            <h4>Community in Action</h4>
-            <ul>
-                <li>
-                    <span class="tag tag-purple">Automation</span>
-                    <strong>AI Social Media Manager with Hermes & Zernio:</strong> A new tutorial demonstrates how to build an autonomous social media manager using Hermes Agent and Zernio's API, enabling automated content creation, engagement, and lead qualification across 15 platforms.
-                    <a href="https://www.youtube.com/watch?v=cpfC_87tPPo" class="read-more" target="_blank">Read more →</a>
-                </li>
-                <li>
-                    <span class="tag tag-purple">Workflow</span>
-                    <strong>Automated YouTube Video Production Pipeline:</strong> Explore a GitHub project showcasing a fully automated YouTube video pipeline driven by Hermes Agent, from research and scripting to rendering, verification, and publishing.
-                    <a href="https://github.com/alfredang/hermes-video-pipeline" class="read-more" target="_blank">Read more →</a>
-                </li>
-            </ul>
+                <h3>Community in Action</h3>
+                <ul>
+                    <li><span class="tag tag-purple">Community</span> <strong>Hermes Agent Learns from Anything with New '/learn' Command:</strong> Hermes Agent now supports a `/learn` command, allowing it to distill any source material (code, API docs, manuals, PDFs, configs) into verifiable reusable skills. <a href="https://www.linkedin.com/posts/nousresearch_hermes-agent-can-now-learn-from-anything-activity-7475469076404957184-B-wJ" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Community</span> <strong>Hermes Agent Integrates with Stripe for Autonomous Transactions:</strong> Hermes Agent now supports a full suite of Stripe skills, enabling agents to buy things, pay per-call APIs, and provision SaaS with configurable safety limits. <a href="https://www.linkedin.com/posts/nousresearch_in-partnership-with-stripe-hermes-agent-activity-7472660954191773697-YGlb" class="read-more" target="_blank">Read more →</a></li>
+                </ul>
 
-            <h4>Level Up</h4>
-            <ul>
-                <li>
-                    <span class="tag tag-purple">Capability</span>
-                    <strong>Unlock Workflows with Automation Blueprints:</strong> Discover Hermes Agent's Automation Blueprints, offering ready-to-use templates for scheduling or event-driven automations, simplifying complex workflows without manual cron syntax.
-                    <a href="https://hermes-agent.nousresearch.com/docs/guides/automation-blueprints" class="read-more" target="_blank">Read more →</a>
-                </li>
-                <li>
-                    <span class="tag tag-purple">Integration</span>
-                    <strong>Integrate External Tools with Model Context Protocol (MCP):</strong> Learn how Hermes Agent uses MCP to connect with and leverage tools from external servers like GitHub, databases, and internal APIs, significantly expanding its operational scope.
-                    <a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp" class="read-more" target="_blank">Read more →</a>
-                </li>
-            </ul>
+                <h3>Level Up</h3>
+                <ul>
+                    <li><span class="tag tag-purple">Guide</span> <strong>Automation Blueprints for Common Hermes Workflows:</strong> Hermes offers copy-paste automation blueprints for common patterns, using cron for time-based triggers and webhooks for event-driven triggers. <a href="https://hermes-agent.nousresearch.com/docs/guides/automation-blueprints" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Feature</span> <strong>MCP (Model Context Protocol) for External Tool Integration:</strong> MCP allows Hermes Agent to connect to external tool servers (GitHub, databases, APIs) without writing native Hermes tools, with auto-discovery and registration. <a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Feature</span> <strong>The Hermes Skills System: On-Demand Knowledge and Creation:</strong> The Hermes Skills System enables on-demand knowledge loading, supports `/learn` for skill creation from various sources, and features progressive disclosure for token efficiency. <a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/skills" class="read-more" target="_blank">Read more →</a></li>
+                </ul>
+            </div>
         </section>
 
         <section id="markets">
-            <h2 class="section-divider">Markets</h2>
+            <div class="section-divider"><span>Markets</span></div>
             <div class="markets-card">
-                <h2>Crypto Snapshot</h2>
+                <h2>Today's Crypto Markets</h2>
                 <table class="markets-table">
                     <thead>
                         <tr>
                             <th>Asset</th>
-                            <th>Price</th>
+                            <th>Price (USD)</th>
                             <th>24h Change</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Bitcoin (BTC)</td>
-                            <td>$63,707.44</td>
-                            <td class="price-change negative">-0.3%</td>
+                            <td class="price">$63,722.81</td>
+                            <td class="change negative">-0.5%</td>
                         </tr>
                         <tr>
                             <td>Ethereum (ETH)</td>
-                            <td>$1,882.94</td>
-                            <td class="price-change positive">+0.6%</td>
+                            <td class="price">$1,885.24</td>
+                            <td class="change positive">+0.33%</td>
                         </tr>
                     </tbody>
                 </table>
+                <p style="font-size: 0.8em; color: var(--medium-grey);">Prices as of August 12, 2026.</p>
             </div>
         </section>
 
         <section id="in-brief">
-            <h2 class="section-divider">In Brief</h2>
+            <div class="section-divider"><span>In Brief</span></div>
             <div class="in-brief-card">
-                <ul class="in-brief-list">
-                    <li>No new "In Brief" items outside of the main stories for today.</li>
+                <h2>Quick Takes</h2>
+                <ul>
+                    <li>The Colorado Conversational AI Service Bill officially takes effect today, bringing new regulations to AI services in the state.</li>
+                    <li>South Korea is pioneering 'Lab-in-the-Loop' research for AI-driven drug discovery, integrating AI directly into the experimental process.</li>
+                    <li>Google has announced a Pixel 11 launch event scheduled for today.</li>
+                    <li>OpenAI's longtime COO has stepped down amidst a reported executive exodus from the company.</li>
                 </ul>
             </div>
         </section>
 
         <footer class="footer">
-            <p>&copy; 2026 The Daily Ringo. All rights reserved.</p>
+            &copy; 2026 The Daily Ringo. All rights reserved.
         </footer>
     </div>
 </body>
