@@ -1,436 +1,541 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Daily Ringo — Wednesday, August 12, 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    background: #f4efea;
-    color: #2c2c2c;
-    line-height: 1.6;
-    padding: 16px 12px 40px;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  /* ---------- MASTHEAD ---------- */
-  .masthead {
-    text-align: center;
-    padding: 14px 0 8px;
-    border-bottom: 3px double #2c2c2c;
-    margin-bottom: 14px;
-  }
-  .masthead h1 {
-    font-family: 'Pirata One', 'Old English Text MT', serif;
-    font-size: 3.2em;
-    font-weight: 400;
-    line-height: 1;
-    color: #1a1a1a;
-    letter-spacing: 0.02em;
-    margin: 2px 0 4px;
-  }
-  .masthead .tagline {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.55em;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.35em;
-    color: #999;
-    margin: 0 0 6px;
-  }
-  .masthead .date-line {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.62em;
-    font-weight: 400;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    border-top: 1px solid #d5ccc3;
-    padding-top: 6px;
-  }
-  .masthead .date-line .sep { color: #ccc; }
-  .nav-links {
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    padding: 9px 0 2px;
-  }
-  .nav-links a {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.7em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #6a1b9a;
-    text-decoration: none;
-  }
-  .nav-links a:hover { text-decoration: underline; }
-  /* ---------- SECTION DIVIDERS ---------- */
-  .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 30px 0 14px;
-  }
-  .section-divider::before, .section-divider::after {
-    content: "";
-    flex: 1;
-    border-top: 1px solid #d5ccc3;
-  }
-  .section-divider span {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.72em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.28em;
-    color: #8a7a6a;
-    white-space: nowrap;
-  }
-  /* ---------- WEATHER ---------- */
-  .weather-bar {
-    background: #e8e1d8;
-    border-radius: 8px;
-    padding: 12px 18px;
-    margin-bottom: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px 18px;
-  }
-  .weather-bar .w-main { font-size: 1.05em; font-weight: 700; }
-  .weather-bar .w-sub {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.72em;
-    color: #5c5348;
-    letter-spacing: 0.02em;
-  }
-  .weather-bar .w-temp { font-size: 1.7em; font-weight: 700; color: #1a1a1a; }
-  /* ---------- CARDS ---------- */
-  .card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(60, 40, 20, 0.08);
-    padding: 18px 20px;
-    margin-bottom: 16px;
-  }
-  .lead-card { padding: 24px 26px; }
-  /* ---------- TAGS ---------- */
-  .tag {
-    display: inline-block;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.62em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: #fff;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 8px;
-  }
-  .tag-red    { background: #b71c1c; }
-  .tag-blue   { background: #1565c0; }
-  .tag-green  { background: #2e7d32; }
-  .tag-purple { background: #6a1b9a; }
-  .tag-orange { background: #e65100; }
-  .tag-teal   { background: #00695c; }
-  .tag-update { background: #fff; color: #6a1b9a; border: 2px solid #6a1b9a; }
-  /* ---------- STORY TEXT ---------- */
-  .story h2, .lead-card h2 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.35em;
-    font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 8px;
-    color: #1a1a1a;
-  }
-  .lead-card h2 { font-size: 1.85em; }
-  .story p, .lead-card p {
-    font-size: 0.95em;
-    color: #3a3a3a;
-    margin-bottom: 8px;
-  }
-  .byline {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.68em;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
-  }
-  .read-more {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.75em;
-    font-weight: 600;
-    color: #6a1b9a;
-    text-decoration: none;
-  }
-  .read-more:hover { text-decoration: underline; }
-  /* ---------- GRID ---------- */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .grid .card { margin-bottom: 0; }
-  /* ---------- HERMES ---------- */
-  .hermes-card {
-    background: #fff;
-    border-left: 4px solid #7b1fa2;
-    border-radius: 0 10px 10px 0;
-    box-shadow: 0 2px 10px rgba(60, 40, 20, 0.08);
-    padding: 18px 22px;
-    margin-bottom: 16px;
-  }
-  .hermes-card h2 {
-    font-family: 'Playfair Display', Georgia, serif;
-    color: #7b1fa2;
-    font-size: 1.3em;
-    margin-bottom: 8px;
-  }
-  .hermes-card p { font-size: 0.95em; color: #3a3a3a; margin-bottom: 6px; }
-  /* ---------- MARKETS ---------- */
-  .markets-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.85em;
-  }
-  .markets-table th {
-    text-align: left;
-    padding: 8px 10px;
-    border-bottom: 2px solid #d5ccc3;
-    font-size: 0.75em;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #8a7a6a;
-  }
-  .markets-table td { padding: 9px 10px; border-bottom: 1px solid #eee4da; }
-  .up   { color: #2e7d32; font-weight: 600; }
-  .down { color: #b71c1c; font-weight: 600; }
-  .mkt-note {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.75em;
-    color: #666;
-    margin-top: 10px;
-  }
-  /* ---------- IN BRIEF ---------- */
-  .brief-item {
-    display: flex;
-    gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px dashed #e0d6ca;
-  }
-  .brief-item:last-child { border-bottom: none; }
-  .brief-item .arrow { color: #6a1b9a; font-size: 0.75em; line-height: 1.9; }
-  .brief-item .text { font-size: 0.9em; color: #3a3a3a; }
-  .brief-item a { color: #6a1b9a; text-decoration: none; }
-  .brief-item a:hover { text-decoration: underline; }
-  /* ---------- FOOTER ---------- */
-  .footer {
-    border-top: 3px double #2c2c2c;
-    margin-top: 30px;
-    padding-top: 14px;
-    text-align: center;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.62em;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #999;
-  }
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 640px) {
-    .grid { grid-template-columns: 1fr; }
-    .lead-card h2 { font-size: 1.55em; }
-    .masthead h1 { font-size: 2.6em; }
-    .nav-links { gap: 12px; }
-  }
-  @media (max-width: 480px) {
-    body { padding: 10px 8px 30px; }
-    .masthead h1 { font-size: 2.3em; }
-    .masthead .date-line { flex-direction: column; gap: 2px; }
-    .masthead .date-line .sep { display: none; }
-    .nav-links { flex-wrap: wrap; gap: 8px 12px; }
-    .weather-bar { flex-direction: column; align-items: flex-start; }
-    .card { padding: 15px 16px; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Ringo - August 12, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #1a1a1a;
+            --secondary-text: #4a4a4a;
+            --light-text: #666;
+            --accent-purple: #7b1fa2;
+            --bg-cream: #f4efea;
+            --masthead-border: #2c2c2c;
+            --masthead-date-border: #d5ccc3;
+            --card-bg: #ffffff;
+            --tag-red: #b71c1c;
+            --tag-blue: #1565c0;
+            --tag-green: #2e7d32;
+            --tag-purple: #6a1b9a;
+            --tag-orange: #e65100;
+            --tag-teal: #00695c;
+        }
+        body {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: var(--bg-cream);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        a {
+            color: var(--accent-purple);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* Masthead */
+        .masthead {
+            text-align: center;
+            padding: 14px 0 8px;
+            border-bottom: 3px double var(--masthead-border);
+            margin-bottom: 14px;
+        }
+        .masthead h1 {
+            font-family: 'Pirata One', 'Old English Text MT', serif;
+            font-size: 3.2em;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--primary-text);
+            letter-spacing: 0.02em;
+            margin: 0;
+        }
+        .masthead .tagline {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.55em;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.35em;
+            color: #999;
+            margin: 0 0 6px;
+        }
+        .masthead .date-line {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.62em;
+            font-weight: 400;
+            color: var(--light-text);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            border-top: 1px solid var(--masthead-date-border);
+            padding-top: 6px;
+            margin-top: 6px;
+        }
+        .masthead .date-line .sep {
+            color: #ccc;
+        }
+        .nav-links {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .nav-links a {
+            color: var(--secondary-text);
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.2s ease;
+        }
+        .nav-links a:hover {
+            background-color: #e0d9d0;
+            text-decoration: none;
+        }
+
+        /* Section dividers */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0;
+            color: var(--light-text);
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ccc;
+        }
+        .section-divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+        .section-divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        /* Story cards */
+        .story-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .story-card h2, .story-card h3 {
+            font-family: 'Playfair Display', serif;
+            margin-top: 0;
+            line-height: 1.3;
+        }
+        .story-card p {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+        .story-card .read-more {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--accent-purple);
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.7em;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+        .tag-red { background-color: var(--tag-red); }
+        .tag-blue { background-color: var(--tag-blue); }
+        .tag-green { background-color: var(--tag-green); }
+        .tag-purple { background-color: var(--tag-purple); }
+        .tag-orange { background-color: var(--tag-orange); }
+        .tag-teal { background-color: var(--tag-teal); }
+
+        /* Weather bar */
+        .weather-bar {
+            background-color: #e8e1d8;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.9em;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .weather-bar span {
+            margin-right: 15px;
+            white-space: nowrap;
+        }
+        .weather-bar span:last-child {
+            margin-right: 0;
+        }
+        .weather-bar strong {
+            font-weight: 600;
+        }
+
+        /* Layouts */
+        .lead-story .story-card {
+            padding: 30px;
+        }
+        .lead-story h2 {
+            font-size: 2em;
+        }
+        .top-stories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .top-stories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hermes Corner */
+        .hermes-corner-card {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-purple);
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .hermes-corner-card h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-purple);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .hermes-corner-card h4 {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--light-text);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+        .hermes-corner-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .hermes-corner-card li {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        .hermes-corner-card li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Markets Table */
+        .markets-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .markets-card h2 {
+            font-family: 'Playfair Display', serif;
+            margin-top: 0;
+        }
+        .markets-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.9em;
+        }
+        .markets-table th, .markets-table td {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            text-align: left;
+        }
+        .markets-table th {
+            font-weight: 600;
+            color: var(--secondary-text);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .markets-table tr:last-child td {
+            border-bottom: none;
+        }
+        .price-change.positive {
+            color: var(--tag-green);
+        }
+        .price-change.negative {
+            color: var(--tag-red);
+        }
+
+        /* In Brief */
+        .in-brief-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .in-brief-card h2 {
+            font-family: 'Playfair Display', serif;
+            margin-top: 0;
+        }
+        .in-brief-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95em;
+        }
+        .in-brief-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .in-brief-list li::before {
+            content: '▶';
+            color: var(--accent-purple);
+            position: absolute;
+            left: 0;
+            font-size: 0.8em;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 3px double var(--masthead-border);
+            padding-top: 14px;
+            margin-top: 30px;
+            text-align: center;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.65em;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--light-text);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 480px) {
+            .masthead h1 {
+                font-size: 2.5em;
+            }
+            .masthead .tagline, .masthead .date-line {
+                font-size: 0.5em;
+            }
+            .nav-links {
+                font-size: 0.7em;
+                gap: 10px;
+            }
+            .lead-story h2 {
+                font-size: 1.5em;
+            }
+            .story-card {
+                padding: 15px;
+            }
+            .weather-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 0.8em;
+            }
+            .weather-bar span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header class="masthead">
+            <p class="tagline">News for the Curious Mind</p>
+            <h1>The Daily Ringo</h1>
+            <div class="date-line">
+                <span>Wednesday, August 12, 2026</span>
+                <span class="sep">|</span>
+                <span>Volume I · No. 27</span>
+            </div>
+        </header>
 
-<!-- ================= MASTHEAD ================= -->
-<header class="masthead">
-  <div class="tagline">News for the Curious Mind</div>
-  <h1>The Daily Ringo</h1>
-  <div class="date-line">
-    <span>Wednesday, August 12, 2026</span>
-    <span class="sep">|</span>
-    <span>Volume I &middot; No. 43</span>
-  </div>
-  <nav class="nav-links">
-    <a href="#weather">Weather</a>
-    <a href="#tech">Tech</a>
-    <a href="#ai">AI</a>
-    <a href="#hermes">Hermes</a>
-    <a href="#markets">Markets</a>
-  </nav>
-</header>
+        <nav class="nav-links">
+            <a href="#weather">Weather</a>
+            <a href="#top-stories">Tech & AI</a>
+            <a href="#hermes-corner">Hermes Corner</a>
+            <a href="#markets">Markets</a>
+            <a href="#in-brief">In Brief</a>
+        </nav>
 
-<!-- ================= WEATHER ================= -->
-<div class="weather-bar" id="weather">
-  <div>
-    <div class="w-main">Auckland &mdash; Rain Showers Developing</div>
-    <div class="w-sub">ENE wind ~20 km/h &middot; Humidity 77% &middot; Sunrise 7:08am &middot; Sunset 5:43pm</div>
-  </div>
-  <div class="w-temp">15&deg;C <span style="font-size:0.55em; font-weight:400; color:#5c5348;">/ low 12&deg;C</span></div>
-</div>
+        <section id="weather" class="weather-bar">
+            <span><strong>Auckland, NZ:</strong> Clear Sky, 0.0°C (32°F)</span>
+            <span>Feels like: 0°C (32°F)</span>
+            <span>High: 0°C / Low: 0°C</span>
+            <span>Sunrise: 7:08 AM</span>
+            <span>Sunset: 5:44 PM</span>
+        </section>
 
-<!-- ================= LEAD STORY ================= -->
-<section id="ai">
-  <div class="section-divider"><span>Top Story</span></div>
-  <div class="card lead-card">
-    <span class="tag tag-orange">US&ndash;China Decoupling</span>
-    <h2>Meta Unwinds Its US$2B Manus AI Deal After Beijing Block</h2>
-    <div class="byline">South China Morning Post &middot; August 12, 2026</div>
-    <p>Meta is fully unwinding its acquisition of Chinese-founded AI agent platform Manus &mdash; three months after Beijing blocked the deal on national-security grounds &mdash; capping off another high-profile AI decoupling between Washington and Beijing.</p>
-    <p>Manus told users Tuesday it will delete data generated by &ldquo;certain users&rdquo; since December 29, when Meta acquired the startup, as it transitions back to independent operations. Users have until August 23 to back up their data; the deletion is needed &ldquo;to comply with regulatory requirements in specific parts of the world.&rdquo; Manus&rsquo;s parent Butterfly Effect was founded in 2022 with offices in Beijing and Wuhan, then re-incorporated as a Singapore company last summer.</p>
-    <a class="read-more" href="https://www.scmp.com/news/us/article/3363704/facebook-parent-meta-unwind-us2-billion-manus-ai-deal-after-beijing-block" target="_blank" rel="noopener">Read more &rarr;</a>
-  </div>
-</section>
+        <section id="top-stories">
+            <h2 class="section-divider">Top Stories</h2>
 
-<!-- ================= TOP STORIES ================= -->
-<section id="tech">
-  <div class="section-divider"><span>Top Stories</span></div>
-  <div class="grid">
+            <div class="lead-story">
+                <div class="story-card">
+                    <span class="tag tag-blue">AI Launch</span>
+                    <h2>SpaceXAI Unveils Grok Bot: A 24/7 AI Agent for Seamless Workflow Automation</h2>
+                    <p>SpaceXAI has launched "Grok Bot," an innovative AI agent designed to work around the clock across Windows, macOS, Linux, and iOS. Each bot operates from its own dedicated cloud PC, enabling it to sign into tools, navigate websites, and execute tasks autonomously, only seeking user approval when necessary. Grok Bot learns from user interactions and can even collaborate with other AI agents in group chats, offering a new paradigm for personal and professional productivity.</p>
+                    <a href="https://gigazine.net/gsc_news/en/20260812-spacexai-grok-bot/" class="read-more" target="_blank">Read more →</a>
+                </div>
+            </div>
 
-    <div class="card story">
-      <span class="tag tag-blue">AI Launch</span>
-      <h2>SpaceXAI &amp; Cursor Launch Grok Bot &mdash; Always-On AI Teammates With Their Own Computer</h2>
-      <div class="byline">x.ai / 9to5Mac &middot; August 11, 2026</div>
-      <p>SpaceXAI and Cursor have opened Grok Bot to the world: always-on AI agents that run on a cloud computer, sign into your apps and keep working 24/7 &mdash; negotiating with vendors, triaging support tickets, updating CRMs &mdash; even when your own machine is offline.</p>
-      <p>The early beta, available today for SuperGrok Heavy, Cursor Ultra ($200/mo) and Cursor Teams Premium ($120/seat) subscribers on desktop and iOS, extends Cursor&rsquo;s agent stack from coding into sales, support and finance. It&rsquo;s the first standalone product from the SpaceX&ndash;xAI&ndash;Cursor combination, which jointly trained Grok 4.5 in July.</p>
-      <a class="read-more" href="https://x.ai/news/introducing-grok-bot" target="_blank" rel="noopener">Read more &rarr;</a>
+            <div class="top-stories-grid">
+                <div class="story-card">
+                    <span class="tag tag-blue">AI Infrastructure</span>
+                    <h3>Anthropic Forges Theseus Alliance for Dedicated AI Compute Infrastructure</h3>
+                    <p>Anthropic has partnered with Macquarie Asset Management and Singapore's sovereign wealth fund GIC to create Theseus Infrastructure. This joint venture will develop and lease purpose-built data centers to Anthropic, securing dedicated compute capacity essential for scaling frontier AI models. The initiative mirrors OpenAI's Stargate and includes Anthropic's commitment to offset increased consumer electricity rates, addressing community concerns over data center expansion.</p>
+                    <a href="https://timestabloid.com/anthropic-just-got-its-own-stargate-inside-the-theseus/" class="read-more" target="_blank">Read more →</a>
+                </div>
+                <div class="story-card">
+                    <span class="tag tag-blue">AI Research</span>
+                    <h3>South Korea Pioneers 'Lab-in-the-Loop' for AI-Driven Drug Discovery</h3>
+                    <p>The South Korean Ministry of Science and ICT has inaugurated an AI-powered drug discovery hub in Daegu, featuring a "Lab-in-the-Loop" system. This innovative platform connects AI models directly with automated laboratories and integrates data from two million patients to streamline and accelerate the drug development cycle. The initiative aims to reduce the time and cost associated with identifying and validating new drug candidates through a continuous feedback loop between AI predictions and real-world experimentation.</p>
+                    <a href="https://www.asiae.co.kr/en/article/2026081210213257948" class="read-more" target="_blank">Read more →</a>
+                </div>
+                <div class="story-card">
+                    <span class="tag tag-purple">AI Regulation</span>
+                    <h3>Colorado's Conversational AI Service Bill Takes Effect</h3>
+                    <p>Colorado's House Bill 26-1263, which sets out requirements for operators of conversational artificial intelligence services, officially comes into force today, August 12, 2026. The legislation includes specific design requirements for AI services, marking a significant step in regulating the burgeoning AI sector with a focus on responsible deployment and transparency, albeit with an initial grace period for compliance.</p>
+                    <a href="https://digitalpolicyalert.org/event/40326-colorado-bill-concerning-requirements-for-an-operator-of-a-conversational-artificial-intelligence-service-hb-26-1263-including-design-requirements-enters-into-force-with-grace-period" class="read-more" target="_blank">Read more →</a>
+                </div>
+                <div class="story-card">
+                    <span class="tag tag-blue">Consumer Tech</span>
+                    <h3>Google Announces Pixel 11 Launch Event Today</h3>
+                    <p>Google has sent out invitations for a major Pixel event scheduled for today, August 12, 2026, in New York City. The company is teasing "the next generation of Pixel," indicating the probable unveiling of the Pixel 11 series, which is expected to include standard, Pro, and Pro XL models, along with a foldable variant. Speculation also suggests the possible debut of the new Pixel Watch, as the Pixel Watch 4 was released a year ago.</p>
+                    <a href="https://www.thurrott.com/google/338524/google-announces-pixel-11-event-on-august-12" class="read-more" target="_blank">Read more →</a>
+                </div>
+                <div class="story-card">
+                    <span class="tag tag-red">Breaking</span>
+                    <h3>OpenAI's Longtime COO Steps Down Amidst Executive Exodus</h3>
+                    <p>OpenAI's long-serving Chief Operating Officer has resigned, marking the fifth high-profile executive departure from the company in recent months. The exit comes amidst a period of intense scrutiny and rapid developments within the frontier AI labs sector, raising questions about internal dynamics and strategic directions at one of the leading AI research organizations.</p>
+                    <a href="https://timestabloid.com/anthropic-just-got-its-own-stargate-inside-the-theseus/" class="read-more" target="_blank">Read more →</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="hermes-corner" class="hermes-corner-card">
+            <h2>The Hermes Corner</h2>
+
+            <h4>What's New</h4>
+            <ul>
+                <li>
+                    <span class="tag tag-purple">Update</span>
+                    <strong>Hermes Agent v2026.8.3 'The Sentinel' Released:</strong> This critical update resolves cron job delivery issues, particularly for relay-fronted platforms like Discord, by ensuring canonical home channel configurations are respected.
+                    <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.3" class="read-more" target="_blank">Read more →</a>
+                </li>
+            </ul>
+
+            <h4>Community in Action</h4>
+            <ul>
+                <li>
+                    <span class="tag tag-purple">Automation</span>
+                    <strong>AI Social Media Manager with Hermes & Zernio:</strong> A new tutorial demonstrates how to build an autonomous social media manager using Hermes Agent and Zernio's API, enabling automated content creation, engagement, and lead qualification across 15 platforms.
+                    <a href="https://www.youtube.com/watch?v=cpfC_87tPPo" class="read-more" target="_blank">Read more →</a>
+                </li>
+                <li>
+                    <span class="tag tag-purple">Workflow</span>
+                    <strong>Automated YouTube Video Production Pipeline:</strong> Explore a GitHub project showcasing a fully automated YouTube video pipeline driven by Hermes Agent, from research and scripting to rendering, verification, and publishing.
+                    <a href="https://github.com/alfredang/hermes-video-pipeline" class="read-more" target="_blank">Read more →</a>
+                </li>
+            </ul>
+
+            <h4>Level Up</h4>
+            <ul>
+                <li>
+                    <span class="tag tag-purple">Capability</span>
+                    <strong>Unlock Workflows with Automation Blueprints:</strong> Discover Hermes Agent's Automation Blueprints, offering ready-to-use templates for scheduling or event-driven automations, simplifying complex workflows without manual cron syntax.
+                    <a href="https://hermes-agent.nousresearch.com/docs/guides/automation-blueprints" class="read-more" target="_blank">Read more →</a>
+                </li>
+                <li>
+                    <span class="tag tag-purple">Integration</span>
+                    <strong>Integrate External Tools with Model Context Protocol (MCP):</strong> Learn how Hermes Agent uses MCP to connect with and leverage tools from external servers like GitHub, databases, and internal APIs, significantly expanding its operational scope.
+                    <a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp" class="read-more" target="_blank">Read more →</a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="markets">
+            <h2 class="section-divider">Markets</h2>
+            <div class="markets-card">
+                <h2>Crypto Snapshot</h2>
+                <table class="markets-table">
+                    <thead>
+                        <tr>
+                            <th>Asset</th>
+                            <th>Price</th>
+                            <th>24h Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bitcoin (BTC)</td>
+                            <td>$63,707.44</td>
+                            <td class="price-change negative">-0.3%</td>
+                        </tr>
+                        <tr>
+                            <td>Ethereum (ETH)</td>
+                            <td>$1,882.94</td>
+                            <td class="price-change positive">+0.6%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="in-brief">
+            <h2 class="section-divider">In Brief</h2>
+            <div class="in-brief-card">
+                <ul class="in-brief-list">
+                    <li>No new "In Brief" items outside of the main stories for today.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 The Daily Ringo. All rights reserved.</p>
+        </footer>
     </div>
-
-    <div class="card story">
-      <span class="tag tag-green">Funding</span>
-      <h2>xAI Co-Founder&rsquo;s River AI Raises $1.1B for Enterprise AI</h2>
-      <div class="byline">Reuters / Quartz &middot; August 11, 2026</div>
-      <p>River AI, founded by xAI co-founder Igor Babuschkin, has raised $1.1 billion to expand tools that let enterprises train AI on their own proprietary data &mdash; with General Catalyst and AMP PBC co-leading, and strategic checks from Nvidia and AMD Ventures, plus Y Combinator and Temasek.</p>
-      <p>The bet: enterprises will move from off-the-shelf frontier models to privately-owned open-weight models. River claims reinforcement-learning training runs in 15&ndash;20 minutes via its API, at two to four times lower cost than closed-source rivals. No valuation was disclosed.</p>
-      <a class="read-more" href="https://www.reuters.com/technology/xai-co-founders-startup-river-ai-raises-11-billion-expand-custom-ai-tools-2026-08-11/" target="_blank" rel="noopener">Read more &rarr;</a>
-    </div>
-
-    <div class="card story">
-      <span class="tag tag-purple">Policy</span>
-      <h2>Sanders to Altman, Amodei, Zuckerberg: &ldquo;Pause AI Development&rdquo; or the Senate Will</h2>
-      <div class="byline">Axios / The Guardian &middot; August 10&ndash;11, 2026</div>
-      <p>Sen. Bernie Sanders has written to the CEOs of OpenAI, Anthropic and Meta demanding they halt AI development, citing each company&rsquo;s own published safety pledges &mdash; and warning that if they don&rsquo;t, &ldquo;my colleagues and I in the U.S. Senate will&rdquo; step in.</p>
-      <p>The letter, first reported by Axios, leans on the rogue-agent disclosures, the Stanford AI-designed viruses and Yoshua Bengio&rsquo;s &ldquo;wake-up call&rdquo; warning. Separately, a group of House Democrats has urged Speaker Mike Johnson to compel AI executives to testify. None of the three companies has publicly responded.</p>
-      <a class="read-more" href="https://www.axios.com/2026/08/10/sanders-ai-development-pause" target="_blank" rel="noopener">Read more &rarr;</a>
-    </div>
-
-    <div class="card story">
-      <span class="tag tag-purple">Regulation</span>
-      <h2>Every Claude Sentence Gets an Invisible Watermark &mdash; Worldwide, Thanks to the EU</h2>
-      <div class="byline">Euronews &middot; August 11, 2026</div>
-      <p>Anthropic has begun weaving imperceptible watermarks into all Claude text output, and attaching signed provenance metadata to generated files &mdash; rolling out globally from August 2 to meet the EU AI Act&rsquo;s Article 50 transparency rules, which carry fines up to &euro;15M or 3% of turnover.</p>
-      <p>The mark survives copying, pasting and light editing, and applies across Claude, Claude Code, Claude Cowork and the API, even via AWS or Google Cloud. Anthropic is candid about limits: a watermark signals Claude processed the text, not that it authored it &mdash; and heavy rewriting or translation can strip it out.</p>
-      <a class="read-more" href="https://www.euronews.com/next/2026/08/11/eu-compliance-delivered-globally-anthropic-to-watermark-claudes-output-worldwide" target="_blank" rel="noopener">Read more &rarr;</a>
-    </div>
-
-    <div class="card story">
-      <span class="tag tag-update">Update</span>
-      <h2>Update: GPT-5.6-Cyber Found Real Chrome Zero-Days &mdash; Google Fixed CVE-2026-15903</h2>
-      <div class="byline">Help Net Security &middot; August 11, 2026</div>
-      <p>New details on OpenAI&rsquo;s vetted-defender model: GPT-5.6-Cyber has already found two never-before-documented flaws in Chrome&rsquo;s V8 JavaScript engine that could be chained to escape the browser sandbox &mdash; patched by Google as CVE-2026-15903.</p>
-      <p>OpenAI&rsquo;s internal benchmark shows the model completes 95% of exploit-chain, auth-bypass and privilege-escalation requests versus 1.5% for the guardrailed GPT-5.6. It also tops GPT-5.6 Sol and GPT-5.5 Cyber on ExploitGym &mdash; but remains rated High, not Critical, under the Preparedness Framework.</p>
-      <a class="read-more" href="https://www.helpnetsecurity.com/2026/08/11/openai-gpt-5-6-cyber-model/" target="_blank" rel="noopener">Read more &rarr;</a>
-    </div>
-
-    <div class="card story">
-      <span class="tag tag-teal">NZ &middot; AI</span>
-      <h2>NZ Moving Too Slowly on Māori Data Sovereignty, Says Toitū AI Founder</h2>
-      <div class="byline">1News &middot; August 11, 2026</div>
-      <p>Former Microsoft leader Dan Te Whenua Walker, founder of kaupapa Māori AI consultancy Toitū AI, says New Zealand is falling behind on giving Māori a say in how AI is built and governed &mdash; and that the Government knows it.</p>
-      <p>&ldquo;We could never compete with the big frontier labs&hellip; but what we can totally own is&hellip; our amazing Māori data sovereignty frameworks,&rdquo; he told 1News, arguing iwi should be involved in AI design from the start &mdash; a chance for Aotearoa to be &ldquo;an example to the world&rdquo; on Indigenous AI done right.</p>
-      <a class="read-more" href="https://www.1news.co.nz/2026/08/11/maori-ai-founder-warns-nz-is-moving-too-slowly-on-data-sovereignty/" target="_blank" rel="noopener">Read more &rarr;</a>
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= HERMES CORNER ================= -->
-<section id="hermes">
-  <div class="section-divider"><span>Hermes Corner</span></div>
-  <div class="hermes-card">
-    <h2>No New Release &mdash; v0.20.0 &lsquo;The Herald&rsquo; (2026.8.3) Still Current</h2>
-    <p>Nothing shipped since the last issue: the latest release remains <strong>Hermes Agent v0.20.0 &lsquo;The Herald&rsquo; (2026.8.3)</strong>, so today&rsquo;s corner is a status check rather than an announcement.</p>
-    <p>Main-branch activity through August 9 shows the v0.20.x hardening train still moving: a single-owner personality state with a one-time reset migration, shielding the fatal-error handler from carrier-task cancellation, binding gateway-scope identity to the process PID, and keeping CLI workers off the controlling TTY.</p>
-    <p>Quiet since then &mdash; no new commits landed in the last three days. When the next train pulls in, you&rsquo;ll read it here first.</p>
-  </div>
-</section>
-
-<!-- ================= MARKETS ================= -->
-<section id="markets">
-  <div class="section-divider"><span>Markets</span></div>
-  <div class="card">
-    <table class="markets-table">
-      <tr>
-        <th>Asset</th>
-        <th>Price (USD)</th>
-        <th>24h</th>
-        <th>Note</th>
-      </tr>
-      <tr>
-        <td>Bitcoin (BTC)</td>
-        <td>$63,326</td>
-        <td class="down">&darr; 1.1%</td>
-        <td>Defending $63.7&ndash;64K support</td>
-      </tr>
-      <tr>
-        <td>Ethereum (ETH)</td>
-        <td>$1,868</td>
-        <td class="down">&darr; 0.5%</td>
-        <td>Holding $1,850; $2,000 is the wall</td>
-      </tr>
-    </table>
-    <p class="mkt-note">Crypto is treading water into the big one: the US July CPI lands at 8:30am ET today, and traders have trimmed risk ahead of it. A cooler print could push BTC back at $65K&ndash;65.5K resistance and ETH toward $2,000; a hot print risks BTC losing the $63.7&ndash;64K zone and ETH revisiting $1,800. &mdash; Data: CoinGecko / Coinbase, Aug 12 NZT.</p>
-  </div>
-</section>
-
-<!-- ================= IN BRIEF ================= -->
-<section id="brief">
-  <div class="section-divider"><span>In Brief</span></div>
-  <div class="card">
-    <div class="brief-item">
-      <span class="arrow">&#9656;</span>
-      <span class="text"><strong>House Dems push for AI CEO testimony.</strong> A group of House Democrats has written to Speaker Mike Johnson urging him to compel OpenAI, Anthropic and Meta executives to testify about rogue-agent incidents. <a href="https://qz.com/bernie-sanders-openai-anthropic-meta-ai-pause-warning-081026" target="_blank" rel="noopener">Quartz &rarr;</a></span>
-    </div>
-    <div class="brief-item">
-      <span class="arrow">&#9656;</span>
-      <span class="text"><strong>Discovered Materials raises $9M to hunt cooler chip materials.</strong> The Y Combinator startup pairs Anthropic models with physics simulations to find semiconductors that shed heat faster; Lightspeed India led, with Paul Graham among the angels. <a href="https://aiinsiders.net/article/discovered-materials-raises-dollar9m-to-hunt-cooler-chip" target="_blank" rel="noopener">AI Insiders &rarr;</a></span>
-    </div>
-    <div class="brief-item">
-      <span class="arrow">&#9656;</span>
-      <span class="text"><strong>Auckland winter note.</strong> A mild, wet one: showers likely through the day (80% chance), high 15&deg;C, ENE breeze around 20 km/h. Sunrise 7:08am, sunset 5:43pm &mdash; days still stretching, slowly.</span>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-  The Daily Ringo &middot; Compiled by Ringo, your tireless news hound &middot; Sources: SCMP, Reuters, Axios, Euronews, x.ai, Quartz, 1News, MetService
-</footer>
-
 </body>
 </html>
