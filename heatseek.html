@@ -9,24 +9,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cream-bg: #f4efea;
-            --light-cream-bg: #e8e1d8;
-            --dark-grey: #2c2c2c;
-            --medium-grey: #666;
-            --light-grey: #999;
-            --border-line: #d5ccc3;
-            --tag-red: #b71c1c;
-            --tag-blue: #1565c0;
-            --tag-green: #2e7d32;
-            --tag-purple: #6a1b9a;
-            --tag-orange: #e65100;
-            --tag-teal: #00695c;
+            --background-color: #f4efea;
+            --text-color: #2c2c2c;
+            --light-text-color: #666;
+            --masthead-border: #2c2c2c;
+            --section-divider-border: #d5ccc3;
+            --card-background: #fff;
+            --hermes-purple: #7b1fa2;
+            --read-more-color: #6a1b9a;
         }
 
         body {
             font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-            background-color: var(--cream-bg);
-            color: #1a1a1a;
+            color: var(--text-color);
+            background-color: var(--background-color);
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -41,7 +37,7 @@
         .masthead {
             text-align: center;
             padding: 14px 0 8px;
-            border-bottom: 3px double var(--dark-grey);
+            border-bottom: 3px double var(--masthead-border);
             margin-bottom: 14px;
         }
         .masthead h1 {
@@ -59,98 +55,89 @@
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 0.35em;
-            color: var(--light-grey);
+            color: #999;
             margin: 0 0 6px;
         }
         .masthead .date-line {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.62em;
             font-weight: 400;
-            color: var(--medium-grey);
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             display: flex;
             justify-content: center;
             gap: 12px;
-            border-top: 1px solid var(--border-line);
+            border-top: 1px solid var(--section-divider-border);
             padding-top: 6px;
-            margin-top: 6px;
+            margin-top: 8px;
         }
         .masthead .date-line .sep { color: #ccc; }
 
         .nav-links {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.7em;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+            text-align: center;
             margin-bottom: 20px;
+            padding-top: 10px;
+            border-bottom: 1px solid var(--section-divider-border);
             padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-line);
         }
         .nav-links a {
-            color: var(--dark-grey);
             text-decoration: none;
-            padding: 5px 0;
-            transition: color 0.2s ease;
+            color: var(--light-text-color);
+            text-transform: uppercase;
+            font-size: 0.75em;
+            letter-spacing: 0.1em;
+            margin: 0 10px;
+            transition: color 0.3s ease;
         }
         .nav-links a:hover {
-            color: var(--tag-purple);
+            color: var(--text-color);
+        }
+
+        .weather-bar {
+            background-color: #e8e1d8;
+            padding: 10px 15px;
+            margin-bottom: 14px;
+            border-radius: 8px;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.85em;
+            color: #4a4a4a;
+        }
+        .weather-bar strong {
+            font-weight: 600;
         }
 
         .section-divider {
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 40px 0 30px;
-        }
-        .section-divider::before,
-        .section-divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid var(--border-line);
-        }
-        .section-divider:not(:empty)::before {
-            margin-right: .5em;
-        }
-        .section-divider:not(:empty)::after {
-            margin-left: .5em;
+            margin: 26px 0 18px;
         }
         .section-divider span {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             font-size: 0.8em;
-            color: var(--medium-grey);
-            background-color: var(--cream-bg);
+            color: #666;
+            background-color: var(--background-color);
             padding: 0 10px;
         }
-
-        .weather-bar {
-            background-color: var(--light-cream-bg);
-            padding: 10px 15px;
-            margin-bottom: 25px;
-            border-radius: 5px;
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.85em;
-            color: #4a4a4a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--section-divider-border);
         }
-        .weather-bar div {
-            padding: 2px 0;
-        }
+        .section-divider::before { margin-right: .5em; }
+        .section-divider::after { margin-left: .5em; }
 
         .story-card {
-            background-color: #fff;
+            background-color: var(--card-background);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
         }
         .story-card h2 {
             font-family: 'Playfair Display', serif;
@@ -158,14 +145,36 @@
             font-size: 1.6em;
             line-height: 1.3;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .story-card p {
             font-size: 0.95em;
             line-height: 1.5;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
-        .story-card .tag {
+        .story-card .read-more {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: var(--read-more-color);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .lead-story h2 {
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .top-stories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .tag {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.7em;
             font-weight: 600;
@@ -173,68 +182,44 @@
             padding: 4px 8px;
             border-radius: 4px;
             color: #fff;
-            margin-bottom: 10px;
+            margin-right: 8px;
+            margin-bottom: 10px; /* Default for block tags */
             display: inline-block;
         }
-        .story-card .read-more {
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.8em;
-            font-weight: 600;
-            color: var(--tag-purple);
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        .story-card .read-more:hover {
-            text-decoration: underline;
-        }
-
-        .tag-red { background-color: var(--tag-red); }
-        .tag-blue { background-color: var(--tag-blue); }
-        .tag-green { background-color: var(--tag-green); }
-        .tag-purple { background-color: var(--tag-purple); }
-        .tag-orange { background-color: var(--tag-orange); }
-        .tag-teal { background-color: var(--tag-teal); }
-
-        .lead-story h2 {
-            font-size: 2.2em;
-        }
-
-        .top-stories-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
+        .tag-red { background-color: #b71c1c; }
+        .tag-blue { background-color: #1565c0; }
+        .tag-green { background-color: #2e7d32; }
+        .tag-purple { background-color: #6a1b9a; }
+        .tag-orange { background-color: #e65100; }
+        .tag-teal { background-color: #00695c; }
 
         .hermes-corner-card {
-            background-color: #fff;
-            border-left: 4px solid var(--tag-purple);
-            border-radius: 0 8px 8px 0;
+            background-color: var(--card-background);
+            border-left: 4px solid var(--hermes-purple);
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
         }
         .hermes-corner-card h2 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.8em;
-            color: var(--tag-purple);
+            color: var(--hermes-purple);
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
         .hermes-corner-card h3 {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.8em;
+            font-size: 0.75em;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--medium-grey);
-            border-bottom: 1px dashed #eee;
+            color: #4a4a4a;
+            margin: 20px 0 10px;
+            border-bottom: 1px dashed #d5ccc3;
             padding-bottom: 5px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .hermes-corner-card h3:first-of-type {
-            margin-top: 0;
         }
         .hermes-corner-card ul {
             list-style: none;
@@ -253,73 +238,64 @@
             vertical-align: middle;
             margin: 0 8px 2px 0;
         }
-        .hermes-corner-card li strong {
-            font-weight: 700;
-        }
         .hermes-corner-card li .read-more {
             display: block;
             margin-top: 6px;
         }
+        .hermes-corner-card strong {
+            font-weight: 700;
+        }
+        .hermes-corner-card .no-news {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.9em;
+            color: var(--light-text-color);
+        }
 
         .markets-card {
-            background-color: #fff;
+            background-color: var(--card-background);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-bottom: 25px;
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            padding: 14px 16px;
+            margin-bottom: 14px;
         }
         .markets-card h2 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.6em;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
         .markets-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 15px;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.9em;
         }
         .markets-table th, .markets-table td {
-            padding: 10px 0;
-            text-align: left;
+            padding: 8px 10px;
             border-bottom: 1px solid #eee;
+            text-align: left;
         }
         .markets-table th {
             font-weight: 600;
-            color: var(--medium-grey);
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            background-color: #f9f9f9;
         }
-        .markets-table td {
-            font-size: 0.95em;
-            color: #333;
-        }
-        .markets-table .price {
-            font-weight: 600;
-        }
-        .markets-table .change {
-            font-weight: 600;
-        }
-        .markets-table .change.positive { color: var(--tag-green); }
-        .markets-table .change.negative { color: var(--tag-red); }
+        .price-change.positive { color: #2e7d32; }
+        .price-change.negative { color: #b71c1c; }
 
         .in-brief-card {
-            background-color: #fff;
+            background-color: var(--card-background);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-bottom: 25px;
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            padding: 14px 16px;
+            margin-bottom: 14px;
         }
         .in-brief-card h2 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.6em;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
         .in-brief-card ul {
             list-style: none;
@@ -327,110 +303,84 @@
             margin: 0;
         }
         .in-brief-card li {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.95em;
+            margin-bottom: 8px;
             position: relative;
             padding-left: 20px;
-            margin-bottom: 10px;
-            font-size: 0.9em;
-            line-height: 1.4;
         }
         .in-brief-card li::before {
             content: '▶';
-            color: var(--tag-purple);
+            color: #6a1b9a;
             position: absolute;
             left: 0;
-            font-size: 0.7em;
-            top: 4px;
+            font-size: 0.8em;
+            line-height: 1.5;
         }
-        .in-brief-card li a {
-            color: #1a1a1a;
-            text-decoration: none;
-        }
-        .in-brief-card li a:hover {
-            text-decoration: underline;
-        }
+        .in-brief-card li:last-child { margin-bottom: 0; }
 
-        .footer {
-            border-top: 3px double var(--dark-grey);
-            padding-top: 15px;
-            margin-top: 40px;
+        footer {
+            border-top: 3px double var(--masthead-border);
+            padding: 20px 0;
             text-align: center;
             font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.6em;
+            font-size: 0.7em;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--medium-grey);
-            padding-bottom: 20px;
+            letter-spacing: 0.1em;
+            color: var(--light-text-color);
+            margin-top: 30px;
         }
 
         @media (max-width: 768px) {
-            .top-stories-grid {
-                grid-template-columns: 1fr;
-            }
             .masthead h1 {
                 font-size: 2.5em;
             }
-            .masthead .tagline {
-                font-size: 0.5em;
-                letter-spacing: 0.25em;
-            }
             .masthead .date-line {
-                font-size: 0.55em;
-                letter-spacing: 0.1em;
+                flex-direction: column;
+                gap: 5px;
             }
-            .nav-links {
-                font-size: 0.65em;
-                gap: 10px;
+            .top-stories-grid {
+                grid-template-columns: 1fr;
             }
-            .lead-story h2 {
-                font-size: 1.8em;
+            .nav-links a {
+                margin: 0 5px;
             }
             .story-card h2 {
                 font-size: 1.4em;
+            }
+            .lead-story h2 {
+                font-size: 1.8em;
             }
             .hermes-corner-card h2 {
                 font-size: 1.6em;
             }
         }
-
         @media (max-width: 480px) {
-            .container {
-                padding: 0 10px;
-            }
             .masthead h1 {
                 font-size: 2em;
             }
             .masthead .tagline {
-                font-size: 0.45em;
                 letter-spacing: 0.2em;
             }
             .masthead .date-line {
-                font-size: 0.5em;
-                letter-spacing: 0.08em;
-                flex-direction: column;
-                gap: 0;
+                font-size: 0.55em;
             }
-            .date-line .sep { display: none; }
-            .nav-links {
-                font-size: 0.6em;
-                gap: 8px;
-                flex-wrap: wrap;
+            .nav-links a {
+                font-size: 0.7em;
+                margin: 0 3px;
             }
-            .weather-bar {
-                font-size: 0.75em;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .weather-bar div {
-                padding: 1px 0;
+            .story-card {
+                padding: 10px 12px;
+                margin-bottom: 10px;
             }
             .story-card h2 {
                 font-size: 1.2em;
             }
+            .lead-story h2 {
+                font-size: 1.5em;
+            }
             .hermes-corner-card h2 {
                 font-size: 1.4em;
-            }
-            .in-brief-card li {
-                font-size: 0.85em;
             }
         }
     </style>
@@ -441,7 +391,7 @@
             <p class="tagline">News for the Curious Mind</p>
             <h1>The Daily Ringo</h1>
             <div class="date-line">
-                <span>Wednesday, August 12, 2026</span>
+                <span>Thursday, August 13, 2026</span>
                 <span class="sep">|</span>
                 <span>Volume I · No. 28</span>
             </div>
@@ -449,129 +399,140 @@
 
         <nav class="nav-links">
             <a href="#weather">Weather</a>
-            <a href="#tech-ai">Tech & AI</a>
+            <a href="#tech">Tech</a>
+            <a href="#ai">AI</a>
             <a href="#hermes">Hermes</a>
             <a href="#markets">Markets</a>
             <a href="#in-brief">In Brief</a>
         </nav>
 
-        <section id="weather">
-            <div class="weather-bar">
-                <div><strong>Auckland, NZ:</strong> Fine with morning frosts in sheltered places. Cloud increasing from afternoon. Northerlies picking up in the morning.</div>
-                <div>High: 15°C | Low: 11°C</div>
-                <div>Sunrise: 7:12 AM | Sunset: 5:42 PM</div>
-            </div>
+        <section id="weather" class="weather-bar">
+            <strong>Auckland Weather:</strong> High 13.9°C (57°F), Low 5°C (41°F). Cloudy periods, increasing cloud with a chance of showers in the evening. Northerly winds.
         </section>
 
-        <section id="tech-ai">
-            <div class="section-divider"><span>Top Stories — Tech & AI</span></div>
-
-            <div class="story-card lead-story">
+        <main>
+            <div class="section-divider"><span>Lead Story</span></div>
+            <section class="lead-story story-card">
                 <span class="tag tag-red">Breaking</span>
-                <h2>US Government Orders Anthropic to Suspend Powerful AI Models Fable 5 and Mythos 5</h2>
-                <p>The US government ordered Anthropic to suspend access to its Fable 5 and Mythos 5 AI models citing national security concerns, related to a claimed jailbreak that could identify software flaws. Anthropic complied but disagreed, stating the capability level is available in other public models.</p>
-                <a href="https://techcrunch.com/2026/06/12/anthropics-safety-warnings-may-have-just-backfired-the-government-has-pulled-the-plug-on-its-most-powerful-ai/" class="read-more" target="_blank">Read more →</a>
-            </div>
+                <h2>After Microsoft Threatened Legal Action, Researcher Publishes New Windows Zero-Day Bug</h2>
+                <p>A security researcher has published details of a new Windows zero-day vulnerability, dubbed ShieldBreak, allowing system-wide access, despite legal threats from Microsoft. The bug exploits a flaw in Windows Defender.</p>
+                <a href="https://techcrunch.com/2026/08/12/after-microsoft-threatened-legal-action-a-security-researcher-publishes-a-new-windows-zero-day-bug/" target="_blank" class="read-more">Read more →</a>
+            </section>
 
-            <div class="top-stories-grid">
+            <div class="section-divider"><span>Top Stories</span></div>
+            <section class="top-stories-grid">
                 <div class="story-card">
                     <span class="tag tag-blue">AI Launch</span>
-                    <h2>OpenAI's GPT-5.6-Cyber Model Shows Reduced Refusals for Security Research</h2>
-                    <p>GPT-5.6-Cyber, built on GPT-5.6 Sol, trained for exploit development and advanced security research, completes 95% of high-risk requests, compared to 1.5% for the standard GPT-5.6. It also uncovered zero-day flaws in Chrome's V8 engine.</p>
-                    <a href="https://www.helpnetsecurity.com/2026/08/11/openai-gpt-5-6-cyber-model/" class="read-more" target="_blank">Read more →</a>
+                    <h2>Update: OpenAI's Astra Model Raises Cyberattack Concerns, Pauses Internal Activities</h2>
+                    <p>OpenAI has paused "internal activities" on its unreleased Astra model, citing concerns it may have reached a "Critical" cybersecurity threshold, capable of autonomous cyberattacks.</p>
+                    <a href="https://www.cnbc.com/2026/08/10/openai-astra-cybersecurity-risks.html" target="_blank" class="read-more">Read more →</a>
+                </div>
+                <div class="story-card">
+                    <span class="tag tag-blue">AI Launch</span>
+                    <h2>AI Takes Over Mathematics: OpenAI Solves Decades-Old Problems</h2>
+                    <p>OpenAI's advanced unreleased model, Astra, has solved 10 long-standing mathematics problems, some of which had confounded academics for decades, hinting at a profound upheaval in the field.</p>
+                    <a href="https://www.theverge.com/ai-artificial-intelligence/977273/the-ai-takeover-of-mathematics-has-begun" target="_blank" class="read-more">Read more →</a>
                 </div>
                 <div class="story-card">
                     <span class="tag tag-blue">Tech</span>
-                    <h2>NVIDIA Unveils Nemotron 3.5 Lightning 30B and Advanced Routing Library</h2>
-                    <p>NVIDIA has released Nemotron 3.5 Lightning 30B and a routing library.</p>
-                    <a href="https://blogs.nvidia.com" class="read-more" target="_blank">Read more →</a>
+                    <h2>Update: SpaceXAI's Grok 4.6 Outperforms GPT in Coding & Terminal Performance</h2>
+                    <p>SpaceXAI unveiled Grok 4.6, which matched OpenAI's GPT-5.6 Sol Max on a composite performance index and led in software engineering and terminal benchmarks, with a focus on agent use.</p>
+                    <a href="https://www.digitaltoday.co.kr/en/view/92635/musk-counterattack-grok-4-6-ahead-of-gpt-in-coding-terminal-performance" target="_blank" class="read-more">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <span class="tag tag-blue">AI</span>
-                    <h2>Google Gemini Reaches 1 Billion Monthly Users, Matching ChatGPT's Scale</h2>
-                    <p>Google's Gemini AI platform has reached 1 billion monthly active users, a significant milestone that puts it on par with OpenAI's ChatGPT.</p>
-                    <a href="https://aiweekly.co/ai-news-today" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">AI Launch</span>
+                    <h2>Anthropic to Implement Invisible Watermarks for Claude AI Text and Images</h2>
+                    <p>Anthropic pledges to apply invisible, machine-readable watermarks to Claude-generated text and images to comply with new EU AI transparency rules, making AI content easier to identify.</p>
+                    <a href="https://www.theverge.com/ai-artificial-intelligence/977823/anthropic-claude-ai-watermarks-c2pa-text-images" target="_blank" class="read-more">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <span class="tag tag-red">Security</span>
-                    <h2>Novel Attack Decrypts Chain-of-Thought Reasoning Across Anthropic, OpenAI, and Google AI Models</h2>
-                    <p>A new attack has been discovered that can decrypt Chain-of-Thought (CoT) reasoning across major AI models from Anthropic, OpenAI, and Google.</p>
-                    <a href="https://aiweekly.co/ai-news-today" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">Tech</span>
+                    <h2>Anthropic Leases $9 Billion Power Grid from Bitcoin Miner Riot Platforms for AI Compute</h2>
+                    <p>Anthropic has signed a 20-year, $9.1 billion deal with Riot Platforms for 191 megawatts of data center capacity at a former Bitcoin mining facility in Texas, highlighting the intense competition for AI infrastructure.</p>
+                    <a href="https://memeburn.com/anthropic-riot-platforms-9-billion-deal/" target="_blank" class="read-more">Read more →</a>
                 </div>
-            </div>
-        </section>
+                <div class="story-card">
+                    <span class="tag tag-red">Breach</span>
+                    <h2>AI Assistant Hacks Australian Gym Website in First Known Autonomous Cyber Attack</h2>
+                    <p>An AI assistant accidentally hacked a gym website in Australia, marking the country's first known autonomous cyber attack and raising concerns about rogue AI agents.</p>
+                    <a href="https://www.abc.net.au/news/2026-08-10/ai-assistant-hacks-gym-website-aus-cyber-attack/107007986" target="_blank" class="read-more">Read more →</a>
+                </div>
+            </section>
 
-        <section id="hermes">
             <div class="section-divider"><span>Hermes Corner</span></div>
-            <div class="hermes-corner-card">
+            <section id="hermes" class="hermes-corner-card">
                 <h2>Hermes Agent News</h2>
-
                 <h3>What's New</h3>
-                <ul>
-                    <li><span class="tag tag-purple">Update</span> <strong>Hermes Cron Delivery Fixed for Relay-Fronted Platforms:</strong> A recent fix addresses issues where cron jobs targeting relay-fronted platforms (like Discord via relay connector) failed due to incorrect target resolution and delivery gate rejections. <a href="https://github.com/NousResearch/hermes-agent/commit/76d832d3857551a029c4b39c23945eb47c16fe5b" class="read-more" target="_blank">Read more →</a></li>
-                    <li><span class="tag tag-purple">Update</span> <strong>Hermes Gateway Now Self-Suspends for Efficient Scale-to-Zero Operation:</strong> The gateway now handles its own suspension via the flaps socket in scale-to-zero environments, improving efficiency and preventing suspensions during active processing. <a href="https://github.com/NousResearch/hermes-agent/commit/356c702b55be6e96e68f7d0cb5e11815f791909c" class="read-more" target="_blank">Read more →</a></li>
-                    <li><span class="tag tag-purple">Feature</span> <strong>Hermes Agent Now Auto-Installs Browser Use CLI:</strong> Hermes Agent will now auto-install the Browser Use CLI, ensuring users don't silently fall back to built-in browser tools when uv/uvx is not present. <a href="https://github.com/NousResearch/hermes-agent/commit/baa6b2e34d802da92efef59d371b85b47e8aff4a" class="read-more" target="_blank">Read more →</a></li>
-                </ul>
+                <p class="no-news">No new official releases or major feature commits since yesterday's log.</p>
 
                 <h3>Community in Action</h3>
                 <ul>
-                    <li><span class="tag tag-purple">Community</span> <strong>Hermes Agent Learns from Anything with New '/learn' Command:</strong> Hermes Agent now supports a `/learn` command, allowing it to distill any source material (code, API docs, manuals, PDFs, configs) into verifiable reusable skills. <a href="https://www.linkedin.com/posts/nousresearch_hermes-agent-can-now-learn-from-anything-activity-7475469076404957184-B-wJ" class="read-more" target="_blank">Read more →</a></li>
-                    <li><span class="tag tag-purple">Community</span> <strong>Hermes Agent Integrates with Stripe for Autonomous Transactions:</strong> Hermes Agent now supports a full suite of Stripe skills, enabling agents to buy things, pay per-call APIs, and provision SaaS with configurable safety limits. <a href="https://www.linkedin.com/posts/nousresearch_in-partnership-with-stripe-hermes-agent-activity-7472660954191773697-YGlb" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Project</span> <strong>Hermes Agent Self-Evolution Project Released:</strong> A new project uses DSPy and GEPA for evolutionary self-improvement of Hermes skills, prompts, and code.
+                        <a href="https://github.com/NousResearch/hermes-agent-self-evolution" target="_blank" class="read-more">Read more →</a>
+                    </li>
+                    <li><span class="tag tag-purple">Integration</span> <strong>Community Develops `computer-use-linux` MCP Server for Desktop Control:</strong> A community-contributed MCP server enables Hermes to control Linux desktops with AT-SPI accessibility trees and Wayland/X11 input.
+                        <a href="https://github.com/avifenesh/computer-use-linux" target="_blank" class="read-more">Read more →</a>
+                    </li>
+                    <li><span class="tag tag-purple">Integration</span> <strong>HermesClaw: A Community WeChat Bridge:</strong> A community project, HermesClaw, allows Hermes Agent and OpenClaw to operate on the same WeChat account, extending Hermes's messaging capabilities.
+                        <a href="https://github.com/AaronWong1999/hermesclaw" target="_blank" class="read-more">Read more →</a>
+                    </li>
                 </ul>
 
                 <h3>Level Up</h3>
                 <ul>
-                    <li><span class="tag tag-purple">Guide</span> <strong>Automation Blueprints for Common Hermes Workflows:</strong> Hermes offers copy-paste automation blueprints for common patterns, using cron for time-based triggers and webhooks for event-driven triggers. <a href="https://hermes-agent.nousresearch.com/docs/guides/automation-blueprints" class="read-more" target="_blank">Read more →</a></li>
-                    <li><span class="tag tag-purple">Feature</span> <strong>MCP (Model Context Protocol) for External Tool Integration:</strong> MCP allows Hermes Agent to connect to external tool servers (GitHub, databases, APIs) without writing native Hermes tools, with auto-discovery and registration. <a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp" class="read-more" target="_blank">Read more →</a></li>
-                    <li><span class="tag tag-purple">Feature</span> <strong>The Hermes Skills System: On-Demand Knowledge and Creation:</strong> The Hermes Skills System enables on-demand knowledge loading, supports `/learn` for skill creation from various sources, and features progressive disclosure for token efficiency. <a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/skills" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Docs</span> <strong>Skills as Automation Blueprints: Schedule & Deliver Agent Workflows:</strong> Learn how to transform standard Hermes skills into scheduled or event-driven automations by defining a blueprint in their frontmatter.
+                        <a href="https://hermes-agent.nousresearch.com/docs/developer-guide/creating-skills" target="_blank" class="read-more">Read more →</a>
+                    </li>
+                    <li><span class="tag tag-purple">Docs</span> <strong>Event-Driven Automation with Webhooks: Integrate Hermes with External Services:</strong> Explore Hermes's webhook system for triggering agent runs automatically from external services like GitHub, JIRA, or Stripe, with various delivery options.
+                        <a href="https://hermes-agent.nousresearch.com/docs/user-guide/messaging/webhooks" target="_blank" class="read-more">Read more →</a>
+                    </li>
                 </ul>
-            </div>
-        </section>
+            </section>
 
-        <section id="markets">
             <div class="section-divider"><span>Markets</span></div>
-            <div class="markets-card">
-                <h2>Today's Crypto Markets</h2>
+            <section id="markets" class="markets-card">
+                <h2>Crypto Market Snapshot</h2>
+                <p>Bitcoin experienced a muted reaction to the latest US CPI data, struggling to hold key support levels. Ethereum ETFs saw positive inflows, indicating diverging investor sentiment.</p>
                 <table class="markets-table">
                     <thead>
                         <tr>
                             <th>Asset</th>
-                            <th>Price (USD)</th>
-                            <th>24h Change</th>
+                            <th>Price</th>
+                            <th>Change (24h)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Bitcoin (BTC)</td>
-                            <td class="price">$63,722.81</td>
-                            <td class="change negative">-0.5%</td>
+                            <td>$63,739.00</td>
+                            <td class="price-change negative">-0.26%</td>
                         </tr>
                         <tr>
                             <td>Ethereum (ETH)</td>
-                            <td class="price">$1,885.24</td>
-                            <td class="change positive">+0.33%</td>
+                            <td>$1,894.16</td>
+                            <td class="price-change positive">+0.42%</td>
                         </tr>
                     </tbody>
                 </table>
-                <p style="font-size: 0.8em; color: var(--medium-grey);">Prices as of August 12, 2026.</p>
-            </div>
-        </section>
+                <a href="https://cointelegraph.com/markets/bitcoin-eyes-63k-as-us-cpi-relief-sends-september-fed-rate-pause-odds-to-60" target="_blank" class="read-more">Read more →</a>
+            </section>
 
-        <section id="in-brief">
             <div class="section-divider"><span>In Brief</span></div>
-            <div class="in-brief-card">
+            <section id="in-brief" class="in-brief-card">
                 <h2>Quick Takes</h2>
                 <ul>
-                    <li>The Colorado Conversational AI Service Bill officially takes effect today, bringing new regulations to AI services in the state.</li>
-                    <li>South Korea is pioneering 'Lab-in-the-Loop' research for AI-driven drug discovery, integrating AI directly into the experimental process.</li>
-                    <li>Google has announced a Pixel 11 launch event scheduled for today.</li>
-                    <li>OpenAI's longtime COO has stepped down amidst a reported executive exodus from the company.</li>
+                    <li><strong>Honor Launches AI-Powered Robot Phone with Gimbal in China:</strong> Honor has released an AI-powered Robot Phone in China featuring a retractable, motorized 4DoF gimbal system and a 200-megapixel main camera.
+                        <a href="https://petapixel.com/2026/08/12/honors-ai-powered-gimbal-equipped-robot-phone-just-launched-in-china-and-it-looks-wild/" target="_blank" class="read-more">Read more →</a>
+                    </li>
+                    <li><strong>Spotify to Label 'AI Persona' Profiles, Exclude Music from Recommendations:</strong> Spotify will introduce "AI Persona" profile tags for AI-generated artists and exclude their music from editorial and algorithmic recommendations by default.
+                        <a href="https://techcrunch.com/2026/08/11/spotify-will-label-ai-persona-profiles-and-exclude-their-music-from-recommendations/" target="_blank" class="read-more">Read more →</a>
+                    </li>
                 </ul>
-            </div>
-        </section>
+            </section>
+        </main>
 
-        <footer class="footer">
-            &copy; 2026 The Daily Ringo. All rights reserved.
+        <footer>
+            The Daily Ringo &copy; 2026. All rights reserved.
         </footer>
     </div>
 </body>
