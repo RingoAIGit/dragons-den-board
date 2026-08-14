@@ -3,42 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Daily Ringo</title>
+    <title>The Daily Ringo - August 15, 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cream-bg: #f4efea;
-            --dark-text: #1a1a1a;
-            --medium-text: #666;
-            --light-text: #999;
+            --bg-color: #f4efea;
+            --text-color: #1a1a1a;
+            --light-text-color: #666;
+            --accent-purple: #6a1b9a;
             --border-light: #d5ccc3;
-            --border-dark: #2c2c2c;
-            --purple: #6a1b9a;
-            --purple-dark: #7b1fa2;
+            --card-bg: #fff;
+            --weather-bg: #e8e1d8;
         }
         body {
             font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-            line-height: 1.6;
-            color: var(--dark-text);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
-            background-color: var(--cream-bg);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
         }
         .container {
             max-width: 960px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 0 15px;
         }
-
-        /* Masthead */
         .masthead {
             text-align: center;
             padding: 14px 0 8px;
-            border-bottom: 3px double var(--border-dark);
+            border-bottom: 3px double #2c2c2c;
             margin-bottom: 14px;
         }
         .masthead h1 {
@@ -46,7 +41,7 @@
             font-size: 3.2em;
             font-weight: 400;
             line-height: 1;
-            color: var(--dark-text);
+            color: #1a1a1a;
             letter-spacing: 0.02em;
             margin: 0;
         }
@@ -56,14 +51,14 @@
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 0.35em;
-            color: var(--light-text);
+            color: #999;
             margin: 0 0 6px;
         }
         .masthead .date-line {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.62em;
             font-weight: 400;
-            color: var(--medium-text);
+            color: var(--light-text-color);
             text-transform: uppercase;
             letter-spacing: 0.15em;
             display: flex;
@@ -71,37 +66,33 @@
             gap: 12px;
             border-top: 1px solid var(--border-light);
             padding-top: 6px;
-            margin-top: 8px; /* Added some margin to separate from title */
+            margin-top: 6px;
         }
         .masthead .date-line .sep { color: #ccc; }
 
-        /* Nav Links */
         .nav-links {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             text-align: center;
+            padding: 8px 0;
             margin-bottom: 20px;
-            text-transform: uppercase;
-            font-size: 0.75em;
-            letter-spacing: 0.1em;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            padding: 10px 0;
             border-bottom: 1px solid var(--border-light);
         }
         .nav-links a {
-            color: var(--medium-text);
             text-decoration: none;
+            color: var(--light-text-color);
+            text-transform: uppercase;
+            font-size: 0.75em;
+            letter-spacing: 0.1em;
+            margin: 0 8px;
+            padding: 4px 0;
             transition: color 0.2s ease;
         }
         .nav-links a:hover {
-            color: var(--purple);
+            color: var(--accent-purple);
         }
 
-        /* Weather Bar */
         .weather-bar {
-            background-color: #e8e1d8;
+            background-color: var(--weather-bg);
             padding: 10px 15px;
             margin-bottom: 14px;
             border-radius: 8px;
@@ -111,15 +102,44 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 10px;
         }
-        .weather-bar span {
-            white-space: nowrap;
+        .weather-bar div {
+            margin-right: 15px;
+            margin-bottom: 5px;
+        }
+        .weather-bar div:last-child {
+            margin-right: 0;
+        }
+        .weather-bar strong {
+            color: var(--text-color);
         }
 
-        /* Story Cards */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 26px 0 18px;
+        }
+        .section-divider span {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.8em;
+            color: #666;
+            background-color: var(--bg-color);
+            padding: 0 10px;
+        }
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .section-divider::before { margin-right: .5em; }
+        .section-divider::after { margin-left: .5em; }
+
         .story-card {
-            background-color: #fff;
+            background-color: var(--card-bg);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 14px 16px;
@@ -142,105 +162,49 @@
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.8em;
             font-weight: 600;
-            color: var(--purple);
+            color: var(--accent-purple);
             text-decoration: none;
             display: inline-block;
             margin-top: 8px;
         }
 
-        /* Tags */
-        .tag {
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.7em;
-            font-weight: 600;
-            color: #fff;
-            padding: 3px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-right: 8px;
-            line-height: 1; /* Ensure tag doesn't add extra line height */
-            white-space: nowrap;
-        }
-        .tag-red { background-color: #b71c1c; } /* Breaking / Breach */
-        .tag-blue { background-color: #1565c0; } /* AI Launch / Tech */
-        .tag-green { background-color: #2e7d32; } /* positive market */
-        .tag-purple { background-color: #6a1b9a; } /* Regulation / Policy / Hermes */
-        .tag-orange { background-color: #e65100; } /* China AI / other */
-        .tag-teal { background-color: #00695c; } /* Markets / Crypto */
-        .tag-update { background-color: var(--purple); border: 1px solid var(--purple-dark); }
-
-        /* Lead Story Styling */
-        .lead-story h2 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-        }
-        .lead-story p {
-            font-size: 1.1em;
+        .lead-story .story-card h2 {
+            font-size: 2em;
         }
 
-        /* Top Stories Grid */
         .top-stories-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px;
-            margin-bottom: 20px;
-        }
-        .top-stories-grid .story-card {
-            margin-bottom: 0; /* Remove extra margin from individual cards in grid */
         }
 
-        /* Section Dividers */
-        .section-divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 26px 0 18px;
-        }
-        .section-divider span {
-            font-family: 'Inter', Helvetica, Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-size: 0.8em;
-            color: var(--medium-text);
-            background-color: var(--cream-bg);
-            padding: 0 10px;
-            white-space: nowrap;
-        }
-        .section-divider::before,
-        .section-divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .section-divider::before { margin-right: .5em; }
-        .section-divider::after { margin-left: .5em; }
-
-        /* Hermes Corner */
         .hermes-corner-card {
-            background-color: #fff;
-            border-radius: 0 8px 8px 0; /* Rounded right corners */
+            background-color: var(--card-bg);
+            border-left: 4px solid #7b1fa2;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 14px 16px;
             margin-bottom: 14px;
-            border-left: 4px solid var(--purple-dark);
         }
         .hermes-corner-card h2 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.8em;
-            color: var(--purple);
+            color: #7b1fa2;
             margin-top: 0;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .hermes-corner-card h3 {
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.85em;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--medium-text);
+            color: #7b1fa2;
             margin-top: 20px;
             margin-bottom: 8px;
+            border-bottom: 1px solid #e0b0e0;
+            padding-bottom: 4px;
         }
         .hermes-corner-card ul {
             list-style: none;
@@ -263,44 +227,46 @@
             display: block;
             margin-top: 6px;
         }
-        .hermes-corner-card li strong {
-            font-weight: 700;
-        }
 
-        /* Markets Table */
-        .markets-table-card {
-            background-color: #fff;
+        .markets-table {
+            background-color: var(--card-bg);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 14px 16px;
             margin-bottom: 14px;
-        }
-        .markets-table-card table {
-            width: 100%;
-            border-collapse: collapse;
             font-family: 'Inter', Helvetica, Arial, sans-serif;
             font-size: 0.9em;
         }
-        .markets-table-card th, .markets-table-card td {
+        .markets-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .markets-table th, .markets-table td {
             padding: 8px 0;
             text-align: left;
             border-bottom: 1px solid #eee;
         }
-        .markets-table-card th {
-            font-weight: 600;
-            color: #4a4a4a;
+        .markets-table th {
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: #666;
+            font-weight: 600;
         }
-        .markets-table-card td {
-            color: #333;
+        .markets-table .change-negative {
+            color: #b71c1c;
+            font-weight: 600;
         }
-        .markets-table-card .positive { color: #2e7d32; font-weight: 600; }
-        .markets-table-card .negative { color: #b71c1c; font-weight: 600; }
+        .markets-table .change-positive {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        .markets-summary {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95em;
+            margin-top: 10px;
+        }
 
-        /* In Brief */
         .in-brief-card {
-            background-color: #fff;
+            background-color: var(--card-bg);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             padding: 14px 16px;
@@ -314,37 +280,50 @@
         .in-brief-card li {
             font-family: 'Playfair Display', serif;
             font-size: 0.95em;
-            line-height: 1.5;
             margin-bottom: 8px;
-            position: relative;
-            padding-left: 20px;
+            line-height: 1.4;
         }
         .in-brief-card li:last-child {
             margin-bottom: 0;
         }
         .in-brief-card li::before {
             content: '▶';
-            color: var(--purple);
-            position: absolute;
-            left: 0;
-            font-size: 0.8em;
-            top: 4px;
+            color: var(--accent-purple);
+            margin-right: 8px;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 14px 0 8px;
-            border-top: 3px double var(--border-dark);
+        .footer {
+            border-top: 3px double #2c2c2c;
+            padding: 14px 0;
             margin-top: 30px;
+            text-align: center;
             font-family: 'Inter', Helvetica, Arial, sans-serif;
-            font-size: 0.65em;
+            font-size: 0.6em;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--light-text);
+            color: #999;
         }
 
-        /* Responsive */
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #fff;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 0.7em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .tag-red { background-color: #b71c1c; }
+        .tag-blue { background-color: #1565c0; }
+        .tag-green { background-color: #2e7d32; }
+        .tag-purple { background-color: #6a1b9a; }
+        .tag-orange { background-color: #e65100; }
+        .tag-teal { background-color: #00695c; }
+
         @media (max-width: 768px) {
             .masthead h1 {
                 font-size: 2.5em;
@@ -352,28 +331,54 @@
             .masthead .tagline, .masthead .date-line {
                 font-size: 0.5em;
             }
+            .nav-links a {
+                margin: 0 5px;
+                font-size: 0.7em;
+            }
             .top-stories-grid {
                 grid-template-columns: 1fr;
             }
-            .lead-story h2 {
+            .lead-story .story-card h2 {
                 font-size: 1.8em;
-            }
-        }
-        @media (max-width: 480px) {
-            .masthead h1 {
-                font-size: 2em;
-            }
-            .masthead .tagline, .masthead .date-line {
-                font-size: 0.45em;
-            }
-            .nav-links {
-                gap: 10px;
             }
             .story-card h2 {
                 font-size: 1.4em;
             }
-            .story-card p {
-                font-size: 0.9em;
+        }
+
+        @media (max-width: 480px) {
+            .masthead h1 {
+                font-size: 2em;
+            }
+            .masthead .date-line {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            .nav-links a {
+                margin: 0 3px;
+                font-size: 0.6em;
+            }
+            .weather-bar {
+                font-size: 0.8em;
+                flex-direction: column;
+            }
+            .weather-bar div {
+                margin-right: 0;
+            }
+            .story-card h2 {
+                font-size: 1.2em;
+            }
+            .hermes-corner-card h2 {
+                font-size: 1.5em;
+            }
+            .markets-table {
+                font-size: 0.8em;
             }
         }
     </style>
@@ -383,11 +388,7 @@
         <header class="masthead">
             <p class="tagline">News for the Curious Mind</p>
             <h1>The Daily Ringo</h1>
-            <div class="date-line">
-                <span>Friday, August 14, 2026</span>
-                <span class="sep">|</span>
-                <span>Volume I · No. 2</span>
-            </div>
+            <p class="date-line">Friday, August 15, 2026 <span class="sep">|</span> Volume I · No. 28</p>
         </header>
 
         <nav class="nav-links">
@@ -396,48 +397,54 @@
             <a href="#ai">AI</a>
             <a href="#hermes">Hermes</a>
             <a href="#markets">Markets</a>
-            <a href="#in-brief">In Brief</a>
         </nav>
 
         <section id="weather">
             <div class="weather-bar">
-                <span><strong>Auckland, NZ</strong></span>
-                <span>Light rain showers, moderate breeze</span>
-                <span>High: 16°C</span>
-                <span>Low: 11°C</span>
-                <span>Wind: N 23 km/h</span>
+                <div><strong>Auckland, NZ:</strong> 5.6°C (Feels like 2°C)</div>
+                <div><strong>Conditions:</strong> Fine, morning frost</div>
+                <div><strong>High:</strong> 11°C, <strong>Low:</strong> Overnight</div>
+                <div><strong>Wind:</strong> S 22km/h (Gusts 33km/h)</div>
+                <div><strong>Sunrise:</strong> 7:15 AM, <strong>Sunset:</strong> 5:40 PM</div>
             </div>
         </section>
 
-        <section id="tech">
-            <div class="section-divider"><span>Breaking</span></div>
-            <div class="story-card lead-story">
-                <h2><span class="tag tag-red">Breaking</span> Researchers Observe First 'Near-Autonomous' AI Attack on Government Target in Taiwan</h2>
-                <p>Suspected Chinese hackers used open-source AI models to conduct a cyberattack against the Taiwanese government, extracting over 2,500 personnel records. Researchers at Dream firm noted the attack framework could adapt mid-operation without human intervention, marking a significant step in autonomous cyber warfare.</p>
-                <a href="https://cyberscoop.com/near-autonomous-ai-attack-government-target-taiwan/" class="read-more" target="_blank">Read more →</a>
+        <section id="ai">
+            <div class="section-divider"><span>Lead Story</span></div>
+            <div class="lead-story">
+                <div class="story-card">
+                    <span class="tag tag-blue">AI Launch</span>
+                    <h2>Google and OpenAI Accelerate AI Agent Speed Race: Gemini 3.7 Flash Now Available, GPT-5.6 Sol Ultrafast in Limited Preview</h2>
+                    <p>Google has launched Gemini 3.7 Flash, a new low-cost model optimized for coding and autonomous workflows, now generally available to developers. Meanwhile, OpenAI unveiled GPT-5.6 Sol Ultrafast, a faster tier of its most capable model powered by Cerebras chips, running up to 14 times faster, though currently by invite-only. This marks a significant shift in the AI race towards agent-level speed and real-time responsiveness.</p>
+                    <a href="https://decrypt.co/375580/google-openai-super-fast-ai-models-gemini-flash-gpt-ultrafast" target="_blank" class="read-more">Read more →</a>
+                </div>
             </div>
 
             <div class="section-divider"><span>Top Stories</span></div>
             <div class="top-stories-grid">
                 <div class="story-card">
-                    <h2><span class="tag tag-blue">AI Policy</span> AI Safety Debate: Pioneers Advocate for Open Models Amidst Mounting Concerns</h2>
-                    <p>Nobel Prize winner Geoffrey Hinton, World Labs CEO Fei-Fei Li, and Coursera co-founder Andrew Ng debated the implications of open-weight AI models at the Ai4 conference, advocating for open access to prevent control by a few major companies.</p>
-                    <a href="https://techcrunch.com/2026/08/12/as-ai-safety-concerns-mount-three-pioneers-make-the-case-for-staying-open/" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">Tech</span>
+                    <h2>Uber Partners with China's Pony.ai for 2,000 Robotaxis Across Europe</h2>
+                    <p>Uber is expanding its global robotaxi reach through a new partnership with China's Pony.ai. The collaboration aims to deploy 2,000 self-driving taxis across Europe, with plans to extend to the Middle East. This follows a commercial robotaxi service launch in Zagreb, Croatia, in March, marking Europe's first.</p>
+                    <a href="https://www.cnbc.com/2026/08/14/uber-partners-with-chinas-ponyai-for-2000-robotaxis-in-europe.html" target="_blank" class="read-more">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <h2><span class="tag tag-blue">AI Launch</span> Meta and Nvidia Enter Open-Weight AI Race, Competing with Chinese Labs</h2>
-                    <p>Meta's Muse Glimmer and Nvidia's Nemotron 3.5 Lightning are recent open-weight model releases, marking a strategic effort by US tech giants to compete with leading Chinese AI labs and provide alternatives to proprietary models.</p>
-                    <a href="https://www.cnbc.com/2026/08/12/meta-nvidia-open-weight-ai-race-china.html" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">AI Launch</span>
+                    <h2>IBM Joins Forces with OpenAI to Boost Enterprise AI Solutions</h2>
+                    <p>IBM has announced a partnership with OpenAI to deliver OpenAI's models and tools to a wider range of enterprise customers. This collaboration will see IBM establish a dedicated OpenAI practice within IBM Consulting, training thousands of consultants on OpenAI technologies to develop industry-specific AI solutions.</p>
+                    <a href="https://techcrunch.com/2026/08/13/ibm-partners-with-openai-to-bolster-enterprise-ai-push/" target="_blank" class="read-more">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <h2><span class="tag tag-red">Privacy</span> Twitch Users Outraged as Amazon Trains AI on Livestreams by Default</h2>
-                    <p>Twitch faces backlash after it was revealed Amazon uses user content to train its AI models by default, with an opt-out feature sparking user criticism over the initial default setting.</p>
-                    <a href="https://www.bbc.com/news/articles/cp30pz8d09jo" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-blue">Tech</span>
+                    <h2>Microsoft Consolidates Copilot Apps, Axes Unsuccessful AI Features</h2>
+                    <p>Microsoft is merging its consumer and business Copilot applications and discontinuing several underperforming AI features. This move aims to simplify the Copilot experience and acknowledge the overlap between personal and professional AI use, signaling a strategic adjustment in its competitive approach against rivals like ChatGPT and Gemini.</p>
+                    <a href="https://techcrunch.com/2026/08/13/microsoft-kills-off-unsuccessful-ai-features-while-merging-its-separate-copilot-apps/" target="_blank" class="read-more">Read more →</a>
                 </div>
                 <div class="story-card">
-                    <h2><span class="tag tag-red tag-update">Update</span> Security Researcher Publishes New Windows Zero-Day Bug After Microsoft Legal Threat</h2>
-                    <p>Security researcher Nightmare Eclipse released details of 'ShieldBreak,' a new Windows zero-day vulnerability allowing system-wide access, despite Microsoft's prior legal threats regarding public disclosure of flaws, highlighting ongoing tensions in the security community.</p>
-                    <a href="https://techcrunch.com/2026/08/12/after-microsoft-threatened-legal-action-a-security-researcher-publishes-a-new-windows-zero-day-bug/" class="read-more" target="_blank">Read more →</a>
+                    <span class="tag tag-purple">Update</span>
+                    <h2>Update: Musk Tells SpaceX Employees They Are 'Parents' to Grok AI, Training on Company Data</h2>
+                    <p>Elon Musk has reportedly instructed SpaceX employees to consider themselves "parents" to the company's Grok AI, which will be trained on the "sum total" of SpaceX's information, including employee contributions. This comes as Musk predicts AI will generate 99% of SpaceX's revenue in the coming years.</p>
+                    <a href="https://fortune.com/2026/08/14/elon-musk-spacex-employees-grok-ai-training/" target="_blank" class="read-more">Read more →</a>
                 </div>
             </div>
         </section>
@@ -449,28 +456,31 @@
 
                 <h3>What's New</h3>
                 <ul>
-                    <li>No new releases or significant feature commits reported since the last update.</li>
+                    <li><span class="tag tag-purple">Feature</span> <strong>Gateway: New Stack Dump for Wedged Worker Turns:</strong> Hermes Agent's gateway now logs the stack of wedged worker threads before interruption, helping diagnose stalled turns and improve stability.
+                        <a href="https://github.com/NousResearch/hermes-agent/commit/a90d5369f76c87c98547d2e283aa26d5cfabf322" target="_blank" class="read-more">Read more →</a></li>
                 </ul>
 
                 <h3>Community in Action</h3>
                 <ul>
-                    <li><span class="tag tag-purple">Project</span> <strong>New Project: Kanban Video Pipeline:</strong> A multi-agent system built on Hermes Agent that automates video production, from script to final cut, using a Kanban-driven workflow.
-                        <a href="https://github.com/NousResearch/kanban-video-pipeline" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Project</span> <strong>Build an End-to-End AI Video Production Pipeline with Hermes Agent and Remotion:</strong> A new tutorial demonstrates how to create a complete AI-powered video production workflow, from topic research to rendering, using Hermes Agent and Remotion.
+                        <a href="https://dev.to/vivek_shetye/build-an-end-to-end-ai-video-production-pipeline-with-hermes-agent-and-remotion-183i" target="_blank" class="read-more">Read more →</a></li>
+                    <li><span class="tag tag-purple">Workflow</span> <strong>Automate B2B Marketing With Hermes Agent, LinkedIn, and X:</strong> A guide to setting up a daily Hermes cron job to monitor LinkedIn and X for B2B opportunities, preparing a brief of relevant posts.
+                        <a href="https://dev.to/shash7/automate-b2b-marketing-with-hermes-agent-linkedin-and-x-4ech" target="_blank" class="read-more">Read more →</a></li>
                 </ul>
 
                 <h3>Level Up</h3>
                 <ul>
-                    <li><span class="tag tag-purple">Skills</span> <strong>Plugins Can Now Bundle Skills:</strong> Hermes Agent plugins can now ship their own skills using a namespaced approach, preventing collisions and providing a cleaner way to extend agent capabilities directly within the plugin structure.
-                        <a href="https://hermes-agent.nousresearch.com/docs/developer-guide/plugins" class="read-more" target="_blank">Read more →</a></li>
-                    <li><span class="tag tag-purple">Integrations</span> <strong>Hermes as an MCP Server:</strong> Hermes Agent can now function as an MCP (Model Context Protocol) server, enabling other MCP-capable agents to leverage Hermes' messaging and other connected capabilities, expanding interoperability.
-                        <a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp" class="read-more" target="_blank">Read more →</a></li>
+                    <li><span class="tag tag-purple">Guide</span> <strong>New Automation Blueprints Catalog Available:</strong> Discover a catalog of ready-to-run automations for Hermes Agent, designed for easy scheduling as cron jobs without complex syntax.
+                        <a href="https://hermes-agent.nousresearch.com/docs/reference/automation-blueprints-catalog" target="_blank" class="read-more">Read more →</a></li>
+                    <li><span class="tag tag-purple">Feature</span> <strong>Skills Hub Integrates New Sources, Including skills.sh:</strong> The Hermes Skills Hub now supports additional sources like <code>skills.sh</code> and well-known endpoints, expanding the discoverability and installation options for community-contributed skills.
+                        <a href="https://github.com/NousResearch/hermes-agent/pull/1303" target="_blank" class="read-more">Read more →</a></li>
                 </ul>
             </div>
         </section>
 
         <section id="markets">
-            <div class="section-divider"><span>Markets</span></div>
-            <div class="markets-table-card">
+            <div class="section-divider"><span>Markets & Crypto</span></div>
+            <div class="markets-table">
                 <table>
                     <thead>
                         <tr>
@@ -481,31 +491,24 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><span class="tag tag-teal">Crypto</span> Bitcoin (BTC)</td>
-                            <td>$63,274.19</td>
-                            <td class="positive">▲ 0.2%</td>
+                            <td>Bitcoin (BTC)</td>
+                            <td>$62,600</td>
+                            <td class="change-negative">-1.7%</td>
                         </tr>
                         <tr>
-                            <td><span class="tag tag-teal">Crypto</span> Ethereum (ETH)</td>
-                            <td>$1,884.44</td>
-                            <td class="positive">▲ 0.1%</td>
+                            <td>Ethereum (ETH)</td>
+                            <td>$1,874</td>
+                            <td class="change-negative">-0.59%</td>
                         </tr>
                     </tbody>
                 </table>
+                <p class="markets-summary">Bitcoin dipped below $63,000, continuing its week-over-week decline as rising oil prices and bond yields impacted risk assets. Ethereum also saw a similar decline.</p>
+                <a href="https://www.coindesk.com/tech/2026/08/14/live-updates-bitcoin-slips-below-usd63-000-as-oil-yields-climb" target="_blank" class="read-more">Read more →</a>
             </div>
         </section>
 
-        <section id="in-brief">
-            <div class="section-divider"><span>In Brief</span></div>
-            <div class="in-brief-card">
-                <ul>
-                    <li>No additional "In Brief" items identified today.</li>
-                </ul>
-            </div>
-        </section>
-
-        <footer>
-            <p>&copy; 2026 The Daily Ringo. All rights reserved.</p>
+        <footer class="footer">
+            &copy; 2026 The Daily Ringo. All rights reserved.
         </footer>
     </div>
 </body>
