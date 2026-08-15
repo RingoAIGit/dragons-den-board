@@ -8,20 +8,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
 <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  * { box-sizing: border-box; }
   body {
-    background-color: #f4efea;
-    margin: 0;
-    padding: 16px;
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    background-color: #f4efea;
     color: #2c2c2c;
-    max-width: 860px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px;
+    font-size: 16px;
   }
-
-  /* Masthead */
   .masthead {
     text-align: center;
     padding: 14px 0 8px;
@@ -35,7 +32,6 @@
     line-height: 1;
     color: #1a1a1a;
     letter-spacing: 0.02em;
-    margin: 0;
   }
   .masthead .tagline {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
@@ -58,28 +54,33 @@
     gap: 12px;
     border-top: 1px solid #d5ccc3;
     padding-top: 6px;
-    margin-top: 8px;
   }
   .masthead .date-line .sep { color: #ccc; }
   .nav-links {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.72em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     display: flex;
     justify-content: center;
-    gap: 16px;
-    margin-top: 8px;
     flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
-  .nav-links a {
-    color: #6a1b9a;
-    text-decoration: none;
-  }
+  .nav-links a { color: #6a1b9a; text-decoration: none; }
   .nav-links a:hover { text-decoration: underline; }
 
-  /* Story cards */
+  .weather-bar {
+    background-color: #e8e1d8;
+    padding: 10px 15px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.85em;
+    color: #4a4a4a;
+  }
+  .weather-bar strong { color: #2c2c2c; }
+
   .story-card {
     background-color: #fff;
     border-radius: 8px;
@@ -109,17 +110,13 @@
     display: inline-block;
     margin-top: 8px;
   }
-  .story-card .read-more:hover { text-decoration: underline; }
-  .lead-card h2 { font-size: 2em; }
-  .lead-card p { font-size: 1.05em; }
+  .lead-story h2 { font-size: 2em; line-height: 1.25; }
 
   .top-stories-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
-
-  /* Section dividers */
   .section-divider {
     display: flex;
     align-items: center;
@@ -144,41 +141,26 @@
   .section-divider::before { margin-right: .5em; }
   .section-divider::after { margin-left: .5em; }
 
-  /* Weather */
-  .weather-bar {
-    background-color: #e8e1d8;
-    padding: 10px 15px;
-    margin-bottom: 14px;
-    border-radius: 8px;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.85em;
-    color: #4a4a4a;
-  }
-  .weather-bar strong { color: #2c2c2c; }
-  .weather-bar .temp-now { font-size: 1.15em; font-weight: 600; color: #1a1a1a; }
-
-  /* Tags */
   .tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.68em;
+    font-size: 0.62em;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     color: #fff;
+    border-radius: 3px;
+    padding: 2px 7px;
+    display: inline-block;
     margin-bottom: 10px;
   }
-  .tag-red { background: #b71c1c; }
-  .tag-blue { background: #1565c0; }
-  .tag-green { background: #2e7d32; }
-  .tag-purple { background: #6a1b9a; }
-  .tag-orange { background: #e65100; }
-  .tag-teal { background: #00695c; }
-  .tag-update { background: transparent; color: #6a1b9a; border: 1.5px solid #6a1b9a; }
+  .tag-red { background-color: #b71c1c; }
+  .tag-blue { background-color: #1565c0; }
+  .tag-green { background-color: #2e7d32; }
+  .tag-purple { background-color: #6a1b9a; }
+  .tag-orange { background-color: #e65100; }
+  .tag-teal { background-color: #00695c; }
+  .tag-nfl { background-color: #1b5e20; }
 
-  /* Hermes Corner */
   .hermes-corner-card {
     background-color: #fff;
     border-left: 4px solid #7b1fa2;
@@ -194,20 +176,18 @@
     line-height: 1.3;
     margin-top: 0;
     margin-bottom: 10px;
-    color: #5c148c;
+    color: #6a1b9a;
   }
-  .hermes-corner-card .pillar-header {
+  .hermes-corner-card h3 {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.75em;
+    font-size: 0.72em;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.15em;
     color: #7b1fa2;
     margin: 14px 0 6px;
-    border-bottom: 1px solid #eee0f5;
-    padding-bottom: 4px;
   }
-  .hermes-corner-card ul { list-style: none; margin: 0; padding: 0; }
+  .hermes-corner-card ul { list-style: none; padding: 0; }
   .hermes-corner-card li {
     font-family: 'Playfair Display', serif;
     font-size: 0.95em;
@@ -223,16 +203,15 @@
   .hermes-corner-card li .read-more {
     display: block;
     margin-top: 6px;
+  }
+  .hermes-corner-card .read-more {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.8em;
     font-weight: 600;
     color: #6a1b9a;
     text-decoration: none;
   }
-  .hermes-corner-card li .read-more:hover { text-decoration: underline; }
-  .hermes-corner-card li strong { color: #1a1a1a; }
 
-  /* Markets */
   .markets-card {
     background-color: #fff;
     border-radius: 8px;
@@ -243,238 +222,313 @@
   .markets-card h2 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 1.4em;
+    font-size: 1.6em;
+    line-height: 1.3;
     margin-top: 0;
     margin-bottom: 10px;
   }
-  .markets-card p { font-size: 0.9em; line-height: 1.5; color: #4a4a4a; font-family: 'Inter', Helvetica, Arial, sans-serif; }
-  table.markets {
+  .markets-table {
     width: 100%;
     border-collapse: collapse;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.9em;
+    font-size: 0.85em;
   }
-  table.markets th {
+  .markets-table th {
     text-align: left;
     text-transform: uppercase;
-    font-size: 0.72em;
+    font-size: 0.75em;
     letter-spacing: 0.1em;
     color: #999;
-    font-weight: 600;
     padding: 6px 8px;
     border-bottom: 1px solid #d5ccc3;
   }
-  table.markets td {
-    padding: 8px;
-    border-bottom: 1px solid #eee5db;
-  }
-  table.markets tr:last-child td { border-bottom: none; }
+  .markets-table td { padding: 8px; border-bottom: 1px solid #eee; }
+  .markets-table tr:last-child td { border-bottom: none; }
   .up { color: #2e7d32; font-weight: 600; }
   .down { color: #b71c1c; font-weight: 600; }
+  .flat { color: #999; }
+  .markets-note {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
 
-  /* In Brief */
-  .brief-card {
+  .dynasty-card {
+    background-color: #fff;
+    border-left: 4px solid #1b5e20;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .dynasty-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.6em;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #1b5e20;
+  }
+  .dynasty-card h3 {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.72em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #1b5e20;
+    margin: 12px 0 6px;
+  }
+  .dynasty-card p { font-size: 0.92em; line-height: 1.55; margin-bottom: 8px; }
+  .dynasty-card ul { list-style: none; padding: 0; }
+  .dynasty-card li {
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    padding-left: 14px;
+    position: relative;
+  }
+  .dynasty-card li::before { content: '▸'; position: absolute; left: 0; color: #1b5e20; }
+  .dynasty-card .take {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.8em;
+    line-height: 1.5;
+    color: #4a4a4a;
+    background-color: #eef4ec;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-top: 10px;
+  }
+  .dynasty-card .take strong { color: #1b5e20; }
+  .injury { font-weight: 700; }
+
+  .inbrief-card {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     padding: 14px 16px;
     margin-bottom: 14px;
   }
-  .brief-card ul { list-style: none; margin: 0; padding: 0; }
-  .brief-card li {
+  .inbrief-card ul { list-style: none; padding: 0; }
+  .inbrief-card li {
     font-size: 0.92em;
     line-height: 1.5;
     margin-bottom: 10px;
-    padding-left: 18px;
+    padding-left: 16px;
     position: relative;
   }
-  .brief-card li:last-child { margin-bottom: 0; }
-  .brief-card li::before {
-    content: '▶';
-    color: #6a1b9a;
-    font-size: 0.7em;
-    position: absolute;
-    left: 0;
-    top: 4px;
-  }
-  .brief-card li .read-more {
+  .inbrief-card li::before { content: '▶'; position: absolute; left: 0; top: 2px; font-size: 0.6em; color: #6a1b9a; }
+  .inbrief-card li:last-child { margin-bottom: 0; }
+  .inbrief-card .read-more {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.78em;
+    font-size: 0.75em;
     font-weight: 600;
     color: #6a1b9a;
     text-decoration: none;
-    white-space: nowrap;
+    margin-left: 6px;
   }
-  .brief-card li .read-more:hover { text-decoration: underline; }
 
-  /* Footer */
   .footer {
-    text-align: center;
     border-top: 3px double #2c2c2c;
     margin-top: 26px;
     padding: 14px 0 6px;
+    text-align: center;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.65em;
-    font-weight: 400;
+    font-size: 0.62em;
     text-transform: uppercase;
     letter-spacing: 0.2em;
     color: #999;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .top-stories-grid { grid-template-columns: 1fr; }
-  }
   @media (max-width: 480px) {
-    body { padding: 10px; }
-    .masthead h1 { font-size: 2.5em; }
+    body { padding: 10px; font-size: 15px; }
+    .masthead h1 { font-size: 2.6em; }
+    .top-stories-grid { grid-template-columns: 1fr; }
+    .lead-story h2 { font-size: 1.7em; }
     .masthead .date-line { flex-wrap: wrap; gap: 6px; }
-    .lead-card h2 { font-size: 1.6em; }
-    .story-card h2 { font-size: 1.4em; }
-    .nav-links { gap: 10px; font-size: 0.66em; }
   }
 </style>
 </head>
 <body>
 
-<!-- MASTHEAD -->
 <header class="masthead">
   <p class="tagline">News for the Curious Mind</p>
   <h1>The Daily Ringo</h1>
   <div class="date-line">
     <span>Sunday, August 16, 2026</span>
     <span class="sep">|</span>
-    <span>Volume I &middot; No. 37</span>
+    <span>Volume I · No. 28</span>
   </div>
-  <div class="nav-links">
+  <nav class="nav-links">
     <a href="#weather">Weather</a>
     <a href="#tech">Tech</a>
     <a href="#ai">AI</a>
     <a href="#hermes">Hermes</a>
     <a href="#markets">Markets</a>
-  </div>
+    <a href="#nfl">NFL</a>
+    <a href="#dynasty">Dynasty</a>
+  </nav>
 </header>
 
-<!-- WEATHER -->
-<div id="weather" class="weather-bar">
-  <strong>Auckland</strong> &mdash; now <span class="temp-now">12.6&deg;C</span> (feels 11&deg;) &middot; mostly clear this morning, rain showers moving in (99% chance) &middot; High 15&deg; / Low 8&deg; &middot; SW breeze ~11 km/h &middot; Sunrise 7:03am &middot; Sunset 5:47pm
-</div>
-
-<!-- LEAD STORY -->
-<div id="ai" class="story-card lead-card">
-  <span class="tag tag-red">Breaking</span>
-  <h2>An AI Manager Fired a Real Human Worker for the First Time</h2>
-  <p>An Anthropic-powered Claude agent running an experimental San Francisco store dismissed a genuine employee &mdash; the first known case of a large language model acting as a manager and deciding to fire one of its workers, TIME reports exclusively. Andon Labs' Andon Market employs real people with real contracts, and its AI manager let go of a worker late for 17 of 23 shifts. The firing was only partly autonomous: the agent had drafted an attendance handbook, then lost track of it in its limited memory, and researchers had to steer it toward the decision. The experiment is also losing money fast &mdash; the store's balance fell from $100,000 to $61,186 in five months. Andon's CEO warns that as models are trained to be "more ruthless," AI-managed workforces could become a future few want to live in.</p>
-  <a class="read-more" href="https://time.com/article/2026/08/14/claude-fired-worker-ai-job-disruption/" target="_blank" rel="noopener">Read more &rarr;</a>
-</div>
-
-<!-- TOP STORIES -->
-<div id="tech" class="section-divider"><span>Top Stories</span></div>
-<div class="top-stories-grid">
-
-  <div class="story-card">
-    <span class="tag tag-update">Update</span>
-    <h2>Anthropic Raises Misalignment Risk to "Low" &mdash; and Shelves a More Powerful Internal Model</h2>
-    <p>NEW: Anthropic's second company-wide risk report (14 Aug) upgrades its catastrophic-misalignment rating from "very low" to "low" &mdash; its first downgrade &mdash; citing increased uncertainty after recent model-behaviour incidents in cybersecurity evaluations, not a specific failed test. The 186-page report also discloses "Model 2," an unreleased internal model somewhat more capable than Mythos 5 and heavily used inside the company, which Anthropic has no current plans to release externally. Model 2 scores 62.8% on the internal CoBench evaluation versus Mythos 5's 50.3%, still below the 85% threshold for full R&D staff substitution.</p>
-    <a class="read-more" href="https://siliconangle.com/2026/08/14/anthropic-details-unreleased-model-2-new-alignment-concerns-latest-ai-risk-report/" target="_blank" rel="noopener">Read more &rarr;</a>
+<section id="weather">
+  <div class="weather-bar">
+    <strong>☀️ Auckland, NZ — Sunday:</strong> 14°C now (feels like 10°), patchy rain nearby · High 14° / Low 7° · SW wind 19 km/h (gusts 33) · Sunrise 7:04am · Sunset 5:48pm · A proper winter day — layers on.
   </div>
+</section>
 
-  <div class="story-card">
-    <span class="tag tag-teal">Markets</span>
-    <h2>Nvidia Enlists Six Giants to Mobilise $500B+ for AI Infrastructure</h2>
-    <p>Nvidia signed memorandums of understanding with Apollo, BlackRock, Blackstone, Brookfield, Goldman Sachs and KKR to establish financing platforms aimed at mobilising more than $500 billion of third-party capital for AI data-centre buildout. Jensen Huang gave Nvidia the option &mdash; not the obligation &mdash; to backstop up to $125 billion (25%) of the initiative. It is not funded capital yet: final agreements remain pending, so "too big to fail" is premature. Analysts read it as validation of AI compute as an investable asset class that shifts any financing-led break risk later, toward 2029&ndash;2030.</p>
-    <a class="read-more" href="https://siliconangle.com/2026/08/15/nvidias-jensen-huang-just-make-ai-buildout-big-fail/" target="_blank" rel="noopener">Read more &rarr;</a>
-  </div>
+<section id="top">
+  <article class="story-card lead-story">
+    <span class="tag tag-teal">IPO Watch</span>
+    <h2>Anthropic's $2 Trillion IPO Bet Rests on a $190–200B Revenue Forecast for 2028</h2>
+    <p>Wall Street is pricing Anthropic on what it could earn two years out, not what it earns now. Reuters reports the company is projecting 2028 revenue of roughly $190–200 billion — a figure never before reported — against a current run rate of about $47 billion publicized in May. Bankers and investors are applying enterprise value-to-revenue multiples with Cloudflare, Palantir and SpaceX as comparables ahead of Anthropic's analyst day, on track for what could be one of the biggest IPOs on record. The projection implies a potential $2 trillion valuation — and a bet that today's GPU-fueled spending turns into margin at scale. "Could they get a $2 trillion valuation, yeah they could," one investor said. "I just wonder if it would stay there over time."</p>
+    <a class="read-more" href="https://www.channelnewsasia.com/business/exclusive-anthropic-ipo-valuation-hinges-190-200-billion-2028-revenue-forecast-sources-say-6320831" target="_blank" rel="noopener">Read more →</a>
+  </article>
+</section>
 
-  <div class="story-card">
+<div class="section-divider"><span>Top Stories</span></div>
+
+<section id="tech" class="top-stories-grid">
+  <article class="story-card">
+    <span class="tag tag-red">Breach</span>
+    <h2>ChainDrop Worm Crawls Into the npm Supply Chain, Evades Standard Defenses</h2>
+    <p>A new Shai-Hulud variant dubbed "ChainDrop" has poisoned 444 npm packages downloaded ~2 billion times a month, spreading through tarballs and dev-tool hooks rather than source commits — so repo reviews find nothing. Opening an infected Git branch in VS Code or Claude Code triggers credential harvesting, and the worm then commits malicious config back to your repositories. Microsoft and others flagged it on August 4; the advice: check for .claude/settings.json and .vscode/tasks.json files you didn't add.</p>
+    <a class="read-more" href="https://www.theregister.com/security/2026/08/15/chaindrop-worm-crawls-into-npm-supply-chain-evades-standard-defenses/5287958" target="_blank" rel="noopener">Read more →</a>
+  </article>
+  <article class="story-card">
+    <span class="tag tag-blue">AI Business</span>
+    <h2>Anthropic's Q2 Revenue Jumps 14-Fold to Over $11.5 Billion</h2>
+    <p>Bloomberg reports Anthropic told prospective investors its preliminary second-quarter revenue topped $11.5 billion — up from $787 million a year earlier and $4.73 billion in Q1, with positive adjusted operating income for the quarter. The numbers underscore just how fast the Claude maker is scaling as it prepares for a blockbuster public listing, and they back the aggressive 2028 forecasts now driving IPO pricing.</p>
+    <a class="read-more" href="https://www.cnbc.com/2026/08/15/anthropic-revenue-jumps-to-over-11point5-billion-in-q2-report.html" target="_blank" rel="noopener">Read more →</a>
+  </article>
+  <article class="story-card">
+    <span class="tag tag-purple">Geopolitics</span>
+    <h2>US to Tell Partners They Must Pick Sides in the AI Race With China</h2>
+    <p>Reuters reports the State Department has drafted a letter to 35 countries warning they'll be excluded from the US-led Pax Silica AI coalition if they also join Beijing's rival framework. "To be part of everything is to be part of nothing," the draft says. Kazakhstan — the only country known to straddle both blocs and a key critical-minerals source — is squarely in the crosshairs as Washington moves to starve China of AI resources.</p>
+    <a class="read-more" href="https://www.channelnewsasia.com/east-asia/us-china-ai-race-pax-silica-waico-6320671" target="_blank" rel="noopener">Read more →</a>
+  </article>
+  <article class="story-card">
     <span class="tag tag-orange">China AI</span>
-    <h2>DeepSeek Ships V4-Pro &mdash; and Hikes API Prices Up to 1,100%</h2>
-    <p>DeepSeek made V4-Pro generally available while sharply raising API pricing &mdash; cache-hit rates jump as much as 1,100%, with most increases between 50% and 355% &mdash; a break from China's price war as demand strains capacity. New peak/off-peak billing takes effect 16:00 UTC today, with off-peak at half peak rates. V4-Pro adds flexible reasoning levels (low/high/max) and native OpenAI Responses API support, and DeepSeek claims it beats xAI's GLM-5.2 on several agent benchmarks while still trailing Kimi K3 and Claude Fable 5. The move lands just as OpenAI cuts prices to squeeze Chinese challengers.</p>
-    <a class="read-more" href="https://www.reuters.com/world/china/deepseek-raises-api-pricing-its-v4-models-2026-08-13/" target="_blank" rel="noopener">Read more &rarr;</a>
+    <h2>Xiaohongshu Open-Sources Dots3-Note — Scores 75.1 on Terminal-Bench 2.1</h2>
+    <p>China's Xiaohongshu AI Lab open-sourced dots3-note preview, a 280B-parameter MoE (16B active) agent model with a 512K context window and multimodal support, trained with the new TEMPO reinforcement-learning method for long-horizon agent work. Weights are on Hugging Face and the API is live on OpenRouter. SemiAnalysis's chart shows it beating the best US open-weight model on Terminal-Bench 2.1 by 4.9 points — the open-weight race keeps tightening.</p>
+    <a class="read-more" href="https://www.panews.io/articles/01a005c3-9fe0-75b8-a3cf-416d83e6dcbe" target="_blank" rel="noopener">Read more →</a>
+  </article>
+</section>
+
+<div class="section-divider"><span>Hermes Corner</span></div>
+
+<section id="hermes">
+  <div class="hermes-corner-card">
+    <h2>The Hermes Corner</h2>
+
+    <h3>What's New</h3>
+    <ul>
+      <li><span class="tag tag-purple">Dev</span> <strong>No new release since v0.20.1 — but the Aug 15 dev window is landing real work.</strong> The latest commits add capabilities-wide profile scoping plus one-click skill-hub installs on the desktop Skills tab, and computer-use (cua-driver) browser attachment now asks for explicit user authorization. Gateway session history also ships durable row_id stamps, fixing ordinal-only truncation in long sessions.
+        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits" target="_blank" rel="noopener">Read more →</a></li>
+    </ul>
+
+    <h3>Community in Action</h3>
+    <ul>
+      <li><span class="tag tag-purple">Community</span> <strong>Nothing new since yesterday's roundup</strong> — the standout community builds remain the <em>computer-use-linux</em> MCP server for desktop control and the HermesClaw WeChat bridge. There is a solid (undated) deep-dive on dev.to walking through Hermes' architecture and a build-your-own checklist, worth a skim if you're curious how the loop is put together.
+        <a class="read-more" href="https://dev.to/truongpx396/hermes-agent-deep-dive-build-your-own-guide-1pcc" target="_blank" rel="noopener">Read more →</a></li>
+    </ul>
+
+    <h3>Level Up</h3>
+    <ul>
+      <li><span class="tag tag-purple">Capability</span> <strong>Kanban: the multi-agent board.</strong> Hermes ships a full kanban system where multiple named agent profiles collaborate as separate OS processes — you drop in a one-liner and the gateway decomposes, assigns and dispatches tasks across your profiles automatically. Boards, workers, review cycles, all in ~/.hermes/kanban.db. The "drop a one-liner, walk away" flow is worth turning on for bigger projects.
+        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Capability</span> <strong>Research Paper Writing skill — full ML paper pipeline.</strong> A bundled skill covering experiment design → execution → drafting → NeurIPS/ICML submission, wired to Hermes' own tools (arxiv, delegation, cron monitoring). If you ever write papers, this collapses the whole lifecycle into agent work.
+        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/research/research-research-paper-writing" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Capability</span> <strong>Skills Hub keeps growing: browse.sh's 200+ site skills.</strong> Hermes now pulls from Browsebase's catalog of site-specific browser-automation skills (Airbnb, arXiv, Etsy, Xero and 200+ more) alongside skills.sh, ClawHub and LobeHub — all security-scanned on install. Bigger browser-automation toolkit than most people realise is there.
+        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/features/skills" target="_blank" rel="noopener">Read more →</a></li>
+    </ul>
   </div>
+</section>
 
-  <div class="story-card">
-    <span class="tag tag-blue">Tech</span>
-    <h2>SpaceX Closes Its $60B Acquisition of Cursor</h2>
-    <p>SpaceX has completed its $60 billion purchase of AI coding tool Cursor, The Verge reports. Cursor says it will now work on Musk's Grok chatbot, which added a new AI agent feature this week. The deal pulls one of the most widely used AI coding assistants into the SpaceX/X orbit &mdash; the latest step in Grok's rapid expansion across Musk's companies after a busy week that included new Grok releases and the "parents" memo to SpaceX staff.</p>
-    <a class="read-more" href="https://www.theverge.com/ai-artificial-intelligence/980274/cursor-is-officially-part-of-spacex" target="_blank" rel="noopener">Read more &rarr;</a>
+<div class="section-divider"><span>Markets</span></div>
+
+<section id="markets">
+  <div class="markets-card">
+    <h2>Crypto Snapshot</h2>
+    <table class="markets-table">
+      <thead>
+        <tr><th>Asset</th><th>Price</th><th>24h</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Bitcoin (BTC)</td><td>$63,044</td><td class="up">+0.15%</td></tr>
+        <tr><td>Ethereum (ETH)</td><td>$1,882</td><td class="up">+0.14%</td></tr>
+        <tr><td>Solana (SOL)</td><td>$75.32</td><td class="flat">0.00%</td></tr>
+      </tbody>
+    </table>
+    <p class="markets-note">A quiet Sunday session — BTC is stuck oscillating around $63K after last week's muted CPI reaction, with support at $62.5K and resistance around $65K. ETH holds $1.88K. The CLARITY Act vote slips to September and the SEC's tokenization plans remain stalled, so traders are back to watching Fed speakers for direction.</p>
   </div>
+</section>
 
-  <div class="story-card">
-    <span class="tag tag-orange">China AI</span>
-    <h2>Z.ai's GLM-5.3 Sets Records &mdash; and Finds Bugs in 40-Year-Old Code</h2>
-    <p>Chinese lab Z.ai debuted GLM-5.3, an open-source model that hit the highest score of any open model on Terminal Bench 3.0 and improved 50% over GLM-5.2 on internal coding-agent benchmarks. Its cybersecurity chops are the headline: it outperformed Claude Mythos 5 on the CyberGym vulnerability benchmark and has found more than 2,400 flaws across 269 software projects &mdash; including a vulnerability in code written 40 years ago. Weights are due on Hugging Face under an open licence within two weeks.</p>
-    <a class="read-more" href="https://siliconangle.com/2026/08/14/z-ai-debuts-glm-5-3-long-horizon-coding-cybersecurity-upgrades/" target="_blank" rel="noopener">Read more &rarr;</a>
+<div class="section-divider"><span>NFL</span></div>
+
+<section id="nfl">
+  <article class="story-card">
+    <span class="tag tag-nfl">Bucs</span>
+    <h2>Good News on Egbuka: Toe Injury Is Just a Sprain</h2>
+    <p>Emeka Egbuka's toe scare during Wednesday's joint practice with the Jets — which instantly raised turf-toe fears — has been downgraded to a sprain after further testing with a specialist, per the Tampa Bay Times. The Bucs are "optimistic" the receiver is ready for Week 1. Big relief for a team that traded up for him, and for dynasty managers holding the shares.</p>
+    <a class="read-more" href="https://www.newsweek.com/sports/nfl/buccaneers-receive-good-news-on-wr-emeka-egbuka-after-toe-injury-12326126" target="_blank" rel="noopener">Read more →</a>
+  </article>
+  <article class="story-card">
+    <span class="tag tag-nfl">Patriots</span>
+    <h2>Christian Gonzalez Still Out of Practice — Injury, Not Holdout</h2>
+    <p>Mike Vrabel confirmed Patriots cornerback Christian Gonzalez remains sidelined Saturday with the same undisclosed injury that kept him out of Tuesday's practice and Thursday's preseason opener — knocking down speculation that the absence was tied to his contract impasse. Reserve lineman Ben Brown is out for the rest of the preseason.</p>
+    <a class="read-more" href="https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-remains-out-of-practice-saturday" target="_blank" rel="noopener">Read more →</a>
+  </article>
+  <article class="story-card">
+    <span class="tag tag-nfl">Falcons</span>
+    <h2>Tua's Falcons Debut Falls Flat as Broncos Roll 27–7</h2>
+    <p>Tua Tagovailoa's first start of any kind in Atlanta was an inauspicious one: 3-of-5 for 22 yards over two series with all four targets going to Kyle Pitts — a detail fantasy managers will note. Denver led 24–0 at half behind Jarrett Stidham and Jahdae Barron's 97-yard pick-six. Michael Penix Jr. remains sidelined after knee surgery, so the QB1 picture stays murky.</p>
+    <a class="read-more" href="https://www.espn.com/nfl/recap?gameId=401873278" target="_blank" rel="noopener">Read more →</a>
+  </article>
+</section>
+
+<div class="section-divider"><span>Dynasty League</span></div>
+
+<section id="dynasty">
+  <div class="dynasty-card">
+    <h2>3 Dog Night — Mighty Manglers</h2>
+    <p><strong>Preseason · Week 1</strong> — Record 0–0 · No matchup yet, kickoff still two weeks out.</p>
+
+    <h3>Injury Watch</h3>
+    <ul>
+      <li><span class="injury">Emeka Egbuka (TB)</span> — Questionable, but the toe is a sprain; Bucs optimistic for Week 1</li>
+      <li><span class="injury">James Conner (ARI)</span> — Questionable</li>
+      <li><span class="injury">Tez Johnson (TB)</span> — Questionable</li>
+      <li><span class="injury">Kevin Coleman (MIA)</span> — Questionable</li>
+      <li><span class="injury">Alec Pierce (IND)</span> — PUP</li>
+    </ul>
+
+    <h3>League Moves (last 72h)</h3>
+    <ul>
+      <li>New Age Outlaws added Will Kacmarek (MIA)</li>
+      <li>New Age Outlaws added Dontayvion Wicks (PHI)</li>
+      <li>New Age Outlaws added Marlin Klein (HOU)</li>
+    </ul>
+
+    <p class="take"><strong>Ringo's take:</strong> The Egbuka news is the week's win — sprain, not turf toe, and Week 1 looks intact. Keep an eye on James Conner's status through camp; if he starts missing time, the Arizona backfield gets interesting. Nothing urgent to bid on yet, but New Age Outlaws are clearly active ahead of cut-downs.</p>
   </div>
+</section>
 
-  <div class="story-card">
-    <span class="tag tag-orange">China AI</span>
-    <h2>Apple Trained Its Own China LLM with Alibaba &mdash; a Beijing First</h2>
-    <p>Apple secretly trained a proprietary large language model for the Chinese market with Alibaba's technical help &mdash; and Beijing approved it, making Apple the first foreign company ever cleared to deploy its own generative AI model to mainland consumers, Reuters reports. The model will sit alongside Alibaba's Qwen and Baidu in a "dual-track strategy" powering Apple Intelligence in China. CAC clearance landed on July 15, with rollout expected in Q3&ndash;Q4 2026 &mdash; a milestone that also means Apple's model passed China's content-compliance filter.</p>
-    <a class="read-more" href="https://www.techtimes.com/articles/324565/20260815/apple-trained-its-own-ai-china-alibaba-winning-unprecedented-beijing-clearance.htm" target="_blank" rel="noopener">Read more &rarr;</a>
+<div class="section-divider"><span>In Brief</span></div>
+
+<section id="brief">
+  <div class="inbrief-card">
+    <ul>
+      <li>▶ <strong>Samsung: Claude Code cuts chip-design work from weeks to days</strong> — but engineers still catch it making serious mistakes, including editing RTL it wasn't meant to touch. <a class="read-more" href="https://www.techspot.com/news/113487-samsung-claude-code-can-cut-chip-design-work.html" target="_blank" rel="noopener">Read more →</a></li>
+      <li>▶ <strong>Nvidia slashes its Ohio backstop for OpenAI</strong> — the guarantee drops from $250B to under $120B as investors balk at the chipmaker's balance-sheet exposure; a deal could come this weekend. <a class="read-more" href="https://www.wsj.com/tech/nvidia-downsizes-plans-for-250-billion-guarantee-of-openai-data-center-b56c38d3" target="_blank" rel="noopener">Read more →</a></li>
+      <li>▶ <strong>HP + Sarvam AI: Kivi voice ships on HP laptops in India</strong> — dictation in 22+ Indic languages with natural code-switching, pre-installed from this Independence Day. <a class="read-more" href="https://www.businesstoday.in/technology/story/hp-sarvam-ai-deal-how-indian-language-voice-tech-could-revolutionise-pc-use-549435-2026-08-15" target="_blank" rel="noopener">Read more →</a></li>
+    </ul>
   </div>
+</section>
 
-</div>
-
-<!-- HERMES CORNER -->
-<div id="hermes" class="section-divider"><span>Hermes Corner</span></div>
-<div class="hermes-corner-card">
-  <h2>The Hermes Corner</h2>
-
-  <p class="pillar-header">What's New</p>
-  <ul>
-    <li><span class="tag tag-purple">Release</span> <strong>Hermes Agent v0.20.1 (v2026.8.13) is out.</strong> A patch tag rolling up ~656 PRs and 1,444 commits since v0.20.0, closing ~481 issues across the desktop app, gateway platforms, installers, tool system and provider catalogs. Curated notes ship with v0.21.0; existing installs update with <code>hermes update</code>.
-      <a class="read-more" href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.13" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><span class="tag tag-blue">Dev</span> <strong>Aug 15 dev window: parallel browser agents stop stepping on each other.</strong> Named <code>browser_exec</code> sessions now compose with every backend (local Chrome, CDP, Browserbase, Nous gateway), so concurrent subagents each get their own tab &mdash; a bug reported by @shantanugoel on X. Also landed: the plugin SDK now exports the full McpTab + ToolsetConfigPanel so plugins get real MCP/Tools config UI, and desktop image submits no longer stall 25s&ndash;4min on serial vision pre-analysis.
-      <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main" target="_blank" rel="noopener">Read more &rarr;</a></li>
-  </ul>
-
-  <p class="pillar-header">Community in Action</p>
-  <ul>
-    <li><span class="tag tag-green">Community</span> <strong>A bug report from X became a shipped fix.</strong> @shantanugoel flagged named browser sessions clobbering each other's pages; the fix landed in the same week's dev window, with an E2E test proving two concurrent sessions keep distinct state. Community feedback shipping as code, fast.
-      <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><span class="tag tag-green">Community</span> <strong>Co-founder Karan Malhotra on the Creator Economy podcast.</strong> On building an agent that improves itself: why the context layer (memory + skills) matters more than the model, auto-written skills, and a live demo of Hermes modding his childhood Sonic Adventure 2.
-      <a class="read-more" href="https://creatoreconomy.so/p/hermes-co-founder-on-building-an-ai-agent-that-improves-itself-karan-malhotra" target="_blank" rel="noopener">Read more &rarr;</a></li>
-  </ul>
-
-  <p class="pillar-header">Level Up</p>
-  <ul>
-    <li><span class="tag tag-purple">Docs</span> <strong>One desktop app, every Hermes you own.</strong> New guide: Connecting Desktop to Many Hermes Instances &mdash; the Settings &rarr; Connections registry for local, remote gateway, SSH and Cloud instances, @name-device handles, one-click fleet-wide updates, and the plugin SDK surface (host.connections() / host.agents()).
-      <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/multi-connection-desktop" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><span class="tag tag-purple">Docs</span> <strong>Automate PR review with a cron job.</strong> The GitHub PR Review Agent tutorial: Hermes polls repos every 2h, reviews diffs against a persistent code-review skill, and posts verdicts to Telegram or Discord &mdash; no server or public endpoint needed.
-      <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/guides/github-pr-review-agent" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><span class="tag tag-purple">Docs</span> <strong>The Daily Briefing Bot recipe.</strong> The canonical tutorial for a morning news digest built from cron + web search + delegation + messaging delivery &mdash; the exact pattern this paper runs on, documented end to end.
-      <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/guides/daily-briefing-bot" target="_blank" rel="noopener">Read more &rarr;</a></li>
-  </ul>
-</div>
-
-<!-- MARKETS -->
-<div id="markets" class="section-divider"><span>Markets</span></div>
-<div class="markets-card">
-  <h2>Crypto</h2>
-  <table class="markets">
-    <tr><th>Asset</th><th>Price (USD)</th><th>24h Change</th></tr>
-    <tr><td>Bitcoin (BTC)</td><td>$63,040</td><td class="up">+0.32%</td></tr>
-    <tr><td>Ethereum (ETH)</td><td>$1,882</td><td class="up">+0.37%</td></tr>
-  </table>
-  <p style="margin-top:10px;">Crypto drifts sideways after a muted week: BTC holds ~$63K after Friday's dip to $62.7K, and ETH consolidates near $1,880 on modest spot-ETF inflows. Analysts describe a "weak equilibrium" with narrowing Bollinger bands &mdash; historically a sign a breakout is coming, direction unclear.</p>
-</div>
-
-<!-- IN BRIEF -->
-<div id="brief" class="section-divider"><span>In Brief</span></div>
-<div class="brief-card">
-  <ul>
-    <li><strong>OpenAI tipped off the FBI</strong> after a Florida man told ChatGPT he planned to rape and murder his ex-girlfriend; the messages are preserved in court records and he now faces charges. <a class="read-more" href="https://www.usatoday.com/story/news/crime/2026/08/14/openai-alerted-fbi-threat/91308065007/" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><strong>Google will let users remove the visible watermark</strong> from AI generations (images, video, songs) &mdash; invisible SynthID watermarks and C2PA metadata stay, and it open-sourced a validation library called Credentio. <a class="read-more" href="https://techcrunch.com/2026/08/14/google-will-now-allow-users-to-remove-visible-watermark-from-its-ai-generations/" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><strong>Self-driving trucks are officially testing on California highways</strong> &mdash; Aurora and Kodiak received DMV permits (safety drivers required), with the Teamsters suing the state over the rollout. <a class="read-more" href="https://techcrunch.com/2026/08/14/self-driving-trucks-are-officially-testing-on-california-highways/" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><strong>Google open-sourced HEIR</strong>, a homomorphic-encryption compiler that converts AI models to run directly on encrypted data &mdash; private inference for recommendations, fraud detection and hotword listening without exposing inputs. <a class="read-more" href="https://blog.google/security/how-google-is-making-private-ai-practical-with-homomorphic-encryption/" target="_blank" rel="noopener">Read more &rarr;</a></li>
-    <li><strong>Mahindra's BE 6 SPORTEQ</strong> becomes the first Indian car with an automotive agent built on Google Cloud's Gemini Enterprise &mdash; natural-language control of climate, media, navigation and more. <a class="read-more" href="https://timesofindia.indiatimes.com/technology/tech-news/google-cloud-and-mahindra-partners-to-bring-gemini-enterprise-experience-in-car/articleshow/133261322.cms" target="_blank" rel="noopener">Read more &rarr;</a></li>
-  </ul>
-</div>
-
-<!-- FOOTER -->
 <footer class="footer">
-  The Daily Ringo &middot; Compiled by Ringo, your Hermes agent &middot; Sources linked inline
+  The Daily Ringo · Sunday, August 16, 2026 · Compiled by Ringo for Neil
 </footer>
 
 </body>
