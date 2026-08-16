@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily Ringo — {{DATE_HUMAN}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #f4efea;
+    color: #2c2c2c;
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    margin: 0;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 16px; }
+  a { color: #6a1b9a; }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    text-align: center;
+    padding: 14px 0 8px;
+    border-bottom: 3px double #2c2c2c;
+    margin-bottom: 14px;
+  }
+  .masthead h1 {
+    font-family: 'Pirata One', 'Old English Text MT', serif;
+    font-size: 3.2em;
+    font-weight: 400;
+    line-height: 1;
+    color: #1a1a1a;
+    letter-spacing: 0.02em;
+    margin: 0 0 6px;
+  }
+  .masthead .tagline {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.55em;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: #999;
+    margin: 0 0 6px;
+  }
+  .masthead .date-line {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.62em;
+    font-weight: 400;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    border-top: 1px solid #d5ccc3;
+    padding-top: 6px;
+  }
+  .masthead .date-line .sep { color: #ccc; }
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 8px;
+  }
+  .nav-links a { color: #666; text-decoration: none; }
+  .nav-links a:hover { color: #1a1a1a; }
+
+  /* ---------- Weather bar ---------- */
+  .weather-bar {
+    background-color: #e8e1d8;
+    padding: 10px 15px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.85em;
+    color: #4a4a4a;
+  }
+
+  /* ---------- Story cards ---------- */
+  .story-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .story-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.6em;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  .story-card p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .story-card .read-more,
+  .read-more {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #6a1b9a;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 8px;
+  }
+  .top-stories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .top-stories-grid .story-card { margin-bottom: 0; }
+  .lead-story h2 { font-size: 2em; }
+
+  /* ---------- Section dividers ---------- */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 26px 0 18px;
+  }
+  .section-divider span {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.8em;
+    color: #666;
+    background-color: #f4efea;
+    padding: 0 10px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #d5ccc3;
+  }
+  .section-divider::before { margin-right: .5em; }
+  .section-divider::after { margin-left: .5em; }
+
+  /* ---------- Tags (story badges) ---------- */
+  .tag {
+    display: inline-block;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.68em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .tag-red    { background-color: #b71c1c; }  /* Breaking / Breach */
+  .tag-blue   { background-color: #1565c0; }  /* AI Launch / Tech */
+  .tag-green  { background-color: #2e7d32; }  /* positive market */
+  .tag-purple { background-color: #6a1b9a; }  /* Regulation / Policy */
+  .tag-hermes { background-color: #7b1fa2; }  /* Hermes Corner items */
+  .tag-orange { background-color: #e65100; }  /* China AI / other */
+  .tag-teal   { background-color: #00695c; }  /* Markets / Crypto */
+  .tag-nfl    { background-color: #1b5e20; }  /* NFL news */
+  .tag-update {                               /* follow-up stories */
+    background-color: transparent;
+    color: #6a1b9a;
+    border: 1px solid #6a1b9a;
+  }
+
+  /* ---------- Hermes Corner ---------- */
+  .hermes-corner-card {
+    background-color: #fff;
+    border-left: 4px solid #7b1fa2;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .hermes-corner-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.6em;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #6a1b9a;
+  }
+  .hermes-corner-card h3 {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.72em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #6a1b9a;
+    margin: 14px 0 6px;
+  }
+  .hermes-corner-card ul { list-style: none; padding: 0; margin: 0; }
+  .hermes-corner-card li {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .hermes-corner-card li:last-child { margin-bottom: 0; }
+  .hermes-corner-card li .tag {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px 2px 0;   /* flush with title — overrides global .tag margin-bottom */
+  }
+  .hermes-corner-card li .read-more {
+    display: block;
+    margin-top: 6px;
+  }
+
+  /* ---------- Markets ---------- */
+  .markets-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.85em;
+  }
+  .markets-card th, .markets-card td {
+    text-align: left;
+    padding: 7px 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .markets-card th {
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #666;
+  }
+  .markets-card .up   { color: #2e7d32; font-weight: 600; }
+  .markets-card .down { color: #b71c1c; font-weight: 600; }
+  .markets-card .note {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.82em;
+    line-height: 1.5;
+    color: #4a4a4a;
+    margin: 10px 0 0;
+  }
+
+  /* ---------- Dynasty League card ---------- */
+  .dynasty-card {
+    background-color: #fff;
+    border-left: 4px solid #1b5e20;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .dynasty-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.6em;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #1b5e20;
+  }
+  .dynasty-card h3 {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.72em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #1b5e20;
+    margin: 14px 0 6px;
+  }
+  .dynasty-card ul { list-style: none; padding: 0; margin: 0; }
+  .dynasty-card li {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    padding-left: 14px;
+    position: relative;
+  }
+  .dynasty-card li::before { content: '▸'; position: absolute; left: 0; color: #1b5e20; }
+  .dynasty-card p { font-size: 0.92em; line-height: 1.55; margin-bottom: 8px; }
+  .dynasty-card .injury {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.78em;
+    font-weight: 500;
+    font-style: normal;
+    color: #8a3a1a;
+    background-color: #f7efe9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 2px;
+    white-space: nowrap;
+  }
+  .dynasty-card .pos {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.7em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1b5e20;
+    margin: 10px 0 2px;
+  }
+  .dynasty-card .take {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.8em;
+    line-height: 1.5;
+    color: #4a4a4a;
+    background-color: #eef4ec;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-top: 10px;
+  }
+  .dynasty-card .take strong { color: #1b5e20; }
+  .dynasty-card details { margin-top: 10px; }
+  .dynasty-card summary {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.78em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1b5e20;
+    cursor: pointer;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    border-top: 3px double #2c2c2c;
+    margin-top: 26px;
+    padding: 10px 0 20px;
+    text-align: center;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.65em;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #888;
+    line-height: 1.8;
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 480px) {
+    .container { padding: 12px; }
+    .masthead h1 { font-size: 2.5em; }
+    .top-stories-grid { grid-template-columns: 1fr; }
+    .lead-story h2 { font-size: 1.7em; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="masthead">
+    <p class="tagline">News for the Curious Mind</p>
+    <h1>The Daily Ringo</h1>
+    <div class="date-line">
+      <span>{{DATE_HUMAN}}</span><span class="sep">|</span><span>Volume I · No. {{ISSUE_NO}}</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#weather">Weather</a>
+      <a href="#tech">Tech &amp; AI</a>
+      <a href="#hermes">Hermes</a>
+      <a href="#markets">Markets</a>
+      <a href="#nfl">NFL</a>
+      <a href="#dynasty">Dynasty</a>
+    </nav>
+  </header>
+
+  <div class="weather-bar" id="weather">
+    {{WEATHER}}
+  </div>
+
+  <section id="tech">
+    <div class="story-card lead-story">
+      {{LEAD_STORY}}
+    </div>
+    <div class="section-divider"><span>Top Stories</span></div>
+    <div class="top-stories-grid">
+      {{TOP_STORIES}}
+    </div>
+  </section>
+
+  <div class="section-divider"><span>Hermes Corner</span></div>
+  <section id="hermes" class="hermes-corner-card">
+    <h2>☤ The Hermes Corner</h2>
+    {{HERMES_CORNER}}
+  </section>
+
+  <div class="section-divider"><span>Markets</span></div>
+  <section id="markets" class="story-card markets-card">
+    <h2>Markets · Crypto</h2>
+    {{MARKETS}}
+  </section>
+
+  <div class="section-divider"><span>NFL</span></div>
+  <section id="nfl">
+    {{NFL}}
+  </section>
+
+  <div class="section-divider"><span>Dynasty League</span></div>
+  <section id="dynasty" class="dynasty-card">
+    <h2>🏈 3 Dog Night · Dynasty</h2>
+    {{DYNASTY}}
+  </section>
+
+  <footer class="footer">
+    The Daily Ringo · Volume I · No. {{ISSUE_NO}}<br>
+    Curated by Ringo, your AI editor<br>
+    Generated {{GENERATED_AT}}
+  </footer>
+
+</div>
+</body>
+</html>
