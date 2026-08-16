@@ -32,7 +32,7 @@
     line-height: 1;
     color: #1a1a1a;
     letter-spacing: 0.02em;
-    margin: 0 0 6px;
+    margin: 4px 0;
   }
   .masthead .tagline {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
@@ -61,12 +61,13 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 4px 14px;
+    padding: 10px 0 2px;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.7em;
+    font-size: 0.68em;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-top: 8px;
   }
   .nav-links a { color: #666; text-decoration: none; }
   .nav-links a:hover { color: #1a1a1a; }
@@ -119,7 +120,7 @@
     gap: 14px;
   }
   .top-stories-grid .story-card { margin-bottom: 0; }
-  .lead-story h2 { font-size: 2em; }
+  .lead-story h2 { font-size: 2.1em; line-height: 1.25; }
 
   /* ---------- Section dividers ---------- */
   .section-divider {
@@ -342,11 +343,16 @@
   }
 
   /* ---------- Mobile ---------- */
+  @media (max-width: 640px) {
+    .top-stories-grid { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 2.5em; }
+    .lead-story h2 { font-size: 1.8em; }
+  }
   @media (max-width: 480px) {
     .container { padding: 12px; }
-    .masthead h1 { font-size: 2.5em; }
-    .top-stories-grid { grid-template-columns: 1fr; }
-    .lead-story h2 { font-size: 1.7em; }
+    .masthead h1 { font-size: 2.1em; }
+    .masthead .date-line { flex-wrap: wrap; gap: 4px 8px; }
+    .story-card h2 { font-size: 1.4em; }
   }
 </style>
 </head>
@@ -361,7 +367,8 @@
     </div>
     <nav class="nav-links">
       <a href="#weather">Weather</a>
-      <a href="#tech">Tech &amp; AI</a>
+      <a href="#tech">Tech</a>
+      <a href="#tech">AI</a>
       <a href="#hermes">Hermes</a>
       <a href="#markets">Markets</a>
       <a href="#nfl">NFL</a>
@@ -389,12 +396,6 @@
     {{HERMES_CORNER}}
   </section>
 
-  <div class="section-divider"><span>Markets</span></div>
-  <section id="markets" class="story-card markets-card">
-    <h2>Markets · Crypto</h2>
-    {{MARKETS}}
-  </section>
-
   <div class="section-divider"><span>NFL</span></div>
   <section id="nfl">
     {{NFL}}
@@ -404,6 +405,12 @@
   <section id="dynasty" class="dynasty-card">
     <h2>🏈 3 Dog Night · Dynasty</h2>
     {{DYNASTY}}
+  </section>
+
+  <div class="section-divider"><span>Markets</span></div>
+  <section id="markets" class="story-card markets-card">
+    <h2>Markets · Crypto</h2>
+    {{MARKETS}}
   </section>
 
   <footer class="footer">
