@@ -252,6 +252,7 @@
   .markets-table tr:last-child td { border-bottom: none; }
   .up { color: #2e7d32; font-weight: 600; }
   .down { color: #b71c1c; font-weight: 600; }
+  .flat { color: #999; font-weight: 600; }
   .markets-note {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.78em;
@@ -296,6 +297,27 @@
   }
   .dynasty-card li::before { content: '▸'; position: absolute; left: 0; color: #1b5e20; }
   .dynasty-card p { font-size: 0.92em; line-height: 1.55; margin-bottom: 8px; }
+  .dynasty-card .injury {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.78em;
+    font-weight: 500;
+    font-style: normal;
+    color: #8a3a1a;
+    background-color: #f7efe9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    margin-left: 2px;
+    white-space: nowrap;
+  }
+  .dynasty-card .pos {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.7em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1b5e20;
+    margin: 10px 0 2px;
+  }
   .dynasty-card .take {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.8em;
@@ -340,7 +362,7 @@
   <div class="date-line">
     <span>Sunday, August 16, 2026</span>
     <span class="sep">|</span>
-    <span>Volume I · No. 29</span>
+    <span>Volume I · No. 30</span>
   </div>
   <div class="nav-links">
     <a href="#weather">Weather</a>
@@ -354,16 +376,16 @@
 </header>
 
 <div class="weather-bar" id="weather">
-  <strong>Auckland · Sunday 16 Aug</strong> — Clear and crisp, 6°C now (feels like 2°). High 12°, low 1° overnight with areas of morning frost. Southerly wind 22 km/h, gusting 33. No rain expected · Humidity 65% · Pressure 1027 hPa (stable). Sunrise 7:05am · Sunset 5:50pm.
+  <strong>Auckland · Sunday 16 Aug</strong> — A few showers this morning, turning to rain for a time this afternoon and evening. Northerlies, turning southwesterly. High 16°, low 8°. Currently 6° (feels like 2°) · Humidity 65% · Pressure 1027 hPa. Sunrise 7:03am · Sunset 5:50pm.
 </div>
 
 <!-- LEAD STORY -->
 <section id="tech">
   <div class="story-card lead">
     <span class="tag tag-blue">AI Business</span>
-    <h2>Databricks Closes $5B Round at a $190B Valuation — After Investors Threw $15B at It</h2>
-    <p>Databricks said Thursday it closed a $5 billion funding round at a $190 billion valuation — up 42% from February's $134 billion mark and above the $188 billion floated in July. CEO Ali Ghodsi told TechCrunch the company had wanted to raise just $1 billion, but interest hit $15 billion after the press got wind of the raise, so it issued more stock and let roughly two dozen VCs in. The round was led by Coatue, with Blackstone, MGX, T. Rowe Price and new investor Sixth Street Growth. The company also crossed a $7 billion revenue run-rate, up more than 80% year over year, and will pour capital into its Lakebase, Genie and Unity AI Gateway products. Six months after its last raise, Databricks keeps choosing private capital over an IPO.</p>
-    <a class="read-more" href="https://www.reuters.com/legal/transactional/databricks-raises-5-billion-financing-190-billion-valuation-2026-08-13/" target="_blank" rel="noopener">Read more →</a>
+    <h2>OpenAI's Enterprise Business Just Overtook Consumer — $40B ARR, Two Quarters Early</h2>
+    <p>CFO Sarah Friar told investors Friday that enterprise now generates more revenue than the ChatGPT-led consumer business for the first time — the crossover OpenAI had guided for the end of 2026, arriving roughly two quarters early. The annualized run rate has hit $40 billion, up 20% month-over-month in July with business customers growing 32%, and advertising is approaching a $1 billion run rate. The numbers land as OpenAI works its confidential SEC filing toward what could be a historic IPO — and in the same week COO Brad Lightcap and CRO Denise Dresser both announced exits. Friar's read: customers have moved "from tokenmaxxing to focusing on cost per unit of intelligence." Caveats: $40B is a run-rate, not audited GAAP, and analysts still put breakeven at 2029-2030. But paired with Anthropic's own record Q2 ($11.5B+ revenue, first profitable quarter), the two labs are now approaching $100B in combined annualized revenue.</p>
+    <a class="read-more" href="https://www.cnbc.com/2026/08/14/openai-cfo-friar-tells-investors-that-enterprise-bigger-than-consumer.html" target="_blank" rel="noopener">Read more →</a>
   </div>
 </section>
 
@@ -373,28 +395,28 @@
 <section id="ai">
   <div class="top-stories-grid">
     <div class="story-card">
+      <span class="tag tag-teal">AI Economics</span>
+      <h2>OpenAI and Anthropic Are Now in an Open Price War as Chinese Rivals Gain Ground</h2>
+      <p>The Financial Times reports the leading US labs are cutting model prices to hold cost-conscious customers shifting workloads to cheaper Chinese open-weight alternatives. OpenAI has cut its budget GPT-5.6 Luna by as much as 80% depending on usage; Anthropic is marketing Opus 5 as "frontier intelligence" at half the price of Mythos — and Sam Altman has said he'd happily deliver at a quarter of a rival's price. DoorDash, Airbnb and Coinbase have all confirmed using Chinese models, and SiliconData data shows inference token spend drifting away from closed models since mid-July. Both labs are preparing IPOs and need to show profit — so the squeeze is structural, and model routing is turning "best model" into "best model for the price."</p>
+      <a class="read-more" href="https://www.ft.com/content/32a70a3c-7d28-40b4-808e-36edb58c7d01" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
+      <span class="tag tag-orange">China Tech</span>
+      <h2>Unitree's $900M Robot IPO Was 8,000× Oversubscribed — the Humanoid Frenzy Peaks</h2>
+      <p>Unitree Robotics' Shanghai STAR Market listing — mainland China's first humanoid-robot IPO — saw retail demand more than 8,000 times oversubscribed, with winning odds of roughly 0.018% (about one lot per 5,500 applicants). Priced at 150.80 yuan (~$22) a share, the offering values Unitree near $9 billion: 219× 2025 earnings and 36× sales. DeepSeek took a 2.31% strategic stake, and the deal attracted state-backed investors including CNPC and China Telecom. Shares begin trading later this month, and investors expect a big first-day pop — though skeptics note most revenue still comes from research and demo sales, and the FCC added foreign-made humanoid robots to its Covered List in late July.</p>
+      <a class="read-more" href="https://www.cnbc.com/2026/08/14/china-humanoid-robots-unitree-ipo-tesla-optimus.html" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
       <span class="tag tag-purple">Policy</span>
-      <h2>US Senator Urges Trump to Incentivize American Open-Weight AI — Warning of China's 'Huawei Playbook'</h2>
-      <p>Sen. Jim Banks (R-Ind.) asked the Trump administration to devise incentives for US companies to build open-weight AI models, warning that cheap Chinese models could "burrow into the global economy only to be weaponized, like rare earths, at a time and place of China's choosing." In a letter to economic adviser Christopher Phelan, the Armed Services Committee member also pushed for tougher action on illicit chip acquisition and industrial-scale distillation, and requested a staff-level briefing within 60 days. The letter lands in the middle of a split industry debate: Nvidia and Meta urged policymakers in July not to restrict open weights, while Anthropic's Dario Amodei has argued they pose security risks.</p>
-      <a class="read-more" href="https://www.reuters.com/business/republican-senator-urges-trump-back-us-open-weight-ai-models-amid-industry-2026-08-14/" target="_blank" rel="noopener">Read more →</a>
+      <h2>Apple Proposes 15% Commission on Purchases Made Outside the App Store</h2>
+      <p>Forced by the Supreme Court's refusal to pause the case, Apple filed its long-awaited commission plan in the Epic antitrust battle Thursday: 15% for standard apps on purchases made via external links, 5% for small-business developers, and 10% for the Video, News and Mini Apps partner programs plus subscription renewals. The proposal is Apple's answer to a district court demand for the fee structure it wants to charge on link-out payments — the same fight that produced its earlier 27% external-link commission and the contempt question now before the justices. Apple compares itself favourably to Google Play, which charges 20% link-out for standard apps and 10% for renewals.</p>
+      <a class="read-more" href="https://techcrunch.com/2026/08/14/apple-proposes-to-take-a-15-cut-of-purchases-made-outside-the-app-store/" target="_blank" rel="noopener">Read more →</a>
     </div>
     <div class="story-card">
-      <span class="tag tag-update">Update</span>
-      <h2>OpenAI Replaces CRO Denise Dresser With Wiz's Dali Rajic as the Exec Exodus Continues</h2>
-      <p>New since Tuesday's COO departure: OpenAI said Thursday that Chief Revenue Officer Denise Dresser — poached from Salesforce just nine months ago — is leaving "to pursue other opportunities," and named Dali Rajic, president and COO of Google-owned Wiz, as her replacement. Dresser's exit is the second senior departure in days, after eight-year veteran Brad Lightcap announced he's leaving to "start something new." President Greg Brockman is taking a larger management role as the company consolidates around core products ahead of its blockbuster IPO, which it confidentially filed with the SEC in June.</p>
-      <a class="read-more" href="https://www.cnbc.com/2026/08/13/openai-denise-dresser-executive-exits.html" target="_blank" rel="noopener">Read more →</a>
-    </div>
-    <div class="story-card">
-      <span class="tag tag-orange">China AI</span>
-      <h2>Alibaba Opens Up Qwen 3.8 — a 27B Vision Model With 262K Context Under Apache 2.0</h2>
-      <p>Qwen released open weights for Qwen3.8-27B, a 27-billion-parameter multimodal dense model that the team says outperforms the larger Qwen3.7-Plus on coding and office benchmarks. It natively handles 262K tokens of context (extendable to 1M via YaRN), understands images and multi-hour video, and ships with flexible thinking modes. The FP8 variant scores 61.7 on SWE-Bench Pro, 73.0 on Terminal-Bench 2.1 and 90.3 on LiveCodeBench v6. Max-level Qwen3.8-2.4T-A95B weights also landed, and the Hugging Face thread hit 1,090 points within a day — the latest salvo in the open-weight race between US and Chinese labs.</p>
-      <a class="read-more" href="https://the-decoder.com/alibabas-qwen-team-releases-qwen-3-8-models-with-open-weights-under-the-apache-2-0-license/" target="_blank" rel="noopener">Read more →</a>
-    </div>
-    <div class="story-card">
-      <span class="tag tag-blue">AI Infra</span>
-      <h2>A Pipeline Giant Just Signed Up to Feed a 1-Gigawatt AI Data-Center Power Plant</h2>
-      <p>ONEOK — the natural-gas pipeline operator — disclosed a supply agreement for a 1-gigawatt gas-fired power plant built for AI data centers, a roughly $100 million project the COO calls a "very nice return." The deal is a rounding error against ONEOK's annual capex, but it's a signpost: gas demand from power generation is becoming a real AI-infrastructure theme, with 130 North American data-center projects planning on-site generation. ONEOK also raised its 2026 net-income guidance to a $3.6 billion midpoint and hinted at more AI supply talks in late-stage discussion.</p>
-      <a class="read-more" href="https://www.fool.com/investing/2026/08/14/this-boring-pipeline-stock-just-signed-a-deal-to-p/" target="_blank" rel="noopener">Read more →</a>
+      <span class="tag tag-blue">Tech</span>
+      <h2>Judge Orders Google to Make Alternative App Stores Actually Easy to Install</h2>
+      <p>US District Judge James Donato ruled that Google's implementation of third-party app store downloads in the Play Store — currently just Aptoide, the first non-Google store admitted — added "anticompetitive friction," with the store buried in menus and no install button. He ordered Google to fix it within a week: the button must read "install," not "view," and the alternative-store page has to surface properly in search. Epic's lawyer showed the court that even searching for "aptoide" didn't return the store. Google agreed to make the changes, keeping the antitrust remedies from its 2023 loss biting — and clearing the path for Epic to eventually launch its own storefront inside Play.</p>
+      <a class="read-more" href="https://arstechnica.com/gadgets/2026/08/google-ordered-to-make-it-easier-to-download-alternative-android-app-stores/" target="_blank" rel="noopener">Read more →</a>
     </div>
   </div>
 </section>
@@ -406,24 +428,26 @@
     <h2>☤ The Hermes Corner</h2>
     <h3>What's New</h3>
     <ul>
-      <li><span class="tag tag-purple">Dev</span> <strong>Skills tab gets a hub browser and a full-skill detail pane</strong> — and the SkillsView SDK is now exported for plugin authors. The freshest commit in the v0.20.1 dev window (d5773bfc, Aug 15), on top of profile scoping and one-click hub installs.
-        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commit/d5773bfc" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Gateway</span> <strong>Steadier long sessions:</strong> session.history now ships durable row_id stamps, and session-finalize plugin hooks run off-loop and bounded — good news for cron-heavy setups like this very paper.
+      <li><span class="tag tag-purple">Dev</span> <strong>Import and resume Claude Code / Codex CLI sessions:</strong> fresh commits on main overnight (Aug 16 UTC) add `feat: import and resume Claude Code / Codex CLI sessions` and `feat: per-terminal --continue via terminal breadcrumbs` — so switching into Hermes no longer means leaving your Claude Code / Codex work behind. Still no new tagged release: v0.20.1 (v2026.8.13) remains current.
+        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main/" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Desktop</span> <strong>Session picker gets lifecycle status + delete:</strong> a companion commit (also overnight) surfaces running/finished state in the picker and lets you delete sessions from the list — small quality-of-life work as the v0.21.0 release notes get curated.
         <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main/" target="_blank" rel="noopener">Read more →</a></li>
     </ul>
     <h3>Community in Action</h3>
     <ul>
-      <li><span class="tag tag-purple">Docs</span> <strong>The docs now host a User Stories &amp; Use Cases collage:</strong> 99 real community stories across 15 categories — multi-agent fleets, a self-learning trading bot, family WhatsApp assistants, a printing factory — every tile linking to the original post.
-        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-stories" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Build</span> <strong>"Every Hat, One Companion":</strong> a solo founder ships a 144-skill agent-skills repo and uses Hermes as the companion that routes work across six founder hats — discover → decide → build → run → sell → review — with an evaluation harness measuring outcomes, not vibes.
-        <a class="read-more" href="https://magnus919.com/2026/08/every-hat-one-companion/" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Tutorial</span> <strong>Hermes + GitHub Actions: three copy-paste recipes:</strong> Hermify's new guide walks through a CI-failure triage agent that posts a diagnosis on the PR within minutes, a nightly PR digest that lands in Telegram/Discord at 9pm, and a weekly stale-issue triage — all built on Hermes' cron, webhooks, and the memory that makes each run smarter than the last.
+        <a class="read-more" href="https://www.hermify.io/en/blog/hermes-agent-github-actions" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Guide</span> <strong>Automation workflows with real configs:</strong> Toolbrain's walkthrough covers cron, HMAC-signed webhooks, and Hermes' self-learning pipelines — including the safety rails (cron-initiated sessions can't spawn cron; a 10-refinement cap on skill self-improvement). A good end-to-end look at the primitives this very paper runs on.
+        <a class="read-more" href="https://toolbrain.net/blog/hermes-agent-automation-workflows/" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Talk</span> <strong>"The Case for Open Models in Production" — Arize Observe 2026:</strong> Nous Research's founder walks through Hermes' agent loop, tiered memory, and auto-written skills on stage — including a scheduled task that scoured Facebook Marketplace and auction sites for months until it found him a car. Good watching if you want the why behind the agent.
+        <a class="read-more" href="https://www.youtube.com/watch?v=Y3NDtqk6ags" target="_blank" rel="noopener">Read more →</a></li>
     </ul>
     <h3>Level Up</h3>
     <ul>
-      <li><span class="tag tag-purple">Guide</span> <strong>Kanban Multi-Agent Board:</strong> run multiple named agents on a shared SQLite board with structured handoffs, boards/tenants, auto-decomposition and a full worker lifecycle — "drop a one-liner, walk away" orchestration across profiles.
-        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Skill</span> <strong>Research Paper Writing (bundled):</strong> an end-to-end NeurIPS/ICML pipeline — experiment design, execution, analysis, drafting, review and submission — superseding ml-paper-writing, and a good look at how deep the bundled skills go.
-        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/research/research-research-paper-writing" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Docs</span> <strong>Working with Skills — per-platform control:</strong> skills can be enabled or disabled per platform, so you can keep dev skills off Telegram and home-automation skills off the CLI. The guide also covers the Skills Hub install flow and the tip to say yes when Hermes offers to save a workflow as a skill after a complex task.
+        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/guides/work-with-skills" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Docs</span> <strong>Creating Skills — under five minutes:</strong> a SKILL.md is just markdown with frontmatter; the developer guide walks through bundled vs optional vs hub placement, and `hermes skills publish` can ship your skill to a GitHub tap your whole team can install. Capabilities, not prompts — the fastest way to extend Hermes.
+        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/developer-guide/creating-skills" target="_blank" rel="noopener">Read more →</a></li>
     </ul>
   </div>
 </section>
@@ -437,7 +461,7 @@
       <thead>
         <tr>
           <th>Asset</th>
-          <th>Price</th>
+          <th>Price (USD)</th>
           <th>24h</th>
           <th>7d</th>
         </tr>
@@ -445,19 +469,19 @@
       <tbody>
         <tr>
           <td>Bitcoin (BTC)</td>
-          <td>$63,029</td>
-          <td class="up">+0.3%</td>
-          <td class="up">+2.9%</td>
+          <td>$62,997</td>
+          <td class="flat">+0.1%</td>
+          <td class="down">-2.9%</td>
         </tr>
         <tr>
           <td>Ethereum (ETH)</td>
-          <td>$1,881</td>
-          <td class="up">+0.2%</td>
+          <td>$1,879</td>
+          <td class="flat">-0.1%</td>
           <td class="down">-1.8%</td>
         </tr>
       </tbody>
     </table>
-    <p class="markets-note">Global crypto market cap $2.25T · BTC dominance 56.2%. A quiet session — BTC is holding ~$63K after last week's muted CPI reaction, with no major market-moving news overnight.</p>
+    <p class="markets-note">NZD: BTC ≈ NZ$107,000 · ETH ≈ NZ$3,193. A quiet Sunday session — BTC is flat right around the $63K level it defended through last week's muted CPI reaction, and ETH is holding $1,880. Both are still mildly red on the week with no major market-moving news overnight.</p>
   </div>
 </section>
 
@@ -467,21 +491,21 @@
   <div class="top-stories-grid">
     <div class="story-card">
       <span class="tag tag-nfl">NFL · Injury</span>
-      <h2>Cardinals' No. 3 Pick Jeremiyah Love Out at Least a Week With Sore Ankle</h2>
-      <p>Rookie running back Jeremiyah Love is "a little more sore than anticipated" after Thursday's preseason win over the Raiders, coach Mike LaFleur said Saturday — he'll miss practice this week and likely Arizona's next preseason game vs. Dallas. The 72-yard, 14-touch debut flashed RB1 upside, but the Cardinals' backfield is suddenly banged up: James Conner (foot) is also sidelined, leaving Tyler Allgeier with the first-team reps.</p>
-      <a class="read-more" href="https://www.cbssports.com/fantasy/football/news/cardinals-jeremiyah-love-out-at-least-a-week/" target="_blank" rel="noopener">Read more →</a>
-    </div>
-    <div class="story-card">
-      <span class="tag tag-nfl">NFL · Suspension</span>
-      <h2>Falcons' James Pearce Jr. Suspended First 8 Games for Personal-Conduct Violation</h2>
-      <p>The NFL suspended Atlanta's second-year edge rusher for the first eight games of 2026 following his February arrest on domestic-violence charges involving WNBA player Rickea Jackson — three felony counts plus a misdemeanor stalking charge, with a pretrial intervention program in place. The ban starts Aug. 30 and runs through Week 8; Pearce is eligible for reinstatement Nov. 2, the week the Falcons face Cincinnati in Madrid. He can still play in the preseason, and he did not appeal.</p>
-      <a class="read-more" href="https://www.espn.com/nfl/story/_/id/49611663/falcons-edge-rusher-james-pearce-suspended-8-games-nfl" target="_blank" rel="noopener">Read more →</a>
+      <h2>Texans QB Graham Mertz Tears ACL, Out for the Season — Rypien Signed as No. 3</h2>
+      <p>Houston's backup quarterback is done for 2026: Mertz's knee buckled on a non-contact run late in the first half of Thursday's preseason game against the Chargers, and tests confirmed a torn ACL requiring surgery. Coach DeMeco Ryans called it "a knee injury, ACL" right after the game. The Texans have signed veteran Brett Rypien to a one-year deal to compete for the No. 3 job behind C.J. Stroud and Davis Mills — a reminder that even backup QB depth disappears fast in August.</p>
+      <a class="read-more" href="https://texanswire.usatoday.com/story/sports/nfl/texans/2026/08/15/texans-no-3-qb-brett-rypien-signing-graham-mertz-season-ending-injury/91319736007/" target="_blank" rel="noopener">Read more →</a>
     </div>
     <div class="story-card">
       <span class="tag tag-nfl">NFL · Injury</span>
-      <h2>Jamal Adams Carted Off in Vikings Preseason Debut; Injury Unclear</h2>
-      <p>The 30-year-old safety-turned-linebacker lasted just 11 defensive snaps against the Giants before grabbing his knee and leaving on a cart. Minnesota hasn't given a diagnosis. Adams signed with the Vikings in late July after a solid 2025 season in Las Vegas, and Brian Flores had been moving him between safety and linebacker — losing that versatility, even briefly, would dent a distinctive piece of the defensive plan.</p>
-      <a class="read-more" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-saturday-aug-15" target="_blank" rel="noopener">Read more →</a>
+      <h2>Marcus Mariota Leaves Commanders' Opener Early With an Apparent Knee Injury</h2>
+      <p>Washington's veteran backup lasted just four plays against Miami on Friday night, going down on a non-contact handoff and heading to the locker room — no update from Dan Quinn afterward. Mariota was signed this offseason to back up Jayden Daniels, who was held out with two dozen other starters. Across the field, Malik Willis impressed in his Dolphins debut, leading a 14-play, 93-yard touchdown drive as Miami fell 20-7.</p>
+      <a class="read-more" href="https://www.espn.com.au/nfl/recap?gameId=401873277" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
+      <span class="tag tag-nfl">NFL · Injury</span>
+      <h2>Saints Rookie WR Jordyn Tyson Out With Hamstring — Could Linger Into Week 1</h2>
+      <p>Tyson hurt his right hamstring on an awkward landing in Thursday's joint practice with Jacksonville, and Kellen Moore gave no timetable — saying it "could" potentially linger into Week 1. He was already among the Saints sitting out Saturday's game. The injury is exactly why New Orleans' young receivers — including dynasty waiver darlings Barion Brown and Devaughn Vele — are suddenly trending as adds.</p>
+      <a class="read-more" href="https://www.espn.com/nfl/story/_/id/49611207/saints-rookie-wr-tyson-miss-hamstring-injury" target="_blank" rel="noopener">Read more →</a>
     </div>
   </div>
 </section>
@@ -493,21 +517,49 @@
     <h2>🏈 3 Dog Night · Dynasty</h2>
 
     <h3>Mighty Manglers</h3>
-    <p><strong>2026 · Week 1 · Preseason</strong> — Record 0-0 · 0.0 pts. No matchup this week; the regular season is still a few weeks out.</p>
+    <p><strong>2026 · Week 1 · Preseason</strong> — Record 0-0 · 0.0 pts. No matchup yet; the regular season is still a few weeks out, so this is roster-health season.</p>
+    <p class="pos"><strong>QB</strong></p>
     <ul>
-      <li><strong>QBs:</strong> Joe Burrow, Trevor Lawrence, Sam Darnold, Jalen Milroe</li>
-      <li><strong>RBs:</strong> Derrick Henry, James Conner <em>(Q — foot)</em>, Bucky Irving, Rico Dowdle</li>
-      <li><strong>WRs:</strong> Ja'Marr Chase, Courtland Sutton, Michael Wilson, Isaiah Bond, Tez Johnson <em>(Q)</em>, Emeka Egbuka <em>(Q — toe)</em>, Kevin Coleman <em>(Q)</em>, Bryce Lance <em>(Q)</em>, Omar Cooper</li>
-      <li><strong>TEs:</strong> Dalton Kincaid, Hunter Henry, Jake Ferguson, Oscar Delp · Alec Pierce <em>(PUP)</em></li>
-      <li><strong>Injury watch:</strong> Egbuka's toe is a sprain (day-to-day, good news), but watch James Conner's foot — with Cards rookie Love also banged up, the Arizona backfield is thin behind him.</li>
+      <li>Joe Burrow (CIN)</li>
+      <li>Trevor Lawrence (JAX)</li>
+      <li>Sam Darnold (SEA)</li>
+      <li>Jalen Milroe (SEA)</li>
+    </ul>
+    <p class="pos"><strong>RB</strong></p>
+    <ul>
+      <li>Derrick Henry (BAL)</li>
+      <li>James Conner (ARI) <span class="injury">Q</span></li>
+      <li>Bucky Irving (TB)</li>
+      <li>Rico Dowdle (PIT)</li>
+    </ul>
+    <p class="pos"><strong>WR</strong></p>
+    <ul>
+      <li>Ja'Marr Chase (CIN)</li>
+      <li>Courtland Sutton (DEN)</li>
+      <li>Michael Wilson (ARI)</li>
+      <li>Emeka Egbuka (TB) <span class="injury">Q — toe</span></li>
+      <li>Tez Johnson (TB) <span class="injury">Q</span></li>
+      <li>Isaiah Bond (CLE)</li>
+      <li>Omar Cooper (NYJ)</li>
+      <li>Kevin Coleman (MIA) <span class="injury">Q</span></li>
+      <li>Bryce Lance (NO) <span class="injury">Q</span></li>
+      <li>Alec Pierce (IND) <span class="injury">PUP</span></li>
+    </ul>
+    <p class="pos"><strong>TE</strong></p>
+    <ul>
+      <li>Dalton Kincaid (BUF)</li>
+      <li>Hunter Henry (NE)</li>
+      <li>Jake Ferguson (DAL)</li>
+      <li>Oscar Delp (NO)</li>
+      <li>Oronde Gadsden (LAC)</li>
     </ul>
 
     <h3>Waiver Wire &amp; Trade Targets</h3>
     <ul>
-      <li><strong>Robert Henry (RB, WAS)</strong> — 40k league-wide adds in 24h. A young RB flier on a crowded Washington backfield; cheap lottery ticket while Conner's foot lingers and Henry turns 32. Bid $3–5 (budget $150 — spend small in preseason, keep powder for Week 1 surprises).</li>
-      <li><strong>Devaughn Vele (WR, NO)</strong> — 9.6k adds. A proven slot receiver with a real path to targets in a thin Saints WR room; your depth behind Chase is young and injury-flagged. Bid $2–3.</li>
-      <li>Skip the Darren Waller frenzy (62k adds off his new Panthers deal) — you already carry four tight ends.</li>
-      <li><strong>Trade idea:</strong> you're rostering four QBs with Burrow locked as QB1. Shop Sam Darnold or Trevor Lawrence to a QB-needy team for a young WR or a 2027 pick — it directly addresses your thin WR depth behind Chase.</li>
+      <li><strong>Robert Henry (RB, WAS)</strong> — 38,290 league-wide adds in 24h. A young RB flier on a crowded Washington backfield, and cheap insurance for a 32-year-old Henry and a Questionable Conner. Bid $8–10 of your $150 — spend early, the season is close. (Suggest dropping: Rico Dowdle)</li>
+      <li><strong>Barion Brown (WR, NO)</strong> — 34,839 league-wide adds in 24h. The Saints' WR room is banged up (Tyson's hamstring could linger into Week 1), and your depth behind Chase is young and injury-flagged. He's the trending add of the day. Bid $7–9. (Suggest dropping: Kevin Coleman)</li>
+      <li>Skip the Darren Waller frenzy (59k adds off his new Panthers deal) — you already roster five tight ends.</li>
+      <li><strong>Trade idea:</strong> you're carrying two aging RBs (Henry 32, Conner 31) in a superflex-flexible league. Sell one to a contender for a young WR or 2027 picks — it directly attacks the roster's thinnest spot, WR depth behind Chase.</li>
     </ul>
 
     <h3>League Moves</h3>
@@ -517,13 +569,13 @@
       <li>New Age Outlaws added Marlin Klein (HOU)</li>
     </ul>
 
-    <p class="take"><strong>Ringo's take:</strong> Egbuka's sprain is the good news of the week — but if Conner's Questionable tag lingers through camp, check the Cards backfield — Benson and Allgeier are both already rostered, so there is no free handoff to grab; watch for one of them to be cut at roster deadlines instead of hoping the 31-year-old stays healthy. And shop a QB before Week 1 — someone always loses a starter in preseason.</p>
+    <p class="take"><strong>Ringo's take:</strong> Egbuka's toe is a day-to-day sprain — good news. The one to watch is Conner: with Arizona's rookie Love also banged up, there's no obvious free handoff behind him, so if the Q tag lingers through camp, shop him now while the RB market is still hot. And if you want a piece of the Saints' WR fallout, Barion Brown is the add — before someone else in the league reads the same injury report.</p>
   </div>
 </section>
 
 <footer class="footer">
-  The Daily Ringo · Volume I · No. 29<br>
-  Curated by Ringo, your AI editor · Sources: Reuters, CNBC, TechCrunch, ESPN, NFL.com, MetService &amp; more
+  The Daily Ringo · Volume I · No. 30<br>
+  Curated by Ringo, your AI editor · Sources: CNBC, Financial Times, TechCrunch, Ars Technica, ESPN, USA Today &amp; more
 </footer>
 
 </body>
