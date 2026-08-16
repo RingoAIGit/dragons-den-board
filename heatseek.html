@@ -8,16 +8,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
     background-color: #f4efea;
     color: #2c2c2c;
-    max-width: 720px;
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
     margin: 0 auto;
+    max-width: 720px;
     padding: 16px;
-    font-size: 16px;
   }
   .masthead {
     text-align: center;
@@ -32,6 +31,7 @@
     line-height: 1;
     color: #1a1a1a;
     letter-spacing: 0.02em;
+    margin: 4px 0;
   }
   .masthead .tagline {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
@@ -60,27 +60,16 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 10px;
+    gap: 4px 14px;
+    padding: 10px 0 2px;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.7em;
+    font-size: 0.68em;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
   }
-  .nav-links a { color: #6a1b9a; text-decoration: none; }
-  .nav-links a:hover { text-decoration: underline; }
-
-  .weather-bar {
-    background-color: #e8e1d8;
-    padding: 10px 15px;
-    margin-bottom: 14px;
-    border-radius: 8px;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.85em;
-    color: #4a4a4a;
-  }
-  .weather-bar strong { color: #2c2c2c; }
-
+  .nav-links a { color: #666; text-decoration: none; }
+  .nav-links a:hover { color: #6a1b9a; }
   .story-card {
     background-color: #fff;
     border-radius: 8px;
@@ -96,6 +85,7 @@
     margin-top: 0;
     margin-bottom: 8px;
   }
+  .story-card.lead h2 { font-size: 2.1em; line-height: 1.25; }
   .story-card p {
     font-size: 0.95em;
     line-height: 1.5;
@@ -110,8 +100,7 @@
     display: inline-block;
     margin-top: 8px;
   }
-  .lead-story h2 { font-size: 2em; line-height: 1.25; }
-
+  .story-card .read-more:hover { text-decoration: underline; }
   .top-stories-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -140,17 +129,26 @@
   }
   .section-divider::before { margin-right: .5em; }
   .section-divider::after { margin-left: .5em; }
-
+  .weather-bar {
+    background-color: #e8e1d8;
+    padding: 10px 15px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.85em;
+    color: #4a4a4a;
+  }
+  .weather-bar strong { color: #2c2c2c; }
   .tag {
+    display: inline-block;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.62em;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #fff;
+    padding: 3px 8px;
     border-radius: 3px;
-    padding: 2px 7px;
-    display: inline-block;
+    color: #fff;
     margin-bottom: 10px;
   }
   .tag-red { background-color: #b71c1c; }
@@ -160,7 +158,11 @@
   .tag-orange { background-color: #e65100; }
   .tag-teal { background-color: #00695c; }
   .tag-nfl { background-color: #1b5e20; }
-
+  .tag-update {
+    background-color: #fff;
+    color: #6a1b9a;
+    border: 1.5px solid #6a1b9a;
+  }
   .hermes-corner-card {
     background-color: #fff;
     border-left: 4px solid #7b1fa2;
@@ -176,7 +178,7 @@
     line-height: 1.3;
     margin-top: 0;
     margin-bottom: 10px;
-    color: #6a1b9a;
+    color: #7b1fa2;
   }
   .hermes-corner-card h3 {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
@@ -187,7 +189,7 @@
     color: #7b1fa2;
     margin: 14px 0 6px;
   }
-  .hermes-corner-card ul { list-style: none; padding: 0; }
+  .hermes-corner-card ul { list-style: none; padding: 0; margin: 0; }
   .hermes-corner-card li {
     font-family: 'Playfair Display', serif;
     font-size: 0.95em;
@@ -208,10 +210,10 @@
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.8em;
     font-weight: 600;
-    color: #6a1b9a;
+    color: #7b1fa2;
     text-decoration: none;
   }
-
+  .hermes-corner-card .read-more:hover { text-decoration: underline; }
   .markets-card {
     background-color: #fff;
     border-radius: 8px;
@@ -231,30 +233,32 @@
     width: 100%;
     border-collapse: collapse;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.85em;
+    font-size: 0.9em;
   }
   .markets-table th {
     text-align: left;
     text-transform: uppercase;
-    font-size: 0.75em;
     letter-spacing: 0.1em;
+    font-size: 0.68em;
+    font-weight: 600;
     color: #999;
     padding: 6px 8px;
-    border-bottom: 1px solid #d5ccc3;
+    border-bottom: 1px solid #e5ddd3;
   }
-  .markets-table td { padding: 8px; border-bottom: 1px solid #eee; }
+  .markets-table td {
+    padding: 8px;
+    border-bottom: 1px solid #f0eae2;
+  }
   .markets-table tr:last-child td { border-bottom: none; }
   .up { color: #2e7d32; font-weight: 600; }
   .down { color: #b71c1c; font-weight: 600; }
-  .flat { color: #999; }
   .markets-note {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.8em;
+    font-size: 0.78em;
     color: #666;
-    margin-top: 10px;
+    margin: 10px 0 0;
     line-height: 1.5;
   }
-
   .dynasty-card {
     background-color: #fff;
     border-left: 4px solid #1b5e20;
@@ -279,18 +283,19 @@
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: #1b5e20;
-    margin: 12px 0 6px;
+    margin: 14px 0 6px;
   }
-  .dynasty-card p { font-size: 0.92em; line-height: 1.55; margin-bottom: 8px; }
   .dynasty-card ul { list-style: none; padding: 0; }
   .dynasty-card li {
-    font-size: 0.9em;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95em;
     line-height: 1.5;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     padding-left: 14px;
     position: relative;
   }
   .dynasty-card li::before { content: '▸'; position: absolute; left: 0; color: #1b5e20; }
+  .dynasty-card p { font-size: 0.92em; line-height: 1.55; margin-bottom: 8px; }
   .dynasty-card .take {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.8em;
@@ -302,52 +307,28 @@
     margin-top: 10px;
   }
   .dynasty-card .take strong { color: #1b5e20; }
-  .injury { font-weight: 700; }
-
-  .inbrief-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    padding: 14px 16px;
-    margin-bottom: 14px;
-  }
-  .inbrief-card ul { list-style: none; padding: 0; }
-  .inbrief-card li {
-    font-size: 0.92em;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    padding-left: 16px;
-    position: relative;
-  }
-  .inbrief-card li::before { content: '▶'; position: absolute; left: 0; top: 2px; font-size: 0.6em; color: #6a1b9a; }
-  .inbrief-card li:last-child { margin-bottom: 0; }
-  .inbrief-card .read-more {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.75em;
-    font-weight: 600;
-    color: #6a1b9a;
-    text-decoration: none;
-    margin-left: 6px;
-  }
-
   .footer {
-    border-top: 3px double #2c2c2c;
     margin-top: 26px;
-    padding: 14px 0 6px;
+    border-top: 3px double #2c2c2c;
+    padding: 14px 0 4px;
     text-align: center;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.62em;
+    font-size: 0.6em;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     color: #999;
   }
-
-  @media (max-width: 480px) {
-    body { padding: 10px; font-size: 15px; }
-    .masthead h1 { font-size: 2.6em; }
+  @media (max-width: 640px) {
     .top-stories-grid { grid-template-columns: 1fr; }
-    .lead-story h2 { font-size: 1.7em; }
-    .masthead .date-line { flex-wrap: wrap; gap: 6px; }
+    .masthead h1 { font-size: 2.5em; }
+    .story-card.lead h2 { font-size: 1.8em; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .masthead h1 { font-size: 2.1em; }
+    .masthead .date-line { flex-wrap: wrap; gap: 4px 8px; }
+    .story-card h2 { font-size: 1.4em; }
   }
 </style>
 </head>
@@ -359,9 +340,9 @@
   <div class="date-line">
     <span>Sunday, August 16, 2026</span>
     <span class="sep">|</span>
-    <span>Volume I · No. 28</span>
+    <span>Volume I · No. 29</span>
   </div>
-  <nav class="nav-links">
+  <div class="nav-links">
     <a href="#weather">Weather</a>
     <a href="#tech">Tech</a>
     <a href="#ai">AI</a>
@@ -369,166 +350,180 @@
     <a href="#markets">Markets</a>
     <a href="#nfl">NFL</a>
     <a href="#dynasty">Dynasty</a>
-  </nav>
+  </div>
 </header>
 
-<section id="weather">
-  <div class="weather-bar">
-    <strong>☀️ Auckland, NZ — Sunday:</strong> 14°C now (feels like 10°), patchy rain nearby · High 14° / Low 7° · SW wind 19 km/h (gusts 33) · Sunrise 7:04am · Sunset 5:48pm · A proper winter day — layers on.
-  </div>
-</section>
+<div class="weather-bar" id="weather">
+  <strong>Auckland · Sunday 16 Aug</strong> — Clear and crisp, 6°C now (feels like 2°). High 12°, low 1° overnight with areas of morning frost. Southerly wind 22 km/h, gusting 33. No rain expected · Humidity 65% · Pressure 1027 hPa (stable). Sunrise 7:05am · Sunset 5:50pm.
+</div>
 
-<section id="top">
-  <article class="story-card lead-story">
-    <span class="tag tag-teal">IPO Watch</span>
-    <h2>Anthropic's $2 Trillion IPO Bet Rests on a $190–200B Revenue Forecast for 2028</h2>
-    <p>Wall Street is pricing Anthropic on what it could earn two years out, not what it earns now. Reuters reports the company is projecting 2028 revenue of roughly $190–200 billion — a figure never before reported — against a current run rate of about $47 billion publicized in May. Bankers and investors are applying enterprise value-to-revenue multiples with Cloudflare, Palantir and SpaceX as comparables ahead of Anthropic's analyst day, on track for what could be one of the biggest IPOs on record. The projection implies a potential $2 trillion valuation — and a bet that today's GPU-fueled spending turns into margin at scale. "Could they get a $2 trillion valuation, yeah they could," one investor said. "I just wonder if it would stay there over time."</p>
-    <a class="read-more" href="https://www.channelnewsasia.com/business/exclusive-anthropic-ipo-valuation-hinges-190-200-billion-2028-revenue-forecast-sources-say-6320831" target="_blank" rel="noopener">Read more →</a>
-  </article>
+<!-- LEAD STORY -->
+<section id="tech">
+  <div class="story-card lead">
+    <span class="tag tag-blue">AI Business</span>
+    <h2>Databricks Closes $5B Round at a $190B Valuation — After Investors Threw $15B at It</h2>
+    <p>Databricks said Thursday it closed a $5 billion funding round at a $190 billion valuation — up 42% from February's $134 billion mark and above the $188 billion floated in July. CEO Ali Ghodsi told TechCrunch the company had wanted to raise just $1 billion, but interest hit $15 billion after the press got wind of the raise, so it issued more stock and let roughly two dozen VCs in. The round was led by Coatue, with Blackstone, MGX, T. Rowe Price and new investor Sixth Street Growth. The company also crossed a $7 billion revenue run-rate, up more than 80% year over year, and will pour capital into its Lakebase, Genie and Unity AI Gateway products. Six months after its last raise, Databricks keeps choosing private capital over an IPO.</p>
+    <a class="read-more" href="https://www.reuters.com/legal/transactional/databricks-raises-5-billion-financing-190-billion-valuation-2026-08-13/" target="_blank" rel="noopener">Read more →</a>
+  </div>
 </section>
 
 <div class="section-divider"><span>Top Stories</span></div>
 
-<section id="tech" class="top-stories-grid">
-  <article class="story-card">
-    <span class="tag tag-red">Breach</span>
-    <h2>ChainDrop Worm Crawls Into the npm Supply Chain, Evades Standard Defenses</h2>
-    <p>A new Shai-Hulud variant dubbed "ChainDrop" has poisoned 444 npm packages downloaded ~2 billion times a month, spreading through tarballs and dev-tool hooks rather than source commits — so repo reviews find nothing. Opening an infected Git branch in VS Code or Claude Code triggers credential harvesting, and the worm then commits malicious config back to your repositories. Microsoft and others flagged it on August 4; the advice: check for .claude/settings.json and .vscode/tasks.json files you didn't add.</p>
-    <a class="read-more" href="https://www.theregister.com/security/2026/08/15/chaindrop-worm-crawls-into-npm-supply-chain-evades-standard-defenses/5287958" target="_blank" rel="noopener">Read more →</a>
-  </article>
-  <article class="story-card">
-    <span class="tag tag-blue">AI Business</span>
-    <h2>Anthropic's Q2 Revenue Jumps 14-Fold to Over $11.5 Billion</h2>
-    <p>Bloomberg reports Anthropic told prospective investors its preliminary second-quarter revenue topped $11.5 billion — up from $787 million a year earlier and $4.73 billion in Q1, with positive adjusted operating income for the quarter. The numbers underscore just how fast the Claude maker is scaling as it prepares for a blockbuster public listing, and they back the aggressive 2028 forecasts now driving IPO pricing.</p>
-    <a class="read-more" href="https://www.cnbc.com/2026/08/15/anthropic-revenue-jumps-to-over-11point5-billion-in-q2-report.html" target="_blank" rel="noopener">Read more →</a>
-  </article>
-  <article class="story-card">
-    <span class="tag tag-purple">Geopolitics</span>
-    <h2>US to Tell Partners They Must Pick Sides in the AI Race With China</h2>
-    <p>Reuters reports the State Department has drafted a letter to 35 countries warning they'll be excluded from the US-led Pax Silica AI coalition if they also join Beijing's rival framework. "To be part of everything is to be part of nothing," the draft says. Kazakhstan — the only country known to straddle both blocs and a key critical-minerals source — is squarely in the crosshairs as Washington moves to starve China of AI resources.</p>
-    <a class="read-more" href="https://www.channelnewsasia.com/east-asia/us-china-ai-race-pax-silica-waico-6320671" target="_blank" rel="noopener">Read more →</a>
-  </article>
-  <article class="story-card">
-    <span class="tag tag-orange">China AI</span>
-    <h2>Xiaohongshu Open-Sources Dots3-Note — Scores 75.1 on Terminal-Bench 2.1</h2>
-    <p>China's Xiaohongshu AI Lab open-sourced dots3-note preview, a 280B-parameter MoE (16B active) agent model with a 512K context window and multimodal support, trained with the new TEMPO reinforcement-learning method for long-horizon agent work. Weights are on Hugging Face and the API is live on OpenRouter. SemiAnalysis's chart shows it beating the best US open-weight model on Terminal-Bench 2.1 by 4.9 points — the open-weight race keeps tightening.</p>
-    <a class="read-more" href="https://www.panews.io/articles/01a005c3-9fe0-75b8-a3cf-416d83e6dcbe" target="_blank" rel="noopener">Read more →</a>
-  </article>
+<!-- TOP STORIES GRID -->
+<section id="ai">
+  <div class="top-stories-grid">
+    <div class="story-card">
+      <span class="tag tag-purple">Policy</span>
+      <h2>US Senator Urges Trump to Incentivize American Open-Weight AI — Warning of China's 'Huawei Playbook'</h2>
+      <p>Sen. Jim Banks (R-Ind.) asked the Trump administration to devise incentives for US companies to build open-weight AI models, warning that cheap Chinese models could "burrow into the global economy only to be weaponized, like rare earths, at a time and place of China's choosing." In a letter to economic adviser Christopher Phelan, the Armed Services Committee member also pushed for tougher action on illicit chip acquisition and industrial-scale distillation, and requested a staff-level briefing within 60 days. The letter lands in the middle of a split industry debate: Nvidia and Meta urged policymakers in July not to restrict open weights, while Anthropic's Dario Amodei has argued they pose security risks.</p>
+      <a class="read-more" href="https://www.reuters.com/business/republican-senator-urges-trump-back-us-open-weight-ai-models-amid-industry-2026-08-14/" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
+      <span class="tag tag-update">Update</span>
+      <h2>OpenAI Replaces CRO Denise Dresser With Wiz's Dali Rajic as the Exec Exodus Continues</h2>
+      <p>New since Tuesday's COO departure: OpenAI said Thursday that Chief Revenue Officer Denise Dresser — poached from Salesforce just nine months ago — is leaving "to pursue other opportunities," and named Dali Rajic, president and COO of Google-owned Wiz, as her replacement. Dresser's exit is the second senior departure in days, after eight-year veteran Brad Lightcap announced he's leaving to "start something new." President Greg Brockman is taking a larger management role as the company consolidates around core products ahead of its blockbuster IPO, which it confidentially filed with the SEC in June.</p>
+      <a class="read-more" href="https://www.cnbc.com/2026/08/13/openai-denise-dresser-executive-exits.html" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
+      <span class="tag tag-orange">China AI</span>
+      <h2>Alibaba Opens Up Qwen 3.8 — a 27B Vision Model With 262K Context Under Apache 2.0</h2>
+      <p>Qwen released open weights for Qwen3.8-27B, a 27-billion-parameter multimodal dense model that the team says outperforms the larger Qwen3.7-Plus on coding and office benchmarks. It natively handles 262K tokens of context (extendable to 1M via YaRN), understands images and multi-hour video, and ships with flexible thinking modes. The FP8 variant scores 61.7 on SWE-Bench Pro, 73.0 on Terminal-Bench 2.1 and 90.3 on LiveCodeBench v6. Max-level Qwen3.8-2.4T-A95B weights also landed, and the Hugging Face thread hit 1,090 points within a day — the latest salvo in the open-weight race between US and Chinese labs.</p>
+      <a class="read-more" href="https://the-decoder.com/alibabas-qwen-team-releases-qwen-3-8-models-with-open-weights-under-the-apache-2-0-license/" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
+      <span class="tag tag-blue">AI Infra</span>
+      <h2>A Pipeline Giant Just Signed Up to Feed a 1-Gigawatt AI Data-Center Power Plant</h2>
+      <p>ONEOK — the natural-gas pipeline operator — disclosed a supply agreement for a 1-gigawatt gas-fired power plant built for AI data centers, a roughly $100 million project the COO calls a "very nice return." The deal is a rounding error against ONEOK's annual capex, but it's a signpost: gas demand from power generation is becoming a real AI-infrastructure theme, with 130 North American data-center projects planning on-site generation. ONEOK also raised its 2026 net-income guidance to a $3.6 billion midpoint and hinted at more AI supply talks in late-stage discussion.</p>
+      <a class="read-more" href="https://www.fool.com/investing/2026/08/14/this-boring-pipeline-stock-just-signed-a-deal-to-p/" target="_blank" rel="noopener">Read more →</a>
+    </div>
+  </div>
 </section>
 
+<!-- HERMES CORNER -->
 <div class="section-divider"><span>Hermes Corner</span></div>
-
 <section id="hermes">
   <div class="hermes-corner-card">
-    <h2>The Hermes Corner</h2>
-
+    <h2>☤ The Hermes Corner</h2>
     <h3>What's New</h3>
     <ul>
-      <li><span class="tag tag-purple">Dev</span> <strong>No new release since v0.20.1 — but the Aug 15 dev window is landing real work.</strong> The latest commits add capabilities-wide profile scoping plus one-click skill-hub installs on the desktop Skills tab, and computer-use (cua-driver) browser attachment now asks for explicit user authorization. Gateway session history also ships durable row_id stamps, fixing ordinal-only truncation in long sessions.
-        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Dev</span> <strong>Skills tab gets a hub browser and a full-skill detail pane</strong> — and the SkillsView SDK is now exported for plugin authors. The freshest commit in the v0.20.1 dev window (d5773bfc, Aug 15), on top of profile scoping and one-click hub installs.
+        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commit/d5773bfc" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Gateway</span> <strong>Steadier long sessions:</strong> session.history now ships durable row_id stamps, and session-finalize plugin hooks run off-loop and bounded — good news for cron-heavy setups like this very paper.
+        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main/" target="_blank" rel="noopener">Read more →</a></li>
     </ul>
-
     <h3>Community in Action</h3>
     <ul>
-      <li><span class="tag tag-purple">Community</span> <strong>Nothing new since yesterday's roundup</strong> — the standout community builds remain the <em>computer-use-linux</em> MCP server for desktop control and the HermesClaw WeChat bridge. There is a solid (undated) deep-dive on dev.to walking through Hermes' architecture and a build-your-own checklist, worth a skim if you're curious how the loop is put together.
-        <a class="read-more" href="https://dev.to/truongpx396/hermes-agent-deep-dive-build-your-own-guide-1pcc" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Docs</span> <strong>The docs now host a User Stories &amp; Use Cases collage:</strong> 99 real community stories across 15 categories — multi-agent fleets, a self-learning trading bot, family WhatsApp assistants, a printing factory — every tile linking to the original post.
+        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-stories" target="_blank" rel="noopener">Read more →</a></li>
+      <li><span class="tag tag-purple">Build</span> <strong>"Every Hat, One Companion":</strong> a solo founder ships a 144-skill agent-skills repo and uses Hermes as the companion that routes work across six founder hats — discover → decide → build → run → sell → review — with an evaluation harness measuring outcomes, not vibes.
+        <a class="read-more" href="https://magnus919.com/2026/08/every-hat-one-companion/" target="_blank" rel="noopener">Read more →</a></li>
     </ul>
-
     <h3>Level Up</h3>
     <ul>
-      <li><span class="tag tag-purple">Capability</span> <strong>Kanban: the multi-agent board.</strong> Hermes ships a full kanban system where multiple named agent profiles collaborate as separate OS processes — you drop in a one-liner and the gateway decomposes, assigns and dispatches tasks across your profiles automatically. Boards, workers, review cycles, all in ~/.hermes/kanban.db. The "drop a one-liner, walk away" flow is worth turning on for bigger projects.
+      <li><span class="tag tag-purple">Guide</span> <strong>Kanban Multi-Agent Board:</strong> run multiple named agents on a shared SQLite board with structured handoffs, boards/tenants, auto-decomposition and a full worker lifecycle — "drop a one-liner, walk away" orchestration across profiles.
         <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Capability</span> <strong>Research Paper Writing skill — full ML paper pipeline.</strong> A bundled skill covering experiment design → execution → drafting → NeurIPS/ICML submission, wired to Hermes' own tools (arxiv, delegation, cron monitoring). If you ever write papers, this collapses the whole lifecycle into agent work.
+      <li><span class="tag tag-purple">Skill</span> <strong>Research Paper Writing (bundled):</strong> an end-to-end NeurIPS/ICML pipeline — experiment design, execution, analysis, drafting, review and submission — superseding ml-paper-writing, and a good look at how deep the bundled skills go.
         <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/skills/bundled/research/research-research-paper-writing" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Capability</span> <strong>Skills Hub keeps growing: browse.sh's 200+ site skills.</strong> Hermes now pulls from Browsebase's catalog of site-specific browser-automation skills (Airbnb, arXiv, Etsy, Xero and 200+ more) alongside skills.sh, ClawHub and LobeHub — all security-scanned on install. Bigger browser-automation toolkit than most people realise is there.
-        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/features/skills" target="_blank" rel="noopener">Read more →</a></li>
     </ul>
   </div>
 </section>
 
+<!-- MARKETS -->
 <div class="section-divider"><span>Markets</span></div>
-
 <section id="markets">
   <div class="markets-card">
-    <h2>Crypto Snapshot</h2>
+    <h2>Markets · Crypto</h2>
     <table class="markets-table">
       <thead>
-        <tr><th>Asset</th><th>Price</th><th>24h</th></tr>
+        <tr>
+          <th>Asset</th>
+          <th>Price</th>
+          <th>24h</th>
+          <th>7d</th>
+        </tr>
       </thead>
       <tbody>
-        <tr><td>Bitcoin (BTC)</td><td>$63,044</td><td class="up">+0.15%</td></tr>
-        <tr><td>Ethereum (ETH)</td><td>$1,882</td><td class="up">+0.14%</td></tr>
-        <tr><td>Solana (SOL)</td><td>$75.32</td><td class="flat">0.00%</td></tr>
+        <tr>
+          <td>Bitcoin (BTC)</td>
+          <td>$63,029</td>
+          <td class="up">+0.3%</td>
+          <td class="up">+2.9%</td>
+        </tr>
+        <tr>
+          <td>Ethereum (ETH)</td>
+          <td>$1,881</td>
+          <td class="up">+0.2%</td>
+          <td class="down">-1.8%</td>
+        </tr>
       </tbody>
     </table>
-    <p class="markets-note">A quiet Sunday session — BTC is stuck oscillating around $63K after last week's muted CPI reaction, with support at $62.5K and resistance around $65K. ETH holds $1.88K. The CLARITY Act vote slips to September and the SEC's tokenization plans remain stalled, so traders are back to watching Fed speakers for direction.</p>
+    <p class="markets-note">Global crypto market cap $2.25T · BTC dominance 56.2%. A quiet session — BTC is holding ~$63K after last week's muted CPI reaction, with no major market-moving news overnight.</p>
   </div>
 </section>
 
+<!-- NFL -->
 <div class="section-divider"><span>NFL</span></div>
-
 <section id="nfl">
-  <article class="story-card">
-    <span class="tag tag-nfl">Bucs</span>
-    <h2>Good News on Egbuka: Toe Injury Is Just a Sprain</h2>
-    <p>Emeka Egbuka's toe scare during Wednesday's joint practice with the Jets — which instantly raised turf-toe fears — has been downgraded to a sprain after further testing with a specialist, per the Tampa Bay Times. The Bucs are "optimistic" the receiver is ready for Week 1. Big relief for a team that traded up for him, and for dynasty managers holding the shares.</p>
-    <a class="read-more" href="https://www.newsweek.com/sports/nfl/buccaneers-receive-good-news-on-wr-emeka-egbuka-after-toe-injury-12326126" target="_blank" rel="noopener">Read more →</a>
-  </article>
-  <article class="story-card">
-    <span class="tag tag-nfl">Patriots</span>
-    <h2>Christian Gonzalez Still Out of Practice — Injury, Not Holdout</h2>
-    <p>Mike Vrabel confirmed Patriots cornerback Christian Gonzalez remains sidelined Saturday with the same undisclosed injury that kept him out of Tuesday's practice and Thursday's preseason opener — knocking down speculation that the absence was tied to his contract impasse. Reserve lineman Ben Brown is out for the rest of the preseason.</p>
-    <a class="read-more" href="https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-gonzalez-remains-out-of-practice-saturday" target="_blank" rel="noopener">Read more →</a>
-  </article>
-  <article class="story-card">
-    <span class="tag tag-nfl">Falcons</span>
-    <h2>Tua's Falcons Debut Falls Flat as Broncos Roll 27–7</h2>
-    <p>Tua Tagovailoa's first start of any kind in Atlanta was an inauspicious one: 3-of-5 for 22 yards over two series with all four targets going to Kyle Pitts — a detail fantasy managers will note. Denver led 24–0 at half behind Jarrett Stidham and Jahdae Barron's 97-yard pick-six. Michael Penix Jr. remains sidelined after knee surgery, so the QB1 picture stays murky.</p>
-    <a class="read-more" href="https://www.espn.com/nfl/recap?gameId=401873278" target="_blank" rel="noopener">Read more →</a>
-  </article>
+  <div class="top-stories-grid">
+    <div class="story-card">
+      <span class="tag tag-nfl">NFL · Injury</span>
+      <h2>Cardinals' No. 3 Pick Jeremiyah Love Out at Least a Week With Sore Ankle</h2>
+      <p>Rookie running back Jeremiyah Love is "a little more sore than anticipated" after Thursday's preseason win over the Raiders, coach Mike LaFleur said Saturday — he'll miss practice this week and likely Arizona's next preseason game vs. Dallas. The 72-yard, 14-touch debut flashed RB1 upside, but the Cardinals' backfield is suddenly banged up: James Conner (foot) is also sidelined, leaving Tyler Allgeier with the first-team reps.</p>
+      <a class="read-more" href="https://www.cbssports.com/fantasy/football/news/cardinals-jeremiyah-love-out-at-least-a-week/" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
+      <span class="tag tag-nfl">NFL · Suspension</span>
+      <h2>Falcons' James Pearce Jr. Suspended First 8 Games for Personal-Conduct Violation</h2>
+      <p>The NFL suspended Atlanta's second-year edge rusher for the first eight games of 2026 following his February arrest on domestic-violence charges involving WNBA player Rickea Jackson — three felony counts plus a misdemeanor stalking charge, with a pretrial intervention program in place. The ban starts Aug. 30 and runs through Week 8; Pearce is eligible for reinstatement Nov. 2, the week the Falcons face Cincinnati in Madrid. He can still play in the preseason, and he did not appeal.</p>
+      <a class="read-more" href="https://www.espn.com/nfl/story/_/id/49611663/falcons-edge-rusher-james-pearce-suspended-8-games-nfl" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="story-card">
+      <span class="tag tag-nfl">NFL · Injury</span>
+      <h2>Jamal Adams Carted Off in Vikings Preseason Debut; Injury Unclear</h2>
+      <p>The 30-year-old safety-turned-linebacker lasted just 11 defensive snaps against the Giants before grabbing his knee and leaving on a cart. Minnesota hasn't given a diagnosis. Adams signed with the Vikings in late July after a solid 2025 season in Las Vegas, and Brian Flores had been moving him between safety and linebacker — losing that versatility, even briefly, would dent a distinctive piece of the defensive plan.</p>
+      <a class="read-more" href="https://www.nfl.com/news/nfl-news-roundup-latest-league-updates-from-saturday-aug-15" target="_blank" rel="noopener">Read more →</a>
+    </div>
+  </div>
 </section>
 
+<!-- DYNASTY LEAGUE -->
 <div class="section-divider"><span>Dynasty League</span></div>
-
 <section id="dynasty">
   <div class="dynasty-card">
-    <h2>3 Dog Night — Mighty Manglers</h2>
-    <p><strong>Preseason · Week 1</strong> — Record 0–0 · No matchup yet, kickoff still two weeks out.</p>
+    <h2>🏈 3 Dog Night · Dynasty</h2>
 
-    <h3>Injury Watch</h3>
+    <h3>Mighty Manglers</h3>
+    <p><strong>2026 · Week 1 · Preseason</strong> — Record 0-0 · 0.0 pts. No matchup this week; the regular season is still a few weeks out.</p>
     <ul>
-      <li><span class="injury">Emeka Egbuka (TB)</span> — Questionable, but the toe is a sprain; Bucs optimistic for Week 1</li>
-      <li><span class="injury">James Conner (ARI)</span> — Questionable</li>
-      <li><span class="injury">Tez Johnson (TB)</span> — Questionable</li>
-      <li><span class="injury">Kevin Coleman (MIA)</span> — Questionable</li>
-      <li><span class="injury">Alec Pierce (IND)</span> — PUP</li>
+      <li><strong>QBs:</strong> Joe Burrow, Trevor Lawrence, Sam Darnold, Jalen Milroe</li>
+      <li><strong>RBs:</strong> Derrick Henry, James Conner <em>(Q — foot)</em>, Bucky Irving, Rico Dowdle</li>
+      <li><strong>WRs:</strong> Ja'Marr Chase, Courtland Sutton, Michael Wilson, Isaiah Bond, Tez Johnson <em>(Q)</em>, Emeka Egbuka <em>(Q — toe)</em>, Kevin Coleman <em>(Q)</em>, Bryce Lance <em>(Q)</em>, Omar Cooper</li>
+      <li><strong>TEs:</strong> Dalton Kincaid, Hunter Henry, Jake Ferguson, Oscar Delp · Alec Pierce <em>(PUP)</em></li>
+      <li><strong>Injury watch:</strong> Egbuka's toe is a sprain (day-to-day, good news), but watch James Conner's foot — with Cards rookie Love also banged up, the Arizona backfield is thin behind him.</li>
     </ul>
 
-    <h3>League Moves (last 72h)</h3>
+    <h3>Waiver Wire &amp; Trade Targets</h3>
+    <ul>
+      <li><strong>Robert Henry (RB, WAS)</strong> — 40k league-wide adds in 24h. A young RB flier on a crowded Washington backfield; cheap lottery ticket while Conner's foot lingers and Henry turns 32. Bid $3–5 (budget $150 — spend small in preseason, keep powder for Week 1 surprises).</li>
+      <li><strong>Devaughn Vele (WR, NO)</strong> — 9.6k adds. A proven slot receiver with a real path to targets in a thin Saints WR room; your depth behind Chase is young and injury-flagged. Bid $2–3.</li>
+      <li>Skip the Darren Waller frenzy (62k adds off his new Panthers deal) — you already carry four tight ends.</li>
+      <li><strong>Trade idea:</strong> you're rostering four QBs with Burrow locked as QB1. Shop Sam Darnold or Trevor Lawrence to a QB-needy team for a young WR or a 2027 pick — it directly addresses your thin WR depth behind Chase.</li>
+    </ul>
+
+    <h3>League Moves</h3>
     <ul>
       <li>New Age Outlaws added Will Kacmarek (MIA)</li>
       <li>New Age Outlaws added Dontayvion Wicks (PHI)</li>
       <li>New Age Outlaws added Marlin Klein (HOU)</li>
     </ul>
 
-    <p class="take"><strong>Ringo's take:</strong> The Egbuka news is the week's win — sprain, not turf toe, and Week 1 looks intact. Keep an eye on James Conner's status through camp; if he starts missing time, the Arizona backfield gets interesting. Nothing urgent to bid on yet, but New Age Outlaws are clearly active ahead of cut-downs.</p>
-  </div>
-</section>
-
-<div class="section-divider"><span>In Brief</span></div>
-
-<section id="brief">
-  <div class="inbrief-card">
-    <ul>
-      <li>▶ <strong>Samsung: Claude Code cuts chip-design work from weeks to days</strong> — but engineers still catch it making serious mistakes, including editing RTL it wasn't meant to touch. <a class="read-more" href="https://www.techspot.com/news/113487-samsung-claude-code-can-cut-chip-design-work.html" target="_blank" rel="noopener">Read more →</a></li>
-      <li>▶ <strong>Nvidia slashes its Ohio backstop for OpenAI</strong> — the guarantee drops from $250B to under $120B as investors balk at the chipmaker's balance-sheet exposure; a deal could come this weekend. <a class="read-more" href="https://www.wsj.com/tech/nvidia-downsizes-plans-for-250-billion-guarantee-of-openai-data-center-b56c38d3" target="_blank" rel="noopener">Read more →</a></li>
-      <li>▶ <strong>HP + Sarvam AI: Kivi voice ships on HP laptops in India</strong> — dictation in 22+ Indic languages with natural code-switching, pre-installed from this Independence Day. <a class="read-more" href="https://www.businesstoday.in/technology/story/hp-sarvam-ai-deal-how-indian-language-voice-tech-could-revolutionise-pc-use-549435-2026-08-15" target="_blank" rel="noopener">Read more →</a></li>
-    </ul>
+    <p class="take"><strong>Ringo's take:</strong> Egbuka's sprain is the good news of the week — but if Conner's Questionable tag lingers through camp, grab the Arizona handoff (Tyler Allgeier, if he's unrostered) rather than hoping the 31-year-old stays healthy. And shop a QB before Week 1 — someone always loses a starter in preseason.</p>
   </div>
 </section>
 
 <footer class="footer">
-  The Daily Ringo · Sunday, August 16, 2026 · Compiled by Ringo for Neil
+  The Daily Ringo · Volume I · No. 29<br>
+  Curated by Ringo, your AI editor · Sources: Reuters, CNBC, TechCrunch, ESPN, NFL.com, MetService &amp; more
 </footer>
 
 </body>
