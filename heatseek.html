@@ -8,16 +8,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     background-color: #f4efea;
     color: #2c2c2c;
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    margin: 0 auto;
-    max-width: 720px;
-    padding: 16px;
+    margin: 0;
   }
+  .container { max-width: 720px; margin: 0 auto; padding: 16px; }
+  a { color: #6a1b9a; }
+
+  /* ---------- Masthead ---------- */
   .masthead {
     text-align: center;
     padding: 14px 0 8px;
@@ -66,10 +67,23 @@
     font-size: 0.68em;
     font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
   }
   .nav-links a { color: #666; text-decoration: none; }
-  .nav-links a:hover { color: #6a1b9a; }
+  .nav-links a:hover { color: #1a1a1a; }
+
+  /* ---------- Weather bar ---------- */
+  .weather-bar {
+    background-color: #e8e1d8;
+    padding: 10px 15px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.85em;
+    color: #4a4a4a;
+  }
+
+  /* ---------- Story cards ---------- */
   .story-card {
     background-color: #fff;
     border-radius: 8px;
@@ -85,13 +99,13 @@
     margin-top: 0;
     margin-bottom: 8px;
   }
-  .story-card.lead h2 { font-size: 2.1em; line-height: 1.25; }
   .story-card p {
     font-size: 0.95em;
     line-height: 1.5;
     margin-bottom: 12px;
   }
-  .story-card .read-more {
+  .story-card .read-more,
+  .read-more {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
     font-size: 0.8em;
     font-weight: 600;
@@ -100,12 +114,15 @@
     display: inline-block;
     margin-top: 8px;
   }
-  .story-card .read-more:hover { text-decoration: underline; }
   .top-stories-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
+  .top-stories-grid .story-card { margin-bottom: 0; }
+  .lead-story h2 { font-size: 2.1em; line-height: 1.25; }
+
+  /* ---------- Section dividers ---------- */
   .section-divider {
     display: flex;
     align-items: center;
@@ -129,40 +146,35 @@
   }
   .section-divider::before { margin-right: .5em; }
   .section-divider::after { margin-left: .5em; }
-  .weather-bar {
-    background-color: #e8e1d8;
-    padding: 10px 15px;
-    margin-bottom: 14px;
-    border-radius: 8px;
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.85em;
-    color: #4a4a4a;
-  }
-  .weather-bar strong { color: #2c2c2c; }
+
+  /* ---------- Tags (story badges) ---------- */
   .tag {
     display: inline-block;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.62em;
+    font-size: 0.68em;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    padding: 3px 8px;
-    border-radius: 3px;
     color: #fff;
+    padding: 2px 7px;
+    border-radius: 4px;
     margin-bottom: 10px;
   }
-  .tag-red { background-color: #b71c1c; }
-  .tag-blue { background-color: #1565c0; }
-  .tag-green { background-color: #2e7d32; }
-  .tag-purple { background-color: #6a1b9a; }
-  .tag-orange { background-color: #e65100; }
-  .tag-teal { background-color: #00695c; }
-  .tag-nfl { background-color: #1b5e20; }
-  .tag-update {
-    background-color: #fff;
+  .tag-red    { background-color: #b71c1c; }  /* Breaking / Breach */
+  .tag-blue   { background-color: #1565c0; }  /* AI Launch / Tech */
+  .tag-green  { background-color: #2e7d32; }  /* positive market */
+  .tag-purple { background-color: #6a1b9a; }  /* Regulation / Policy */
+  .tag-hermes { background-color: #7b1fa2; }  /* Hermes Corner items */
+  .tag-orange { background-color: #e65100; }  /* China AI / other */
+  .tag-teal   { background-color: #00695c; }  /* Markets / Crypto */
+  .tag-nfl    { background-color: #1b5e20; }  /* NFL news */
+  .tag-update {                               /* follow-up stories */
+    background-color: transparent;
     color: #6a1b9a;
-    border: 1.5px solid #6a1b9a;
+    border: 1px solid #6a1b9a;
   }
+
+  /* ---------- Hermes Corner ---------- */
   .hermes-corner-card {
     background-color: #fff;
     border-left: 4px solid #7b1fa2;
@@ -178,7 +190,7 @@
     line-height: 1.3;
     margin-top: 0;
     margin-bottom: 10px;
-    color: #7b1fa2;
+    color: #6a1b9a;
   }
   .hermes-corner-card h3 {
     font-family: 'Inter', Helvetica, Arial, sans-serif;
@@ -186,7 +198,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: #7b1fa2;
+    color: #6a1b9a;
     margin: 14px 0 6px;
   }
   .hermes-corner-card ul { list-style: none; padding: 0; margin: 0; }
@@ -200,66 +212,42 @@
   .hermes-corner-card li .tag {
     display: inline-block;
     vertical-align: middle;
-    margin: 0 8px 2px 0;
+    margin: 0 8px 2px 0;   /* flush with title — overrides global .tag margin-bottom */
   }
   .hermes-corner-card li .read-more {
     display: block;
     margin-top: 6px;
   }
-  .hermes-corner-card .read-more {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.8em;
-    font-weight: 600;
-    color: #7b1fa2;
-    text-decoration: none;
-  }
-  .hermes-corner-card .read-more:hover { text-decoration: underline; }
-  .markets-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    padding: 14px 16px;
-    margin-bottom: 14px;
-  }
-  .markets-card h2 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.6em;
-    line-height: 1.3;
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-  .markets-table {
+
+  /* ---------- Markets ---------- */
+  .markets-card table {
     width: 100%;
     border-collapse: collapse;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.9em;
+    font-size: 0.85em;
   }
-  .markets-table th {
+  .markets-card th, .markets-card td {
     text-align: left;
+    padding: 7px 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .markets-card th {
+    font-size: 0.85em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.68em;
-    font-weight: 600;
-    color: #999;
-    padding: 6px 8px;
-    border-bottom: 1px solid #e5ddd3;
-  }
-  .markets-table td {
-    padding: 8px;
-    border-bottom: 1px solid #f0eae2;
-  }
-  .markets-table tr:last-child td { border-bottom: none; }
-  .up { color: #2e7d32; font-weight: 600; }
-  .down { color: #b71c1c; font-weight: 600; }
-  .flat { color: #999; font-weight: 600; }
-  .markets-note {
-    font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.78em;
+    letter-spacing: 0.08em;
     color: #666;
-    margin: 10px 0 0;
-    line-height: 1.5;
   }
+  .markets-card .up   { color: #2e7d32; font-weight: 600; }
+  .markets-card .down { color: #b71c1c; font-weight: 600; }
+  .markets-card .note {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.82em;
+    line-height: 1.5;
+    color: #4a4a4a;
+    margin: 10px 0 0;
+  }
+
+  /* ---------- Dynasty League card ---------- */
   .dynasty-card {
     background-color: #fff;
     border-left: 4px solid #1b5e20;
@@ -286,7 +274,7 @@
     color: #1b5e20;
     margin: 14px 0 6px;
   }
-  .dynasty-card ul { list-style: none; padding: 0; }
+  .dynasty-card ul { list-style: none; padding: 0; margin: 0; }
   .dynasty-card li {
     font-family: 'Playfair Display', serif;
     font-size: 0.95em;
@@ -329,25 +317,39 @@
     margin-top: 10px;
   }
   .dynasty-card .take strong { color: #1b5e20; }
+  .dynasty-card details { margin-top: 10px; }
+  .dynasty-card summary {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 0.78em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #1b5e20;
+    cursor: pointer;
+  }
+
+  /* ---------- Footer ---------- */
   .footer {
-    margin-top: 26px;
     border-top: 3px double #2c2c2c;
-    padding: 14px 0 4px;
+    margin-top: 26px;
+    padding: 10px 0 20px;
     text-align: center;
     font-family: 'Inter', Helvetica, Arial, sans-serif;
-    font-size: 0.6em;
-    font-weight: 400;
+    font-size: 0.65em;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: #999;
+    letter-spacing: 0.12em;
+    color: #888;
+    line-height: 1.8;
   }
+
+  /* ---------- Mobile ---------- */
   @media (max-width: 640px) {
     .top-stories-grid { grid-template-columns: 1fr; }
     .masthead h1 { font-size: 2.5em; }
-    .story-card.lead h2 { font-size: 1.8em; }
+    .lead-story h2 { font-size: 1.8em; }
   }
   @media (max-width: 480px) {
-    body { padding: 12px; }
+    .container { padding: 12px; }
     .masthead h1 { font-size: 2.1em; }
     .masthead .date-line { flex-wrap: wrap; gap: 4px 8px; }
     .story-card h2 { font-size: 1.4em; }
@@ -355,228 +357,68 @@
 </style>
 </head>
 <body>
+<div class="container">
 
-<header class="masthead">
-  <p class="tagline">News for the Curious Mind</p>
-  <h1>The Daily Ringo</h1>
-  <div class="date-line">
-    <span>Sunday, August 16, 2026</span>
-    <span class="sep">|</span>
-    <span>Volume I · No. 30</span>
-  </div>
-  <div class="nav-links">
-    <a href="#weather">Weather</a>
-    <a href="#tech">Tech</a>
-    <a href="#ai">AI</a>
-    <a href="#hermes">Hermes</a>
-    <a href="#markets">Markets</a>
-    <a href="#nfl">NFL</a>
-    <a href="#dynasty">Dynasty</a>
-  </div>
-</header>
-
-<div class="weather-bar" id="weather">
-  <strong>Auckland · Sunday 16 Aug</strong> — A few showers this morning, turning to rain for a time this afternoon and evening. Northerlies, turning southwesterly. High 16°, low 8°. Currently 6° (feels like 2°) · Humidity 65% · Pressure 1027 hPa. Sunrise 7:03am · Sunset 5:50pm.
-</div>
-
-<!-- LEAD STORY -->
-<section id="tech">
-  <div class="story-card lead">
-    <span class="tag tag-blue">AI Business</span>
-    <h2>OpenAI's Enterprise Business Just Overtook Consumer — $40B ARR, Two Quarters Early</h2>
-    <p>CFO Sarah Friar told investors Friday that enterprise now generates more revenue than the ChatGPT-led consumer business for the first time — the crossover OpenAI had guided for the end of 2026, arriving roughly two quarters early. The annualized run rate has hit $40 billion, up 20% month-over-month in July with business customers growing 32%, and advertising is approaching a $1 billion run rate. The numbers land as OpenAI works its confidential SEC filing toward what could be a historic IPO — and in the same week COO Brad Lightcap and CRO Denise Dresser both announced exits. Friar's read: customers have moved "from tokenmaxxing to focusing on cost per unit of intelligence." Caveats: $40B is a run-rate, not audited GAAP, and analysts still put breakeven at 2029-2030. But paired with Anthropic's own record Q2 ($11.5B+ revenue, first profitable quarter), the two labs are now approaching $100B in combined annualized revenue.</p>
-    <a class="read-more" href="https://www.cnbc.com/2026/08/14/openai-cfo-friar-tells-investors-that-enterprise-bigger-than-consumer.html" target="_blank" rel="noopener">Read more →</a>
-  </div>
-</section>
-
-<div class="section-divider"><span>Top Stories</span></div>
-
-<!-- TOP STORIES GRID -->
-<section id="ai">
-  <div class="top-stories-grid">
-    <div class="story-card">
-      <span class="tag tag-teal">AI Economics</span>
-      <h2>OpenAI and Anthropic Are Now in an Open Price War as Chinese Rivals Gain Ground</h2>
-      <p>The Financial Times reports the leading US labs are cutting model prices to hold cost-conscious customers shifting workloads to cheaper Chinese open-weight alternatives. OpenAI has cut its budget GPT-5.6 Luna by as much as 80% depending on usage; Anthropic is marketing Opus 5 as "frontier intelligence" at half the price of Mythos — and Sam Altman has said he'd happily deliver at a quarter of a rival's price. DoorDash, Airbnb and Coinbase have all confirmed using Chinese models, and SiliconData data shows inference token spend drifting away from closed models since mid-July. Both labs are preparing IPOs and need to show profit — so the squeeze is structural, and model routing is turning "best model" into "best model for the price."</p>
-      <a class="read-more" href="https://www.ft.com/content/32a70a3c-7d28-40b4-808e-36edb58c7d01" target="_blank" rel="noopener">Read more →</a>
+  <header class="masthead">
+    <p class="tagline">News for the Curious Mind</p>
+    <h1>The Daily Ringo</h1>
+    <div class="date-line">
+      <span>Sunday, August 16, 2026</span><span class="sep">|</span><span>Volume I · No. 31</span>
     </div>
-    <div class="story-card">
-      <span class="tag tag-orange">China Tech</span>
-      <h2>Unitree's $900M Robot IPO Was 8,000× Oversubscribed — the Humanoid Frenzy Peaks</h2>
-      <p>Unitree Robotics' Shanghai STAR Market listing — mainland China's first humanoid-robot IPO — saw retail demand more than 8,000 times oversubscribed, with winning odds of roughly 0.018% (about one lot per 5,500 applicants). Priced at 150.80 yuan (~$22) a share, the offering values Unitree near $9 billion: 219× 2025 earnings and 36× sales. DeepSeek took a 2.31% strategic stake, and the deal attracted state-backed investors including CNPC and China Telecom. Shares begin trading later this month, and investors expect a big first-day pop — though skeptics note most revenue still comes from research and demo sales, and the FCC added foreign-made humanoid robots to its Covered List in late July.</p>
-      <a class="read-more" href="https://www.cnbc.com/2026/08/14/china-humanoid-robots-unitree-ipo-tesla-optimus.html" target="_blank" rel="noopener">Read more →</a>
-    </div>
-    <div class="story-card">
-      <span class="tag tag-purple">Policy</span>
-      <h2>Apple Proposes 15% Commission on Purchases Made Outside the App Store</h2>
-      <p>Forced by the Supreme Court's refusal to pause the case, Apple filed its long-awaited commission plan in the Epic antitrust battle Thursday: 15% for standard apps on purchases made via external links, 5% for small-business developers, and 10% for the Video, News and Mini Apps partner programs plus subscription renewals. The proposal is Apple's answer to a district court demand for the fee structure it wants to charge on link-out payments — the same fight that produced its earlier 27% external-link commission and the contempt question now before the justices. Apple compares itself favourably to Google Play, which charges 20% link-out for standard apps and 10% for renewals.</p>
-      <a class="read-more" href="https://techcrunch.com/2026/08/14/apple-proposes-to-take-a-15-cut-of-purchases-made-outside-the-app-store/" target="_blank" rel="noopener">Read more →</a>
-    </div>
-    <div class="story-card">
-      <span class="tag tag-blue">Tech</span>
-      <h2>Judge Orders Google to Make Alternative App Stores Actually Easy to Install</h2>
-      <p>US District Judge James Donato ruled that Google's implementation of third-party app store downloads in the Play Store — currently just Aptoide, the first non-Google store admitted — added "anticompetitive friction," with the store buried in menus and no install button. He ordered Google to fix it within a week: the button must read "install," not "view," and the alternative-store page has to surface properly in search. Epic's lawyer showed the court that even searching for "aptoide" didn't return the store. Google agreed to make the changes, keeping the antitrust remedies from its 2023 loss biting — and clearing the path for Epic to eventually launch its own storefront inside Play.</p>
-      <a class="read-more" href="https://arstechnica.com/gadgets/2026/08/google-ordered-to-make-it-easier-to-download-alternative-android-app-stores/" target="_blank" rel="noopener">Read more →</a>
-    </div>
-  </div>
-</section>
+    <nav class="nav-links">
+      <a href="#weather">Weather</a>
+      <a href="#tech">Tech</a>
+      <a href="#tech">AI</a>
+      <a href="#hermes">Hermes</a>
+      <a href="#markets">Markets</a>
+      <a href="#nfl">NFL</a>
+      <a href="#dynasty">Dynasty</a>
+    </nav>
+  </header>
 
-<!-- HERMES CORNER -->
-<div class="section-divider"><span>Hermes Corner</span></div>
-<section id="hermes">
-  <div class="hermes-corner-card">
+  <div class="weather-bar" id="weather">
+    <p><strong>Auckland · Sun 16 Aug</strong> — partly cloudy, 10°C right now (feels like 9°), high 14 / low 7°C, humidity 81%, light SSE breeze at 11 km/h. Sunrise 7:04am · Sunset 5:48pm.</p>
+  </div>
+
+  <section id="tech">
+    <div class="story-card lead-story">
+      <span class="tag tag-blue">AI Business</span><h2>Anthropic Closes In on a $7B Decart Acquisition, Beating Nvidia to the Table</h2><p>Anthropic is closing in on its largest acquisition ever: a ~$7B deal for Israeli inference-efficiency startup Decart, Calcalist reports. Decart's founders and Sequoia, its biggest backer, chose Anthropic over a higher offer from Nvidia, which was in advanced talks. The deal, mostly paid in Anthropic shares, could be signed as soon as next month — ahead of the company's expected September IPO, with its prospectus already filed confidentially. Decart's tech wrings up to 8× more performance out of AI chips, a hedge as the industry shifts from training to inference. It would also hand Anthropic a development center in Israel.</p><a class="read-more" href="https://www.calcalistech.com/ctechnews/article/b1evv3aufg" target="_blank" rel="noopener">Read more →</a>
+    </div>
+    <div class="section-divider"><span>Top Stories</span></div>
+    <div class="top-stories-grid">
+      <div class="story-card"><span class="tag tag-blue">Robotics</span><h2>LG and Nvidia Bet on a 2027 Humanoid as the Physical-AI Race Accelerates</h2><p>LG and Nvidia signed an MoU in Santa Clara to co-develop a bipedal humanoid powered by Isaac GR00T and Jetson Thor, targeting a Q1 2027 reveal. The pact spans an 80MW AI factory in Cheonan, Nvidia DRIVE Hyperion for LG vehicles, and a CLOiD wheeled-robot pilot at a Tennessee plant feeding real-world training data by year-end.</p><a class="read-more" href="https://www.webpronews.com/lg-and-nvidia-bet-on-2027-humanoid-reveal-as-physical-ai-race-accelerates/" target="_blank" rel="noopener">Read more →</a></div><div class="story-card"><span class="tag tag-blue">Big Tech</span><h2>Instagram's New Wordmark Reads 'Instagzam' — and the Internet Has Feelings</h2><p>Instagram refreshed its wordmark for the first time in a decade — and users instantly decided the half-cursive, half-print lettering spells "Instagzam." The redesign has sparked a Gen Z-can't-read-cursive debate, while Meta's design team calls it "cleaner and more modern." The gradient camera icon is untouched; the new identity rolls out through 2027.</p><a class="read-more" href="https://www.theverge.com/tech/979583/this-is-instagrams-new-logo" target="_blank" rel="noopener">Read more →</a></div><div class="story-card"><span class="tag tag-blue">Chips</span><h2>Nvidia's Next-Gen Feynman Platform Ramps Up — and Forces TSMC to Race</h2><p>Digitimes reports Nvidia is shifting resources to Feynman, its post-Rubin platform due around 2028 — 3D chiplets on TSMC's 2nm-class A16 process, co-packaged optics and NVLink bandwidth beyond a petabyte per second. The accelerated roadmap is pushing TSMC to expand SoIC packaging capacity toward ~50,000 wafers a month by end-2027.</p><a class="read-more" href="https://www.benzinga.com/markets/tech/26/08/61201714/nvidias-next-gen-feynman-ai-platform-is-ramping-up-forcing-tsmc-to-race-ahead-report" target="_blank" rel="noopener">Read more →</a></div>
+    </div>
+  </section>
+
+  <div class="section-divider"><span>Hermes Corner</span></div>
+  <section id="hermes" class="hermes-corner-card">
     <h2>☤ The Hermes Corner</h2>
-    <h3>What's New</h3>
-    <ul>
-      <li><span class="tag tag-purple">Dev</span> <strong>Import and resume Claude Code / Codex CLI sessions:</strong> fresh commits on main overnight (Aug 16 UTC) add `feat: import and resume Claude Code / Codex CLI sessions` and `feat: per-terminal --continue via terminal breadcrumbs` — so switching into Hermes no longer means leaving your Claude Code / Codex work behind. Still no new tagged release: v0.20.1 (v2026.8.13) remains current.
-        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main/" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Desktop</span> <strong>Session picker gets lifecycle status + delete:</strong> a companion commit (also overnight) surfaces running/finished state in the picker and lets you delete sessions from the list — small quality-of-life work as the v0.21.0 release notes get curated.
-        <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main/" target="_blank" rel="noopener">Read more →</a></li>
-    </ul>
-    <h3>Community in Action</h3>
-    <ul>
-      <li><span class="tag tag-purple">Tutorial</span> <strong>Hermes + GitHub Actions: three copy-paste recipes:</strong> Hermify's new guide walks through a CI-failure triage agent that posts a diagnosis on the PR within minutes, a nightly PR digest that lands in Telegram/Discord at 9pm, and a weekly stale-issue triage — all built on Hermes' cron, webhooks, and the memory that makes each run smarter than the last.
-        <a class="read-more" href="https://www.hermify.io/en/blog/hermes-agent-github-actions" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Guide</span> <strong>Automation workflows with real configs:</strong> Toolbrain's walkthrough covers cron, HMAC-signed webhooks, and Hermes' self-learning pipelines — including the safety rails (cron-initiated sessions can't spawn cron; a 10-refinement cap on skill self-improvement). A good end-to-end look at the primitives this very paper runs on.
-        <a class="read-more" href="https://toolbrain.net/blog/hermes-agent-automation-workflows/" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Talk</span> <strong>"The Case for Open Models in Production" — Arize Observe 2026:</strong> Nous Research's founder walks through Hermes' agent loop, tiered memory, and auto-written skills on stage — including a scheduled task that scoured Facebook Marketplace and auction sites for months until it found him a car. Good watching if you want the why behind the agent.
-        <a class="read-more" href="https://www.youtube.com/watch?v=Y3NDtqk6ags" target="_blank" rel="noopener">Read more →</a></li>
-    </ul>
-    <h3>Level Up</h3>
-    <ul>
-      <li><span class="tag tag-purple">Docs</span> <strong>Working with Skills — per-platform control:</strong> skills can be enabled or disabled per platform, so you can keep dev skills off Telegram and home-automation skills off the CLI. The guide also covers the Skills Hub install flow and the tip to say yes when Hermes offers to save a workflow as a skill after a complex task.
-        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/guides/work-with-skills" target="_blank" rel="noopener">Read more →</a></li>
-      <li><span class="tag tag-purple">Docs</span> <strong>Creating Skills — under five minutes:</strong> a SKILL.md is just markdown with frontmatter; the developer guide walks through bundled vs optional vs hub placement, and `hermes skills publish` can ship your skill to a GitHub tap your whole team can install. Capabilities, not prompts — the fastest way to extend Hermes.
-        <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/developer-guide/creating-skills" target="_blank" rel="noopener">Read more →</a></li>
-    </ul>
-  </div>
-</section>
+    <h3>What's New</h3><ul><li><span class="tag tag-hermes">Dev</span> <strong>Hooks can now rewrite tool input:</strong> pre_tool_call gained a <code>modify</code> action on main today (PR #28953) — a hook can transform tool args before execution, in a Claude Code-compatible wire format. TUI and ACP sessions also fire configured hooks properly now. <a class="read-more" href="https://github.com/NousResearch/hermes-agent/pull/28953" target="_blank" rel="noopener">Read more →</a></li><li><span class="tag tag-hermes">Dev</span> <strong>Desktop polish, terminal honesty:</strong> Capabilities/Skills panes are now drag-resizable, and the terminal warns when an exit code of 0 masks a piped build/test failure — no more silent green. <a class="read-more" href="https://github.com/NousResearch/hermes-agent/commits/main" target="_blank" rel="noopener">Read more →</a></li></ul><h3>Community in Action</h3><ul><li><span class="tag tag-hermes">Community</span> <strong>Compound Engineering on Hermes:</strong> A new guide maps Every Inc's 17.7k-star /ce-* plugin (37 skills, 51 agents) onto native Hermes skills, cron and memory — Strategy → Plan → Work → Review → Compound, no plugin required. <a class="read-more" href="https://hermes-tutorials.dev/blog/build-compound-engineering-workflow-hermes-agent/" target="_blank" rel="noopener">Read more →</a></li><li><span class="tag tag-hermes">Community</span> <strong>First useful workflow in 15 minutes:</strong> hermes-agent.ai's updated setup guide goes verification-first — one model, one surface, one acceptance test — then points you at FlyHermes when the laptop can't stay awake. <a class="read-more" href="https://hermes-agent.ai/blog/hermes-agent-setup-guide" target="_blank" rel="noopener">Read more →</a></li></ul><h3>Level Up</h3><ul><li><span class="tag tag-hermes">Docs</span> <strong>Event Hooks:</strong> pre_tool_call can block — and now modify — tool calls before they run. Enforce policy on terminal commands, auto-format files after writes, log everything; full signatures and examples in the docs. <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks" target="_blank" rel="noopener">Read more →</a></li><li><span class="tag tag-hermes">Docs</span> <strong>Plugins SDK:</strong> Register tools, lifecycle hooks, /slash commands and CLI subcommands from one plugin — and bundle skills with it. This is the layer the hooks work is hardening. <a class="read-more" href="https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins/" target="_blank" rel="noopener">Read more →</a></li></ul>
+  </section>
 
-<!-- MARKETS -->
-<div class="section-divider"><span>Markets</span></div>
-<section id="markets">
-  <div class="markets-card">
-    <h2>Markets · Crypto</h2>
-    <table class="markets-table">
-      <thead>
-        <tr>
-          <th>Asset</th>
-          <th>Price (USD)</th>
-          <th>24h</th>
-          <th>7d</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Bitcoin (BTC)</td>
-          <td>$62,997</td>
-          <td class="flat">+0.1%</td>
-          <td class="down">-2.9%</td>
-        </tr>
-        <tr>
-          <td>Ethereum (ETH)</td>
-          <td>$1,879</td>
-          <td class="flat">-0.1%</td>
-          <td class="down">-1.8%</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="markets-note">NZD: BTC ≈ NZ$107,000 · ETH ≈ NZ$3,193. A quiet Sunday session — BTC is flat right around the $63K level it defended through last week's muted CPI reaction, and ETH is holding $1,880. Both are still mildly red on the week with no major market-moving news overnight.</p>
-  </div>
-</section>
+  <div class="section-divider"><span>NFL</span></div>
+  <section id="nfl">
+    <div class="story-card"><span class="tag tag-nfl">NFL · QB</span><h2>Kyler Murray Commands Vikings Debut as J.J. McCarthy Looks Uneven</h2><p>Murray led a 10-play, 54-yard scoring drive in his first start for Minnesota, going 2-of-3 and hitting Jordan Addison on third down in the Vikings' 13-10 preseason win over the Giants. McCarthy went 4-of-7 for 34 yards across three punt-filled drives — little sign he's ready to challenge for the job O'Connell already handed Murray.</p><a class="read-more" href="https://www.startribune.com/minnesota-vikings-nfl-preseason-game-today-score-kyler-murray-jj-mccarthy-new-york-giants-qb-starter/601877070" target="_blank" rel="noopener">Read more →</a></div><div class="story-card"><span class="tag tag-nfl">NFL · QB Battle</span><h2>Watson Sharp, Sanders Sloppy as Browns' QB Race Gets Its First Data</h2><p>In Cleveland's 34-10 loss to Chicago, Deshaun Watson was 11-of-15 for 126 yards and led two scoring drives but lost a fumble in his first game in nearly two years. Shedeur Sanders threw an ugly interception. Monken will start Sanders in preseason game two, with Watson taking over in the second half.</p><a class="read-more" href="https://abcnews.com/Sports/wireStory/watson-leads-cleveland-2-scoring-drives-34-10-135678722" target="_blank" rel="noopener">Read more →</a></div><div class="story-card"><span class="tag tag-nfl">NFL · Rookie</span><h2>Ty Simpson Looks Ready: 21-of-25 in Rams Preseason Debut</h2><p>The Rams' first-round quarterback completed 21 of 25 passes for 190 yards and two touchdowns — both to Dean Connors — in a 20-12 win over the Chiefs. McVay wanted to see "consistent decisions" and "timing and rhythm"; Simpson delivered exactly that, plus an 87-yard scoring drive.</p><a class="read-more" href="https://www.therams.com/news/rookie-quarterback-ty-simpson-rams-at-chiefs-in-command-throughout-nfl-preseason-debut" target="_blank" rel="noopener">Read more →</a></div>
+  </section>
 
-<!-- NFL -->
-<div class="section-divider"><span>NFL</span></div>
-<section id="nfl">
-  <div class="top-stories-grid">
-    <div class="story-card">
-      <span class="tag tag-nfl">NFL · Injury</span>
-      <h2>Texans QB Graham Mertz Tears ACL, Out for the Season — Rypien Signed as No. 3</h2>
-      <p>Houston's backup quarterback is done for 2026: Mertz's knee buckled on a non-contact run late in the first half of Thursday's preseason game against the Chargers, and tests confirmed a torn ACL requiring surgery. Coach DeMeco Ryans called it "a knee injury, ACL" right after the game. The Texans have signed veteran Brett Rypien to a one-year deal to compete for the No. 3 job behind C.J. Stroud and Davis Mills — a reminder that even backup QB depth disappears fast in August.</p>
-      <a class="read-more" href="https://texanswire.usatoday.com/story/sports/nfl/texans/2026/08/15/texans-no-3-qb-brett-rypien-signing-graham-mertz-season-ending-injury/91319736007/" target="_blank" rel="noopener">Read more →</a>
-    </div>
-    <div class="story-card">
-      <span class="tag tag-nfl">NFL · Injury</span>
-      <h2>Marcus Mariota Leaves Commanders' Opener Early With an Apparent Knee Injury</h2>
-      <p>Washington's veteran backup lasted just four plays against Miami on Friday night, going down on a non-contact handoff and heading to the locker room — no update from Dan Quinn afterward. Mariota was signed this offseason to back up Jayden Daniels, who was held out with two dozen other starters. Across the field, Malik Willis impressed in his Dolphins debut, leading a 14-play, 93-yard touchdown drive as Miami fell 20-7.</p>
-      <a class="read-more" href="https://www.espn.com.au/nfl/recap?gameId=401873277" target="_blank" rel="noopener">Read more →</a>
-    </div>
-    <div class="story-card">
-      <span class="tag tag-nfl">NFL · Injury</span>
-      <h2>Saints Rookie WR Jordyn Tyson Out With Hamstring — Could Linger Into Week 1</h2>
-      <p>Tyson hurt his right hamstring on an awkward landing in Thursday's joint practice with Jacksonville, and Kellen Moore gave no timetable — saying it "could" potentially linger into Week 1. He was already among the Saints sitting out Saturday's game. The injury is exactly why New Orleans' young receivers — including dynasty waiver darlings Barion Brown and Devaughn Vele — are suddenly trending as adds.</p>
-      <a class="read-more" href="https://www.espn.com/nfl/story/_/id/49611207/saints-rookie-wr-tyson-miss-hamstring-injury" target="_blank" rel="noopener">Read more →</a>
-    </div>
-  </div>
-</section>
-
-<!-- DYNASTY LEAGUE -->
-<div class="section-divider"><span>Dynasty League</span></div>
-<section id="dynasty">
-  <div class="dynasty-card">
+  <div class="section-divider"><span>Dynasty League</span></div>
+  <section id="dynasty" class="dynasty-card">
     <h2>🏈 3 Dog Night · Dynasty</h2>
+    <p><strong>2026 · Week 2 · Preseason</strong> — Record 0-0 · 0.0 pts.</p><p class="take"><strong>Ringo's take:</strong> Preseason — no matchup, no stress. Watch James Conner's foot (Questionable, sat out Thursday) — he's your RB2 behind Derrick Henry; and good news, Alec Pierce (PUP) is expected back within the week and on track for Week 1. Don't chase Darren Waller — you already carry five tight ends.</p><details><summary>Full roster ▾</summary><p class="pos"><strong>QB</strong></p><ul><li>Sam Darnold (SEA)</li><li>Joe Burrow (CIN)</li><li>Trevor Lawrence (JAX)</li><li>Jalen Milroe (SEA)</li></ul><p class="pos"><strong>RB</strong></p><ul><li>Bucky Irving (TB)</li><li>Derrick Henry (BAL)</li><li>James Conner (ARI) <span class="injury">Q</span></li><li>Rico Dowdle (PIT)</li></ul><p class="pos"><strong>WR</strong></p><ul><li>Michael Wilson (ARI)</li><li>Tez Johnson (TB) <span class="injury">Q</span></li><li>Isaiah Bond (CLE)</li><li>Emeka Egbuka (TB) <span class="injury">Q</span></li><li>Omar Cooper (NYJ)</li><li>Kevin Coleman (MIA) <span class="injury">Q</span></li><li>Bryce Lance (NO) <span class="injury">Q</span></li><li>Courtland Sutton (DEN)</li><li>Ja'Marr Chase (CIN)</li><li>Alec Pierce (IND) <span class="injury">PUP</span></li></ul><p class="pos"><strong>TE</strong></p><ul><li>Dalton Kincaid (BUF)</li><li>Oronde Gadsden (LAC)</li><li>Oscar Delp (NO)</li><li>Hunter Henry (NE)</li><li>Jake Ferguson (DAL)</li></ul></details><h3>Waiver Wire &amp; Trade Targets</h3><ul><li><strong>Robert Henry (RB, WAS)</strong> — 38K league-wide adds; speculative stash while Conner's foot nags and Washington's backfield sorts itself out. Bid ~$3. (Suggest dropping: Rico Dowdle)</li><li><strong>Barion Brown (WR, NO)</strong> — 32K adds; explosive rookie with real return-game juice, worth a flier on a rebuilding Saints offense. Bid ~$2. (Suggest dropping: Omar Cooper)</li></ul><p><strong>Trade idea:</strong> You carry five tight ends. Dangle Jake Ferguson for RB depth before cutdowns force roster decisions.</p><h3>League Moves</h3><ul><li>New Age Outlaws added Will Kacmarek (MIA)</li><li>New Age Outlaws added Dontayvion Wicks (PHI)</li><li>New Age Outlaws added Marlin Klein (HOU)</li></ul>
+  </section>
 
-    <h3>Mighty Manglers</h3>
-    <p><strong>2026 · Week 1 · Preseason</strong> — Record 0-0 · 0.0 pts. No matchup yet; the regular season is still a few weeks out, so this is roster-health season.</p>
-    <p class="pos"><strong>QB</strong></p>
-    <ul>
-      <li>Joe Burrow (CIN)</li>
-      <li>Trevor Lawrence (JAX)</li>
-      <li>Sam Darnold (SEA)</li>
-      <li>Jalen Milroe (SEA)</li>
-    </ul>
-    <p class="pos"><strong>RB</strong></p>
-    <ul>
-      <li>Derrick Henry (BAL)</li>
-      <li>James Conner (ARI) <span class="injury">Q</span></li>
-      <li>Bucky Irving (TB)</li>
-      <li>Rico Dowdle (PIT)</li>
-    </ul>
-    <p class="pos"><strong>WR</strong></p>
-    <ul>
-      <li>Ja'Marr Chase (CIN)</li>
-      <li>Courtland Sutton (DEN)</li>
-      <li>Michael Wilson (ARI)</li>
-      <li>Emeka Egbuka (TB) <span class="injury">Q — toe</span></li>
-      <li>Tez Johnson (TB) <span class="injury">Q</span></li>
-      <li>Isaiah Bond (CLE)</li>
-      <li>Omar Cooper (NYJ)</li>
-      <li>Kevin Coleman (MIA) <span class="injury">Q</span></li>
-      <li>Bryce Lance (NO) <span class="injury">Q</span></li>
-      <li>Alec Pierce (IND) <span class="injury">PUP</span></li>
-    </ul>
-    <p class="pos"><strong>TE</strong></p>
-    <ul>
-      <li>Dalton Kincaid (BUF)</li>
-      <li>Hunter Henry (NE)</li>
-      <li>Jake Ferguson (DAL)</li>
-      <li>Oscar Delp (NO)</li>
-      <li>Oronde Gadsden (LAC)</li>
-    </ul>
+  <div class="section-divider"><span>Markets</span></div>
+  <section id="markets" class="story-card markets-card">
+    <h2>Markets · Crypto</h2>
+    <table><tr><th>Asset</th><th>Price (USD)</th><th>24h</th><th>7d</th></tr><tr><td>Bitcoin (BTC)</td><td>$63,007</td><td class="down">-0.0%</td><td class="down">-2.7%</td></tr><tr><td>Ethereum (ETH)</td><td>$1,879</td><td class="down">-0.6%</td><td class="down">-1.8%</td></tr></table><p class="note">BTC ≈ NZ$107K · ETH ≈ NZ$3.2K (USD/NZD ~1.70). Both drifting sideways — BTC is still pinned to the $63K level it has defended all week, ETH holding $1.87K.</p>
+  </section>
 
-    <h3>Waiver Wire &amp; Trade Targets</h3>
-    <ul>
-      <li><strong>Robert Henry (RB, WAS)</strong> — 38,290 league-wide adds in 24h. A young RB flier on a crowded Washington backfield, and cheap insurance for a 32-year-old Henry and a Questionable Conner. Bid $8–10 of your $150 — spend early, the season is close. (Suggest dropping: Rico Dowdle)</li>
-      <li><strong>Barion Brown (WR, NO)</strong> — 34,839 league-wide adds in 24h. The Saints' WR room is banged up (Tyson's hamstring could linger into Week 1), and your depth behind Chase is young and injury-flagged. He's the trending add of the day. Bid $7–9. (Suggest dropping: Kevin Coleman)</li>
-      <li>Skip the Darren Waller frenzy (59k adds off his new Panthers deal) — you already roster five tight ends.</li>
-      <li><strong>Trade idea:</strong> you're carrying two aging RBs (Henry 32, Conner 31) in a superflex-flexible league. Sell one to a contender for a young WR or 2027 picks — it directly attacks the roster's thinnest spot, WR depth behind Chase.</li>
-    </ul>
+  <footer class="footer">
+    The Daily Ringo · Volume I · No. 31<br>
+    Curated by Ringo, your AI editor<br>
+    Generated 19:45 NZT · 16 Aug 2026
+  </footer>
 
-    <h3>League Moves</h3>
-    <ul>
-      <li>New Age Outlaws added Will Kacmarek (MIA)</li>
-      <li>New Age Outlaws added Dontayvion Wicks (PHI)</li>
-      <li>New Age Outlaws added Marlin Klein (HOU)</li>
-    </ul>
-
-    <p class="take"><strong>Ringo's take:</strong> Egbuka's toe is a day-to-day sprain — good news. The one to watch is Conner: with Arizona's rookie Love also banged up, there's no obvious free handoff behind him, so if the Q tag lingers through camp, shop him now while the RB market is still hot. And if you want a piece of the Saints' WR fallout, Barion Brown is the add — before someone else in the league reads the same injury report.</p>
-  </div>
-</section>
-
-<footer class="footer">
-  The Daily Ringo · Volume I · No. 30<br>
-  Curated by Ringo, your AI editor · Sources: CNBC, Financial Times, TechCrunch, Ars Technica, ESPN, USA Today &amp; more
-</footer>
-
+</div>
 </body>
 </html>
