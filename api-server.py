@@ -10,6 +10,7 @@ import os
 import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
+import urllib.parse
 import subprocess
 from datetime import datetime, timezone
 
@@ -24,6 +25,14 @@ class Handler(BaseHTTPRequestHandler):
         
         if path == '/api/data':
             self._send_json(self._load_data())
+            return
+
+        if path == '/api/health':
+            d = self._load_data()
+            n = len(d.get('opportunities', [])) if isinstance(d, dict) else 0
+            self._send_json({"ok": True, "cards": n,
+                             "store_mtime": datetime.fromtimestamp(
+                                 os.path.getmtime(DATA_FILE), timezone.utc).isoformat()})
             return
         
         # Serve static files
@@ -108,11 +117,14 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
 
     def _serve_static(self):
-        # Map URL path to file
-        path = urlparse(self.path).path
+        # Map URL path to file, refusing anything that escapes the repo directory
+        path = urllib.parse.unquote(urlparse(self.path).path)
         if path == '/':
             path = '/index.html'
-        filepath = os.path.join(REPO_DIR, path.lstrip('/'))
+        filepath = os.path.realpath(os.path.join(REPO_DIR, path.lstrip('/')))
+        if not filepath.startswith(os.path.realpath(REPO_DIR) + os.sep):
+            self._send_json({"error": "Not found"}, 404)
+            return
         
         if os.path.isfile(filepath):
             ext = os.path.splitext(filepath)[1]

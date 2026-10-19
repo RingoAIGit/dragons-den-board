@@ -74,6 +74,10 @@ async function login() {
   const hash = await sha256(pw);
   if (hash === PASSWORD_HASH) {
     sessionStorage.setItem('dd_auth', '1');
+    // Stay signed in on this device for 30 days (iPhone clears sessionStorage on tab close)
+    try {
+      localStorage.setItem('dd_auth_until', String(Date.now() + 30 * 24 * 60 * 60 * 1000));
+    } catch(e) {}
     window.location.href = 'index.html';
   } else {
     document.getElementById('err').style.display = 'block';

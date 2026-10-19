@@ -9,9 +9,14 @@
 <script>
 // Auth guard — must be first thing in <head>
 (function() {
-  if (!sessionStorage.getItem('dd_auth')) {
-    window.location.href = 'login.html';
+  var ok = sessionStorage.getItem('dd_auth');
+  if (!ok) {
+    try {
+      var until = parseInt(localStorage.getItem('dd_auth_until') || '0', 10);
+      if (until > Date.now()) ok = 1;
+    } catch(e) {}
   }
+  if (!ok) window.location.href = 'login.html';
 })();
 </script>
 <style>
@@ -302,6 +307,35 @@ fetch('config.json?t=' + Date.now())
   .then(cfg => { if (cfg.api_url) API_URL = cfg.api_url; })
   .catch(() => {}); // fallback to localhost
 
+// Push one decision to the Mac. Returns true only if the Mac actually saved it.
+async function pushUpdate(payload) {
+  try {
+    const resp = await fetch(API_URL + '/api/update', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    return resp.ok;
+  } catch(e) {
+    return false;
+  }
+}
+
+// Retry any decisions that were made while the Mac was unreachable.
+async function flushPending() {
+  const overrides = loadLocalOverrides();
+  const stuck = Object.keys(overrides).filter(id => overrides[id].pending);
+  if (!stuck.length) return;
+  let done = 0;
+  for (const id of stuck) {
+    const o = overrides[id];
+    const ok = await pushUpdate({id, status: o.status, reviewed: o.reviewed, drop_reason: o.drop_reason});
+    if (ok) { delete o.pending; done++; }
+  }
+  saveLocalOverrides(overrides);
+  if (done) showToast(`Synced ${done} decision${done > 1 ? 's' : ''} made while offline`);
+}
+
 async function loadData() {
   try {
     const resp = await fetch('data.json?v=2&t=' + Date.now());
@@ -324,6 +358,7 @@ async function loadData() {
     populateFilters();
     renderCards();
     updateSyncTimer();
+    flushPending();
   } catch(e) {
     console.error('loadData error:', e);
     document.getElementById('cardList').innerHTML = `<div class="error-state">
@@ -501,16 +536,12 @@ async function setStatus(id, status, btn) {
   overrides[id].status = status;
   saveLocalOverrides(overrides);
   
-  // POST to the local API server (updates source of truth on your Mac)
-  try {
-    await fetch(API_URL + '/api/update', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({id, status})
-    });
-  } catch(e) {
-    console.warn('API server not running — changes saved locally only');
-  }
+  // POST to the Mac. If it fails, flag the override so it retries next time.
+  const synced = await pushUpdate({id, status});
+  const ov = loadLocalOverrides();
+  ov[id] = ov[id] || {};
+  ov[id].pending = !synced;
+  saveLocalOverrides(ov);
   
   // Remove card from list without re-rendering (preserves expanded state of other cards)
   const cardEl = document.getElementById('card-' + id);
@@ -529,7 +560,9 @@ async function setStatus(id, status, btn) {
     `<strong>${newCount}</strong> showing` +
     (showReviewed ? ` of <strong>${allCards.length}</strong> total` : ` · <strong>${newCount}</strong> new in queue`);
   
-  showToast(`→ ${card?.title?.substring(0,40) || id} moved to ${status}`);
+  showToast(synced
+    ? `→ ${card?.title?.substring(0,40) || id} moved to ${status}`
+    : `Saved on this phone only — Mac unreachable, will retry`);
 }
 
 async function setReviewed(id, btn) {
@@ -545,15 +578,11 @@ async function setReviewed(id, btn) {
   overrides[id].reviewed = card.reviewed;
   saveLocalOverrides(overrides);
   
-  try {
-    await fetch(API_URL + '/api/update', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({id, reviewed: card.reviewed})
-    });
-  } catch(e) {
-    console.warn('API server not running');
-  }
+  const revSynced = await pushUpdate({id, reviewed: card.reviewed});
+  const rOv = loadLocalOverrides();
+  rOv[id] = rOv[id] || {};
+  rOv[id].pending = !revSynced;
+  saveLocalOverrides(rOv);
   
   // Update just this card's tags without re-rendering the whole list
   const cardEl = document.getElementById('card-' + id);
@@ -578,7 +607,7 @@ async function setReviewed(id, btn) {
   showToast(card.reviewed ? '✓ Marked as reviewed' : 'Marked as unreviewed');
 }
 
-function promptDrop(id) {
+async function promptDrop(id) {
   const reason = prompt('Why are you dropping this opportunity?\n\nEnter a brief reason:');
   if (reason === null) return; // cancelled
   
@@ -596,11 +625,11 @@ function promptDrop(id) {
   overrides[id].drop_reason = reason;
   saveLocalOverrides(overrides);
   
-  fetch(API_URL + '/api/update', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({id, status: 'Dropped', drop_reason: reason})
-  }).catch(() => {});
+  const droppedSynced = await pushUpdate({id, status: 'Dropped', drop_reason: reason});
+  const dOv = loadLocalOverrides();
+  dOv[id] = dOv[id] || {};
+  dOv[id].pending = !droppedSynced;
+  saveLocalOverrides(dOv);
   
   // Animate card removal without re-rendering the whole list
   const cardEl = document.getElementById('card-' + id);
@@ -619,7 +648,9 @@ function promptDrop(id) {
     `<strong>${newCount}</strong> showing` +
     (showReviewed ? ` of <strong>${allCards.length}</strong> total` : ` · <strong>${newCount}</strong> new in queue`);
   
-  showToast('→ ' + (card?.title?.substring(0,40) || id) + ' dropped');
+  showToast(droppedSynced
+    ? '→ ' + (card?.title?.substring(0,40) || id) + ' dropped'
+    : 'Dropped on this phone only — Mac unreachable, will retry');
 }
 
 function showToast(msg) {
@@ -650,6 +681,7 @@ function debounce(fn, ms) { let t; return () => { clearTimeout(t); t = setTimeou
 
 function logout() {
   sessionStorage.removeItem('dd_auth');
+  try { localStorage.removeItem('dd_auth_until'); } catch(e) {}
   window.location.href = 'login.html';
 }
 
