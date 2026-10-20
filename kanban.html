@@ -218,7 +218,7 @@ function pipeBox(c) {
       <div class="pl-row"><span class="pl-k">Stage</span><span class="pl-v">${esc(p.stage)}</span></div>
       <div class="pl-row"><span class="pl-k">Verdict</span><span class="pl-v ${p.verdict === 'none' ? 'pl-none' : ''}">${p.verdict === 'none' ? 'no run yet' : esc(p.verdict)}${p.verdict_date ? ' · ' + esc(p.verdict_date) : ''}</span></div>
       ${p.next ? `<div class="pl-row"><span class="pl-k">Next</span><span class="pl-v">${esc(p.next)}</span></div>` : ''}
-      ${p.source ? `<div class="pl-src">Read from ${esc(p.source)}${when ? ' · checked ' + when : ''}</div>` : ''}
+      ${p.source ? `<div class="pl-src">Read from ${esc(p.source)}${when ? ' · as at ' + when : ''}</div>` : ''}
     </div>`;
 }
 
