@@ -7,7 +7,7 @@
     "last_sync": "2026-09-15T20:00:31.394130+00:00",
     "last_updated": "2026-10-20T12:08:02+13:00",
     "last_bulk_triage": "2026-08-12T16:54:39.909728+12:00",
-    "last_published": "2026-10-20T02:25:53.574863+00:00"
+    "last_published": "2026-10-20T02:28:43.982640+00:00"
   },
   "settings": {
     "max_active_pursuits": 3,
@@ -5517,7 +5517,7 @@
     {
       "id": "opp-164",
       "date_found": "2026-08-10",
-      "last_updated": "2026-08-12T20:05:05.521904+00:00",
+      "last_updated": "2026-10-20T02:28:43.982640+00:00",
       "reviewed": true,
       "source_stream": "overseas",
       "title": "AI SDR for NZ Service Businesses",
@@ -5539,7 +5539,7 @@
       "evidence": "solid",
       "the_catch": "The category is crowded globally (Artisan, 11x, AiSDR, Regie) \u2014 NZ is a rounding error for them but also beneath their radar; the real competitor is 'do nothing'. Cold email is a deliverability graveyard (spam folders kill it). NZ SMBs buy on relationships, so pure cold outbound underperforms. This is a managed service, not a product \u2014 it scales with Ringo's hours, and Artisan itself admits churn and 'outbound market fit' problems (Cook Unity: two terrible months before it worked).",
       "the_ask": "Greenlight = I pick one niche (e.g. NZ accounting firms) and run a 30-company pilot with Neil's review. Cost: 4 hours.",
-      "status": "New",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Review and decide: greenlight validation or drop.",
@@ -5559,7 +5559,8 @@
           ]
         }
       ],
-      "flag_state": "candidate"
+      "flag_state": "candidate",
+      "drop_reason": "Feel like this space is crowded with lots of competitors "
     },
     {
       "id": "opp-165",
