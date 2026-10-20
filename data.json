@@ -7,7 +7,7 @@
     "last_sync": "2026-09-15T20:00:31.394130+00:00",
     "last_updated": "2026-10-20T12:08:02+13:00",
     "last_bulk_triage": "2026-08-12T16:54:39.909728+12:00",
-    "last_published": "2026-10-20T01:46:28+00:00"
+    "last_published": "2026-10-20T02:06:36+00:00"
   },
   "settings": {
     "max_active_pursuits": 3,
@@ -2814,7 +2814,20 @@
       "recommendation": "Pursue IF positioned as B2B broker tool. Consider merging with opp-068.",
       "next_action": "Interview 10 brokers + consider merge with opp-068",
       "trello_card_url": "https://trello.com/c/dcyZzoso/112-fit-72-evidence-solid-nz-ai-mortgage-broker-chat-agent",
-      "trello_card_id": "6a418fc57a1f582d75a48b5a"
+      "trello_card_id": "6a418fc57a1f582d75a48b5a",
+      "drop_flags": [
+        {
+          "rule_id": "R1",
+          "label": "Needs financial-services trust to sell",
+          "kind": "soft",
+          "score": 3,
+          "matched": [
+            "lending",
+            "mortgage (title)"
+          ]
+        }
+      ],
+      "flag_state": "candidate"
     },
     {
       "id": "opp-085",
@@ -3782,7 +3795,21 @@
         "e": 9,
         "f": 7,
         "g": 5
-      }
+      },
+      "drop_flags": [
+        {
+          "rule_id": "R4",
+          "label": "Depends on data you cannot get",
+          "kind": "hard",
+          "score": 3,
+          "matched": [
+            "scraping",
+            "api access",
+            "terms of service"
+          ]
+        }
+      ],
+      "flag_state": "candidate"
     },
     {
       "id": "opp-114",
@@ -4759,7 +4786,20 @@
       "next_action": "Map NZ SME lending landscape + build spreadsheet matchmaker prototype + test on 15 real scenarios with accountant partners + interview 10 SMEs about recent finance-seeking experience",
       "drop_reason": "",
       "trello_card_id": "6a6bbe08e209467f4d224e6f",
-      "trello_card_url": "https://trello.com/c/V0OinEIh/171-fit-73-evidence-strong-nz-sme-business-finance-lending-matchmaker"
+      "trello_card_url": "https://trello.com/c/V0OinEIh/171-fit-73-evidence-strong-nz-sme-business-finance-lending-matchmaker",
+      "drop_flags": [
+        {
+          "rule_id": "R1",
+          "label": "Needs financial-services trust to sell",
+          "kind": "soft",
+          "score": 3,
+          "matched": [
+            "lending (title)",
+            "accountant"
+          ]
+        }
+      ],
+      "flag_state": "candidate"
     },
     {
       "id": "opp-143",
@@ -4793,7 +4833,22 @@
       "next_action": "Build Telegram-based AR + Compliance agent prototype + recruit 5 volunteer solopreneurs for 30-day trial + measure time savings + interview 20 solopreneurs about current admin pain points",
       "drop_reason": "",
       "trello_card_id": "6a6bbe0e662ef1e7f6da5c84",
-      "trello_card_url": "https://trello.com/c/ftBFDBl0/172-fit-76-evidence-strong-one-person-company-ai-agent-layer-for-nz-solopreneurs"
+      "trello_card_url": "https://trello.com/c/ftBFDBl0/172-fit-76-evidence-strong-one-person-company-ai-agent-layer-for-nz-solopreneurs",
+      "drop_flags": [
+        {
+          "rule_id": "R1",
+          "label": "Needs financial-services trust to sell",
+          "kind": "soft",
+          "score": 4,
+          "matched": [
+            "kiwisaver",
+            "tax return",
+            "invoicing",
+            "accountant"
+          ]
+        }
+      ],
+      "flag_state": "candidate"
     },
     {
       "source_stream": "pain-point",
@@ -5490,7 +5545,21 @@
       "recommendation": "Review and decide: greenlight validation or drop.",
       "next_action": "Pilot AI SDR on 30 NZ accounting firms with Neil's review",
       "trello_card_id": "6a78ece013b05b811270f9e3",
-      "trello_card_url": "https://trello.com/c/XQ0cRvMY/193-fit-66-evidence-solid-ai-sdr-for-nz-service-businesses"
+      "trello_card_url": "https://trello.com/c/XQ0cRvMY/193-fit-66-evidence-solid-ai-sdr-for-nz-service-businesses",
+      "drop_flags": [
+        {
+          "rule_id": "R2",
+          "label": "Service work, not a product",
+          "kind": "soft",
+          "score": 3,
+          "matched": [
+            "retainer",
+            "consulting",
+            "managed service"
+          ]
+        }
+      ],
+      "flag_state": "candidate"
     },
     {
       "id": "opp-165",
@@ -5626,7 +5695,21 @@
       "next_action": "Interview 3 accountants; build eligibility triage prototype; verify the IR1240 rule set",
       "drop_reason": null,
       "trello_card_url": "https://trello.com/c/trObX3iH/197-fit-60-evidence-solid-nz-rd-tax-incentive-claim-co-pilot",
-      "trello_card_id": "6a7b92c1a51f5584541061b9"
+      "trello_card_id": "6a7b92c1a51f5584541061b9",
+      "drop_flags": [
+        {
+          "rule_id": "R1",
+          "label": "Needs financial-services trust to sell",
+          "kind": "soft",
+          "score": 3,
+          "matched": [
+            "bookkeeping",
+            "tax return",
+            "accountant"
+          ]
+        }
+      ],
+      "flag_state": "candidate"
     },
     {
       "id": "opp-169",
