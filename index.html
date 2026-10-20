@@ -9,14 +9,21 @@
 <script>
 // Auth guard — must be first thing in <head>
 (function() {
-  var ok = sessionStorage.getItem('dd_auth');
-  if (!ok) {
-    try {
-      var until = parseInt(localStorage.getItem('dd_auth_until') || '0', 10);
-      if (until > Date.now()) ok = 1;
-    } catch(e) {}
+  var KEY = 'dd_auth', UNTIL = 'dd_auth_until', DAYS = 90;
+  try {
+    if (sessionStorage.getItem(KEY) !== '1') {
+      var until = parseInt(localStorage.getItem(UNTIL) || '0', 10);
+      if (until > Date.now()) sessionStorage.setItem(KEY, '1');
+    }
+    if (sessionStorage.getItem(KEY) === '1') {
+      // Roll the device login forward on every page view, so it only expires after 90 idle days
+      localStorage.setItem(UNTIL, String(Date.now() + DAYS * 24 * 60 * 60 * 1000));
+    } else {
+      window.location.replace('login.html');
+    }
+  } catch(e) {
+    window.location.replace('login.html');
   }
-  if (!ok) window.location.href = 'login.html';
 })();
 </script>
 <style>
@@ -128,6 +135,20 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
 .tag-parked { background: rgba(122,126,144,0.12); color: var(--text-dim); }
 .tag-dropped { background: rgba(248,113,113,0.12); color: var(--red); }
 .tag-source { background: rgba(122,126,144,0.1); color: var(--text-dim); }
+/* Pipeline chip — where the idea really is, read from the A-Team files */
+.tag-pipe { font-weight: 700; letter-spacing: 0.02em; }
+.tag-pipe-go { background: rgba(52,211,153,0.15); color: var(--green); }
+.tag-pipe-refine { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.tag-pipe-nogo { background: rgba(248,113,113,0.15); color: var(--red); }
+.tag-pipe-hold { background: rgba(96,165,250,0.15); color: var(--blue); }
+.tag-pipe-stage { background: rgba(192,132,252,0.13); color: var(--purple); }
+.tag-pipe-needs { background: rgba(251,191,36,0.2); color: var(--yellow); border: 1px solid rgba(251,191,36,0.5); }
+.pipeline-box { background: rgba(124,108,240,0.06); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 12px; font-size: 0.8rem; line-height: 1.5; }
+.pipeline-box .pl-row { display: flex; gap: 8px; margin-bottom: 4px; }
+.pipeline-box .pl-k { color: var(--text-dim); min-width: 62px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+.pipeline-box .pl-v { flex: 1; }
+.pipeline-box .pl-src { color: var(--text-dim); font-size: 0.7rem; margin-top: 6px; }
+.pipeline-box .pl-none { color: var(--yellow); }
 .tag-flag { background: rgba(251,191,36,0.14); color: var(--yellow); }
 .flag-block { border-left: 2px solid var(--yellow); padding: 8px 12px; margin: 6px 0 10px; background: rgba(251,191,36,0.06); border-radius: 0 6px 6px 0; }
 .flag-block .flag-rule { font-size: 0.85rem; font-weight: 600; color: var(--yellow); margin-bottom: 3px; }
@@ -454,6 +475,37 @@ function renderCards() {
   }
 }
 
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+// ── Pipeline chip ────────────────────────────────────────────────────────────
+// Where the idea really is, stamped from the A-Team artifacts. Read-only:
+// nothing here is typed by hand, so nothing here can quietly go stale.
+function pipeChip(c) {
+  const p = c.pipeline;
+  if (!p || !p.stage || p.stage === 'card only') return { cls: '', label: '' };
+  const v = p.verdict || 'none';
+  if (v === 'GO') return { cls: 'tag-pipe-go', label: 'GO' };
+  if (v === 'REFINE') return { cls: 'tag-pipe-refine', label: 'REFINE' };
+  if (v === 'NO-GO') return { cls: 'tag-pipe-nogo', label: 'NO-GO' };
+  if (v === 'HOLD') return { cls: 'tag-pipe-hold', label: 'HOLD' };
+  if (p.stage === 'brief draft') return { cls: 'tag-pipe-needs', label: 'brief · needs you' };
+  return { cls: 'tag-pipe-stage', label: p.stage };
+}
+
+function pipeBox(c) {
+  const p = c.pipeline;
+  if (!p || !p.stage || p.stage === 'card only') return '';
+  const when = p.stamped ? String(p.stamped).slice(0, 10) : '';
+  return `<div class="pipeline-box">
+      <div class="pl-row"><span class="pl-k">Stage</span><span class="pl-v">${esc(p.stage)}</span></div>
+      <div class="pl-row"><span class="pl-k">Verdict</span><span class="pl-v ${p.verdict === 'none' ? 'pl-none' : ''}">${p.verdict === 'none' ? 'no run yet' : esc(p.verdict)}${p.verdict_date ? ' · ' + esc(p.verdict_date) : ''}</span></div>
+      ${p.next ? `<div class="pl-row"><span class="pl-k">Next</span><span class="pl-v">${esc(p.next)}</span></div>` : ''}
+      ${p.source ? `<div class="pl-src">Read from ${esc(p.source)}${when ? ' · checked ' + when : ''}</div>` : ''}
+    </div>`;
+}
+
 function renderCard(c) {
   const fb = c.fit_breakdown || {};
   const fitItems = Object.entries(fb).map(([k,v]) => {
@@ -464,6 +516,7 @@ function renderCard(c) {
 
   const ev = c.evidence || 'none';
   const st = c.status || 'New';
+  const pc = pipeChip(c);
   const src = c.source_stream === 'pain-point' ? '🩹 Pain'
             : c.source_stream === 'neil' ? '💡 Neil'
             : '🌏 Overseas';
@@ -472,9 +525,10 @@ function renderCard(c) {
     <div class="card-header" onclick="toggleCard('${c.id}')">
       <div class="card-title">${c.title}</div>
       <div class="card-tags">
-        <span class="tag tag-fit">${c.fit_score}</span>
+        <span class="tag tag-fit">${c.fit_score ?? '—'}</span>
         <span class="tag tag-${ev}">${ev}</span>
         <span class="tag tag-${st.toLowerCase()}">${st}</span>
+        ${pc.label ? `<span class="tag tag-pipe ${pc.cls}">${pc.label}</span>` : ''}
         <span class="tag tag-source">${src}</span>
         ${((c.drop_flags||[]).length && c.flag_state !== 'cleared') ? '<span class="tag tag-flag">⚠ possible drop</span>' : ''}
         ${c.reviewed ? '<span class="tag tag-reviewed">✓</span>' : ''}
@@ -497,6 +551,10 @@ function renderCard(c) {
         <div class="section-label">Roles</div>
         <div class="section-text"><strong>Ringo:</strong> ${c.ringo_role || '—'}<br><strong>Neil:</strong> ${c.neil_role || '—'}</div>
       </div>
+      ${c.pipeline && c.pipeline.stage && c.pipeline.stage !== 'card only' ? `<div class="section">
+        <div class="section-label">Pipeline</div>
+        ${pipeBox(c)}
+      </div>` : ''}
       <div class="section">
         <div class="section-label">The Catch ⚠️</div>
         <div class="catch">${c.the_catch || '—'}</div>

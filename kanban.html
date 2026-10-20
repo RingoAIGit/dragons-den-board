@@ -9,8 +9,20 @@
 <script>
 // Auth guard — must be first thing in <head>
 (function() {
-  if (!sessionStorage.getItem('dd_auth')) {
-    window.location.href = 'login.html';
+  var KEY = 'dd_auth', UNTIL = 'dd_auth_until', DAYS = 90;
+  try {
+    if (sessionStorage.getItem(KEY) !== '1') {
+      var until = parseInt(localStorage.getItem(UNTIL) || '0', 10);
+      if (until > Date.now()) sessionStorage.setItem(KEY, '1');
+    }
+    if (sessionStorage.getItem(KEY) === '1') {
+      // Roll the device login forward on every page view, so it only expires after 90 idle days
+      localStorage.setItem(UNTIL, String(Date.now() + DAYS * 24 * 60 * 60 * 1000));
+    } else {
+      window.location.replace('login.html');
+    }
+  } catch(e) {
+    window.location.replace('login.html');
   }
 })();
 </script>
@@ -55,6 +67,20 @@ header nav a.active { background: rgba(124,108,240,0.12); }
 .evidence.solid { background: rgba(96,165,250,0.12); color: var(--blue); }
 .evidence.thin { background: rgba(251,191,36,0.12); color: var(--yellow); }
 .evidence.none { background: rgba(248,113,113,0.12); color: var(--red); }
+/* Pipeline chip — where the idea really is, read from the A-Team files */
+.kanban-card .pipe { padding: 1px 5px; border-radius: 3px; font-size: 0.6rem; font-weight: 700; }
+.pipe-go { background: rgba(52,211,153,0.15); color: var(--green); }
+.pipe-refine { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.pipe-nogo { background: rgba(248,113,113,0.15); color: var(--red); }
+.pipe-hold { background: rgba(96,165,250,0.15); color: var(--blue); }
+.pipe-stage { background: rgba(192,132,252,0.13); color: var(--purple); }
+.pipe-needs { background: rgba(251,191,36,0.2); color: var(--yellow); border: 1px solid rgba(251,191,36,0.5); }
+.pipeline-box { background: rgba(124,108,240,0.06); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 12px; font-size: 0.8rem; line-height: 1.5; }
+.pipeline-box .pl-row { display: flex; gap: 8px; margin-bottom: 4px; }
+.pipeline-box .pl-k { color: var(--text-dim); min-width: 58px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+.pipeline-box .pl-v { flex: 1; }
+.pipeline-box .pl-src { color: var(--text-dim); font-size: 0.7rem; margin-top: 6px; }
+.pipeline-box .pl-none { color: var(--yellow); }
 .kanban-card .source { position: absolute; top: 6px; right: 8px; font-size: 0.6rem; }
 .kanban-card .reviewed-mark { color: var(--green); font-size: 0.65rem; }
 
@@ -166,6 +192,36 @@ async function loadData() {
   }
 }
 
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+// ── Pipeline chip ────────────────────────────────────────────────────────────
+// Where the idea really is, stamped from the A-Team artifacts. Read-only.
+function pipeChip(c) {
+  const p = c.pipeline;
+  if (!p || !p.stage || p.stage === 'card only') return { cls: '', label: '' };
+  const v = p.verdict || 'none';
+  if (v === 'GO') return { cls: 'pipe-go', label: 'GO' };
+  if (v === 'REFINE') return { cls: 'pipe-refine', label: 'REFINE' };
+  if (v === 'NO-GO') return { cls: 'pipe-nogo', label: 'NO-GO' };
+  if (v === 'HOLD') return { cls: 'pipe-hold', label: 'HOLD' };
+  if (p.stage === 'brief draft') return { cls: 'pipe-needs', label: 'needs you' };
+  return { cls: 'pipe-stage', label: p.stage };
+}
+
+function pipeBox(c) {
+  const p = c.pipeline;
+  if (!p || !p.stage || p.stage === 'card only') return '';
+  const when = p.stamped ? String(p.stamped).slice(0, 10) : '';
+  return `<div class="pipeline-box">
+      <div class="pl-row"><span class="pl-k">Stage</span><span class="pl-v">${esc(p.stage)}</span></div>
+      <div class="pl-row"><span class="pl-k">Verdict</span><span class="pl-v ${p.verdict === 'none' ? 'pl-none' : ''}">${p.verdict === 'none' ? 'no run yet' : esc(p.verdict)}${p.verdict_date ? ' · ' + esc(p.verdict_date) : ''}</span></div>
+      ${p.next ? `<div class="pl-row"><span class="pl-k">Next</span><span class="pl-v">${esc(p.next)}</span></div>` : ''}
+      ${p.source ? `<div class="pl-src">Read from ${esc(p.source)}${when ? ' · checked ' + when : ''}</div>` : ''}
+    </div>`;
+}
+
 function renderKanban() {
   const container = document.getElementById('kanban');
   container.innerHTML = '';
@@ -185,17 +241,18 @@ function renderKanban() {
       </div>
       <div class="column-body">
         ${cards.length === 0 ? '<div class="empty-col">No cards</div>' : ''}
-        ${cards.map(c => `
+        ${cards.map(c => { const pc = pipeChip(c); return `
           <div class="kanban-card" onclick="openCard('${c.id}')">
-            <div class="source">${c.source_stream === 'pain-point' ? '🩹' : '🌏'}</div>
+            <div class="source">${c.source_stream === 'pain-point' ? '🩹' : c.source_stream === 'neil' ? '💡' : '🌏'}</div>
             <div class="title">${c.title}</div>
             <div class="meta">
-              <span class="fit">${c.fit_score}</span>
+              <span class="fit">${c.fit_score ?? '—'}</span>
               <span class="evidence ${c.evidence||'none'}">${c.evidence||'—'}</span>
+              ${pc.label ? `<span class="pipe ${pc.cls}">${pc.label}</span>` : ''}
               ${c.reviewed ? '<span class="reviewed-mark">✓</span>' : ''}
             </div>
           </div>
-        `).join('')}
+        `; }).join('')}
       </div>
     `;
     container.appendChild(col);
@@ -211,12 +268,13 @@ function openCard(id) {
     <span class="close" onclick="closeModal()">&times;</span>
     <h2>${c.title}</h2>
     <div style="display:flex;gap:10px;font-size:0.75rem;color:var(--text-dim);margin-bottom:16px;">
-      <span style="color:var(--accent);font-weight:700;">Fit: ${c.fit_score}</span>
+      <span style="color:var(--accent);font-weight:700;">Fit: ${c.fit_score ?? '—'}</span>
       <span class="evidence ${c.evidence||'none'}" style="padding:1px 6px;border-radius:4px;">${c.evidence||'—'}</span>
-      <span>${c.source_stream === 'pain-point' ? '🩹 Pain Point' : '🌏 Overseas'}</span>
+      <span>${c.source_stream === 'pain-point' ? '🩹 Pain Point' : c.source_stream === 'neil' ? '💡 Neil' : '🌏 Overseas'}</span>
       <span>${c.date_found}</span>
       <span class="status-badge" style="padding:2px 8px;border-radius:10px;font-size:0.65rem;font-weight:600;text-transform:uppercase;background:rgba(108,92,231,.15);color:var(--accent);">${c.status}</span>
     </div>
+    ${c.pipeline && c.pipeline.stage && c.pipeline.stage !== 'card only' ? `<div class="section"><div class="section-title">Pipeline</div>${pipeBox(c)}</div>` : ''}
     <div class="section"><div class="section-title">Pain Point</div><div class="section-content">${c.pain_point||'—'}</div></div>
     <div class="section"><div class="section-title">Target Audience</div><div class="section-content">${c.target_audience||'—'}</div></div>
     <div class="section"><div class="section-title">Proposed Solution</div><div class="section-content">${c.proposed_solution||'—'}</div></div>

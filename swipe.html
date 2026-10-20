@@ -7,7 +7,24 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icon-den.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-den-512.png">
 <script>
-(function(){if(!sessionStorage.getItem('dd_auth')){window.location.href='login.html';}})();
+// Auth guard — must be first thing in <head>
+(function() {
+  var KEY = 'dd_auth', UNTIL = 'dd_auth_until', DAYS = 90;
+  try {
+    if (sessionStorage.getItem(KEY) !== '1') {
+      var until = parseInt(localStorage.getItem(UNTIL) || '0', 10);
+      if (until > Date.now()) sessionStorage.setItem(KEY, '1');
+    }
+    if (sessionStorage.getItem(KEY) === '1') {
+      // Roll the device login forward on every page view, so it only expires after 90 idle days
+      localStorage.setItem(UNTIL, String(Date.now() + DAYS * 24 * 60 * 60 * 1000));
+    } else {
+      window.location.replace('login.html');
+    }
+  } catch(e) {
+    window.location.replace('login.html');
+  }
+})();
 </script>
 <style>
 :root {
