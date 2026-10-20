@@ -7,7 +7,7 @@
     "last_sync": "2026-09-15T20:00:31.394130+00:00",
     "last_updated": "2026-10-20T12:08:02+13:00",
     "last_bulk_triage": "2026-08-12T16:54:39.909728+12:00",
-    "last_published": "2026-10-20T01:45:47.917357+00:00"
+    "last_published": "2026-10-20T01:45:57.007434+00:00"
   },
   "settings": {
     "max_active_pursuits": 3,
@@ -5828,8 +5828,8 @@
     {
       "id": "opp-175",
       "date_found": "2026-10-20",
-      "last_updated": "2026-10-20T00:36:52+00:00",
-      "reviewed": false,
+      "last_updated": "2026-10-20T01:45:57.007434+00:00",
+      "reviewed": true,
       "source_stream": "test",
       "title": "[TEST] Mark me reviewed",
       "pain_point": "Checks that the reviewed tick sticks and the card leaves the queue.",
