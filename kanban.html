@@ -46,6 +46,11 @@ header nav a { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); padd
 header nav a:hover, header nav a.active { color: var(--accent); }
 header nav a.active { background: rgba(124,108,240,0.12); }
 .sync-timer { font-size: 0.7rem; color: var(--text-dim); font-weight: 500; }
+.refresh-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; padding: 5px 10px; font-size: 0.85rem; line-height: 1; cursor: pointer; }
+.refresh-btn.spin { animation: rspin 0.8s linear infinite; color: var(--accent); border-color: var(--accent); }
+@keyframes rspin { to { transform: rotate(360deg); } }
+#ptr { position: fixed; top: -52px; left: 50%; transform: translateX(-50%); background: var(--surface2); border: 1px solid var(--accent); color: var(--text); font-size: 0.75rem; font-weight: 600; padding: 9px 16px; border-radius: 20px; z-index: 999; transition: top 0.2s ease; white-space: nowrap; }
+#ptr.show { top: 12px; }
 
 /* ── Kanban Board ── */
 .kanban { display: flex; gap: 12px; padding: 12px; overflow-x: auto; min-height: calc(100vh - 100px); align-items: flex-start; -webkit-overflow-scrolling: touch; }
@@ -148,6 +153,7 @@ header nav a.active { background: rgba(124,108,240,0.12); }
   <div class="header-top">
     <h1>🐉 Dragon's Den</h1>
     <span class="sync-timer" id="syncTimer"></span>
+    <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()" aria-label="Refresh">↻</button>
   </div>
   <nav>
     <a href="index.html">Review</a>
@@ -184,7 +190,7 @@ async function loadData() {
     const resp = await fetch('data.json?t=' + Date.now());
     const data = await resp.json();
     allCards = data.opportunities || [];
-    lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
+    lastSync = data.meta?.last_board_sync || data.meta?.last_updated || data.meta?.last_published || data.meta?.last_maintenance || data.meta?.last_discovery;
     renderKanban();
     updateSyncTimer();
   } catch(e) {
@@ -368,10 +374,47 @@ function updateSyncTimer() {
   const then = new Date(lastSync);
   const now = new Date();
   const mins = Math.floor((now - then) / 60000);
-  if (mins < 60) d.textContent = 'Updated ' + mins + 'm ago';
+  if (mins < 1) d.textContent = 'Updated just now';
+  else if (mins < 60) d.textContent = 'Updated ' + mins + 'm ago';
   else if (mins < 1440) d.textContent = 'Updated ' + Math.floor(mins/60) + 'h ago';
-  else d.textContent = 'Updated ' + Math.floor(mins/1440) + 'd ago';
+  else d.textContent = 'Updated ' + then.getDate() + ' ' + then.toLocaleString('en-NZ', {month:'short'});
 }
+
+// ── Refresh ─────────────────────────────────────────────────────────────────
+// iOS home-screen apps have no pull-to-refresh gesture, so the button is the
+// reliable path and the pull is a convenience on top of it.
+async function manualRefresh() {
+  const b = document.getElementById('refreshBtn');
+  if (b) b.classList.add('spin');
+  try {
+    await loadData();
+  } catch(e) {}
+  setTimeout(() => { if (b) b.classList.remove('spin'); }, 500);
+}
+
+(function pullToRefresh() {
+  const ptr = document.createElement('div');
+  ptr.id = 'ptr';
+  ptr.textContent = '↓ Pull to refresh';
+  document.body.appendChild(ptr);
+  let y0 = null, fired = false;
+  addEventListener('touchstart', e => {
+    if (window.scrollY <= 0) { y0 = e.touches[0].clientY; fired = false; }
+  }, { passive: true });
+  addEventListener('touchmove', e => {
+    if (y0 === null || fired || window.scrollY > 0) return;
+    const dy = e.touches[0].clientY - y0;
+    if (dy > 55) { ptr.textContent = '↻ Release to refresh'; ptr.classList.add('show'); }
+    if (dy > 105) {
+      fired = true;
+      ptr.textContent = 'Refreshing…';
+      manualRefresh().finally(() => setTimeout(() => { ptr.classList.remove('show'); y0 = null; }, 700));
+    }
+  }, { passive: true });
+  addEventListener('touchend', () => {
+    if (!fired) { ptr.classList.remove('show'); y0 = null; }
+  }, { passive: true });
+})();
 
 function logout() {
   sessionStorage.removeItem('dd_auth');
