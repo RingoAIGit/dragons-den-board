@@ -7,7 +7,7 @@
     "last_sync": "2026-09-15T20:00:31.394130+00:00",
     "last_updated": "2026-10-20T12:08:02+13:00",
     "last_bulk_triage": "2026-08-12T16:54:39.909728+12:00",
-    "last_published": "2026-10-20T01:45:28.827162+00:00"
+    "last_published": "2026-10-20T01:45:47.917357+00:00"
   },
   "settings": {
     "max_active_pursuits": 3,
@@ -5796,7 +5796,7 @@
     {
       "id": "opp-174",
       "date_found": "2026-10-20",
-      "last_updated": "2026-10-20T00:36:52+00:00",
+      "last_updated": "2026-10-20T01:45:47.917357+00:00",
       "reviewed": false,
       "source_stream": "test",
       "title": "[TEST] Drop me and give a reason",
@@ -5818,11 +5818,12 @@
       "evidence": "none",
       "the_catch": "It is not a real opportunity.",
       "the_ask": "None. Tap Drop and type any reason.",
-      "status": "New",
+      "status": "Dropped",
       "gate": 1,
       "validation": {},
       "recommendation": "Ignore. Test card.",
-      "next_action": "Tap Drop, type a reason like duplicate, then tell Ringo"
+      "next_action": "Tap Drop, type a reason like duplicate, then tell Ringo",
+      "drop_reason": "This is a test card so it\u2019s not real"
     },
     {
       "id": "opp-175",
