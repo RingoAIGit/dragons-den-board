@@ -8,10 +8,11 @@ Runs on http://localhost:5000
 import json
 import os
 import sys
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
 import urllib.parse
 import subprocess
+import threading
 from datetime import datetime, timezone
 
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -74,6 +75,7 @@ class Handler(BaseHTTPRequestHandler):
             if 'next_action' in update:
                 card['next_action'] = update['next_action']
             card['last_updated'] = datetime.now(timezone.utc).isoformat()
+            data.setdefault('meta', {})['last_published'] = card['last_updated']
 
             # Save back
             try:
@@ -83,8 +85,9 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json({"error": str(e)}, 500)
                 return
 
-            # Sync to repo data.json
-            self._sync_to_repo(data)
+            # Sync to repo data.json in the background so a slow git push
+            # can never block the next decision coming in from the phone.
+            threading.Thread(target=self._sync_to_repo, args=(data,), daemon=True).start()
 
             self._send_json({"ok": True})
         else:
@@ -161,7 +164,8 @@ if __name__ == '__main__':
     print(f"   Data file: {DATA_FILE}")
     print(f"   Repo dir:  {REPO_DIR}")
     print(f"   Press Ctrl+C to stop")
-    server = HTTPServer(('0.0.0.0', PORT), Handler)
+    server = ThreadingHTTPServer(('0.0.0.0', PORT), Handler)
+    server.daemon_threads = True
     try:
         server.serve_forever()
     except KeyboardInterrupt:

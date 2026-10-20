@@ -354,7 +354,7 @@ async function loadData() {
       }
     });
     
-    lastSync = data.meta?.last_maintenance || data.meta?.last_discovery;
+    lastSync = data.meta?.last_published || data.meta?.last_updated || data.meta?.last_maintenance || data.meta?.last_discovery;
     populateFilters();
     renderCards();
     updateSyncTimer();
@@ -447,7 +447,9 @@ function renderCard(c) {
 
   const ev = c.evidence || 'none';
   const st = c.status || 'New';
-  const src = c.source_stream === 'pain-point' ? '🩹 Pain' : '🌏 Overseas';
+  const src = c.source_stream === 'pain-point' ? '🩹 Pain'
+            : c.source_stream === 'neil' ? '💡 Neil'
+            : '🌏 Overseas';
 
   return `<div class="card" id="card-${c.id}">
     <div class="card-header" onclick="toggleCard('${c.id}')">
