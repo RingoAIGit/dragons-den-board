@@ -128,6 +128,10 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
 .tag-parked { background: rgba(122,126,144,0.12); color: var(--text-dim); }
 .tag-dropped { background: rgba(248,113,113,0.12); color: var(--red); }
 .tag-source { background: rgba(122,126,144,0.1); color: var(--text-dim); }
+.tag-flag { background: rgba(251,191,36,0.14); color: var(--yellow); }
+.flag-block { border-left: 2px solid var(--yellow); padding: 8px 12px; margin: 6px 0 10px; background: rgba(251,191,36,0.06); border-radius: 0 6px 6px 0; }
+.flag-block .flag-rule { font-size: 0.85rem; font-weight: 600; color: var(--yellow); margin-bottom: 3px; }
+.flag-block .flag-why { font-size: 0.8rem; color: var(--text-dim); }
 .tag-reviewed { background: rgba(52,211,153,0.1); color: var(--green); font-size: 0.6rem; }
 
 /* ── Card Body ── */
@@ -269,6 +273,14 @@ nav a.active { color: var(--accent); background: rgba(124,108,240,0.12); }
     </select>
   </div>
   <div class="filter-group">
+    <label class="filter-label">Flags</label>
+    <select id="filterFlags">
+      <option value="">Any</option>
+      <option value="flagged">Flagged for a look</option>
+      <option value="clean">No flags</option>
+    </select>
+  </div>
+  <div class="filter-group">
     <label class="filter-label">Search</label>
     <input type="text" id="searchText" placeholder="Search titles...">
   </div>
@@ -398,6 +410,11 @@ function getFilteredCards() {
   
   if (source) cards = cards.filter(c => c.source_stream === source);
   if (evidence) cards = cards.filter(c => c.evidence === evidence);
+
+  const flagFilter = document.getElementById('filterFlags')?.value || '';
+  const isFlagged = c => (c.drop_flags || []).length > 0 && c.flag_state !== 'cleared';
+  if (flagFilter === 'flagged') cards = cards.filter(isFlagged);
+  if (flagFilter === 'clean') cards = cards.filter(c => !isFlagged(c));
   if (search) cards = cards.filter(c => c.title.toLowerCase().includes(search) || c.pain_point.toLowerCase().includes(search));
   
   switch(sort) {
@@ -459,6 +476,7 @@ function renderCard(c) {
         <span class="tag tag-${ev}">${ev}</span>
         <span class="tag tag-${st.toLowerCase()}">${st}</span>
         <span class="tag tag-source">${src}</span>
+        ${((c.drop_flags||[]).length && c.flag_state !== 'cleared') ? '<span class="tag tag-flag">⚠ possible drop</span>' : ''}
         ${c.reviewed ? '<span class="tag tag-reviewed">✓</span>' : ''}
       </div>
     </div>
@@ -487,6 +505,11 @@ function renderCard(c) {
         <div class="section-label">The Ask 🚀</div>
         <div class="ask">${c.the_ask || '—'}</div>
       </div>
+      ${((c.drop_flags||[]).length && c.flag_state !== 'cleared') ? `<div class="section">
+        <div class="section-label">Already said no to similar</div>
+        ${(c.drop_flags||[]).map(f => `<div class="flag-block"><div class="flag-rule">${f.label}</div><div class="flag-why">Looks similar because it mentions: ${(f.matched||[]).join(', ')}</div></div>`).join('')}
+        <div class="flag-why">A flag is a prompt to look, not a verdict. Drop it if the same reason holds, or leave it if it doesn't.</div>
+      </div>` : ''}
       ${c.drop_reason ? `<div class="section"><div class="section-label">Drop Reason</div><div class="drop-reason">${c.drop_reason}</div></div>` : ''}
       ${c.recommendation ? `<div class="section"><div class="section-label">Ringo's Take</div><div class="recommendation">${c.recommendation}</div></div>` : ''}
       <div class="section">
@@ -674,7 +697,7 @@ function updateSyncTimer() {
 }
 
 // Filter listeners
-['filterSource','filterEvidence','sortBy'].forEach(id => {
+['filterSource','filterEvidence','sortBy','filterFlags'].forEach(id => {
   document.getElementById(id).addEventListener('change', renderCards);
 });
 document.getElementById('searchText').addEventListener('input', debounce(renderCards, 300));
