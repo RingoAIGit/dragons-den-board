@@ -5,9 +5,10 @@
     "last_discovery": "2026-08-11T21:21:22.352623+00:00",
     "last_maintenance": "2026-09-15T20:00:31.394130+00:00",
     "last_sync": "2026-09-15T20:00:31.394130+00:00",
-    "last_updated": "2026-10-21T10:45:01+13:00",
+    "last_updated": "2026-10-22T15:34:29+13:00",
     "last_bulk_triage": "2026-08-12T16:54:39.909728+12:00",
-    "last_published": "2026-10-20T02:28:43.982640+00:00"
+    "last_published": "2026-10-20T02:28:43.982640+00:00",
+    "last_board_sync": "2026-10-22T15:34:29"
   },
   "settings": {
     "max_active_pursuits": 3,
@@ -7432,6 +7433,42 @@
         "source": "A-Team/briefs/scratch-golf-brief.md",
         "verdict_source": "A-Team/runs/scratch-golf.md",
         "stamped": "2026-10-21T11:23:41"
+      }
+    },
+    {
+      "id": "opp-174",
+      "date_found": "2026-09-01",
+      "last_updated": "2026-10-22T15:34:29+13:00",
+      "reviewed": true,
+      "source_stream": "neil",
+      "title": "TradeMe Companion — listing pipeline for reselling",
+      "pain_point": "Listing one item on Trade Me takes an evening: photos, comparables, pricing, 2,000-character copy, category picker. Doing it repeatedly is the chore.",
+      "target_audience": "Neil's own reselling first. Then casual NZ sellers moving a handful of items a month.",
+      "proposed_solution": "Send a photo and a one-line clue, get a full draft back: item identified, real comparables with links, price range, listing copy, category and shipping. Runs through Discord, with a local web shell for submitting items and reviewing drafts; a watcher drafts queued items automatically.",
+      "the_catch": "Personal sellers can't get a Trade Me API key, so publishing is browser automation or copy-paste. Photos must be local files for the file picker.",
+      "the_ask": "Run it across the next three real listings and measure the time saved per item before deciding whether it's a personal tool or something to sell.",
+      "ringo_role": "Identify items, research comparables, write and price drafts, draft buyer replies",
+      "neil_role": "Send items, approve drafts, publish",
+      "fit_score": null,
+      "status": "Building",
+      "gate": 1,
+      "validation": {},
+      "recommendation": "Already built and in use — 4 items through it, 2 drafted. The open question is whether it's a tool for Neil or a product.",
+      "next_action": "List the next three items through it and time them",
+      "built_state": {
+        "where": "~/trademe-companion-app (run.sh, local web shell on 127.0.0.1:8787)",
+        "watcher": "cron job 'TM Companion research watcher', every 15m",
+        "items_processed": 4,
+        "note": "Built before the A-Team pipeline existed, so there is no brief and no pipeline verdict. Card is here so the portfolio view is complete."
+      },
+      "pipeline": {
+        "stage": "card only",
+        "verdict": "none",
+        "verdict_date": null,
+        "next": null,
+        "source": null,
+        "verdict_source": null,
+        "stamped": "2026-10-22T15:34:29"
       }
     }
   ],
